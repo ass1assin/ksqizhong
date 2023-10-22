@@ -1,0 +1,36 @@
+body {
+    background-color: #b4dbed;
+}
+
+.middle-box {
+    margin-top: 50px;
+    max-width: 400px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.btn-primary {
+    background-color: #337ab7;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #286090;
+}
+
+.text-center {
+    text-align: center;
+}
