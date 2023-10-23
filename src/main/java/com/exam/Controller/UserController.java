@@ -25,10 +25,10 @@ public class UserController {
         System.out.println(user1);
         if (user1 == null){
 //         用户名或密码错误返回登录界面
-            return "login";
+            return "失败";
     }
 //         登录成功
-            return "index";
+            return "成功";
 }
 
 

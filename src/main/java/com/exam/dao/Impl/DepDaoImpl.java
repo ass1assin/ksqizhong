@@ -66,6 +66,11 @@ public class DepDaoImpl implements DepDao {
 //    功能名称： 查询二级学院信息模块
     @Override
     public List<Dep> findByName(String depName) {
-        return null;
+        String findByName="select * from sys_department where depName like concat('%',?,'%')";
+
+        RowMapper<Dep> rowMapper= new BeanPropertyRowMapper<>(Dep.class);
+
+        List<Dep> depList = jdbcTemplate.query(findByName,rowMapper);
+        return depList;
     }
 }

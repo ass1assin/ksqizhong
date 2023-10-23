@@ -41,7 +41,7 @@ public class DepContraller {
 
     //    CM03-03
 //    功能名称： 修改二级学院信息模块
-    @PostMapping("updataDep")
+    @PostMapping("/updataDep")
     public String updataDep(Dep dep){
         int i = depService.updataDep(dep);
         if (i!=0){
@@ -54,4 +54,9 @@ public class DepContraller {
 
     //    CM03-04
 //    功能名称： 查询二级学院信息模块
+    @GetMapping("/likename")
+    public List showDep(@PathVariable String name){
+        List<Dep> byName = depService.findByName(name);
+        return byName;
+    }
 }
