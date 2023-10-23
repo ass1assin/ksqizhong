@@ -28,4 +28,30 @@ public class DepContraller {
 
         return "添加成功";
     }
+
+
+    //    CM03-02
+//    功能名称： 删除二级学院信息模块
+    @DeleteMapping("/{id}")
+    public String deleteDep(@PathVariable int id){
+        int i = depService.deleteDep(id);
+        return "成功";
+    }
+
+
+    //    CM03-03
+//    功能名称： 修改二级学院信息模块
+    @PostMapping("updataDep")
+    public String updataDep(Dep dep){
+        int i = depService.updataDep(dep);
+        if (i!=0){
+            return "成功";
+        }else {
+            return "失败";
+        }
+    }
+
+
+    //    CM03-04
+//    功能名称： 查询二级学院信息模块
 }
