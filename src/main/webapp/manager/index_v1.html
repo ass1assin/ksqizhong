@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!--360浏览器优先以webkit内核解析-->
+
+		<title>H+ 后台主题UI框架 - 主页示例</title>
+
+		<link rel="shortcut icon" href="favicon.ico" />
+		<link href="../css/bootstrap.min.css?v=3.3.7" rel="stylesheet" />
+		<link href="../css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+
+		<link href="../css/animate.css" rel="stylesheet" />
+		<link href="../css/style.css?v=4.1.0" rel="stylesheet" />
+	</head>
+
+	<body class="gray-bg">
+
+	<div class="example-wrap">
+		<h4 class="example-title">事件</h4>
+		<div class="example">
+			<div class="alert alert-success" id="examplebtTableEventsResult" role="alert">
+				事件结果
+			</div>
+
+			<div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
+				<button type="button" class="btn btn-outline btn-default" id="addButton">
+					<i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+				</button>
+<!--				<button type="button" class="btn btn-outline btn-default">-->
+<!--					<i class="glyphicon glyphicon-heart" aria-hidden="true"></i>-->
+<!--				</button>-->
+				 <!--<form action="/find?method=find&id=${student.id}" method="post">
+				     <input type="hidden" name="id" value="${student.id}">
+				     <button type="submit">修改</button>
+				 </form>-->
+<!--				<button type="button" class="btn btn-outline btn-default" id="deleteButton">-->
+<!--					<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>-->
+<!--				</button>-->
+			</div>
+
+
+			<table id="exampleTableEvents" data-height="400" data-mobile-responsive="true">
+				<thead>
+				<tr>
+					<th data-field="state" data-checkbox="true"></th>
+					<th data-field="id">ID</th>
+					<th data-field="name">名称</th>
+					<th data-field="price">价格</th>
+				</tr>
+				</thead>
+				<tbody id="studentTableBody">
+<!--                      在此处渲染数据-->
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<!-- 全局js -->
+	<script src="../js/jquery.min.js?v=2.1.4"></script>
+	<script src="../js/bootstrap.min.js?v=3.3.7"></script>
+
+	<!-- 自定义js -->
+	<script src="../js/content.js?v=1.0.0"></script>
+
+	<!-- Bootstrap table -->
+	<script src="../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+	<script src="../js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+	<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+	<!-- Peity -->
+	<script src="../js/demo/bootstrap-table-demo.js"></script>
+
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+	<!--统计代码，可删除-->
+
+	<script src="../js/axios/axios-0.18.0.js"></script>
+	<script src="../js/axios/axios.min.js"></script>
+
+	<script>
+		axios.get('/main')
+				.then(function (response) {
+					var list = response.data; // 假设后端返回的数据是一个包含学生信息的数组
+
+					var tableBody = document.getElementById('studentTableBody');
+					list.forEach(function(student) {
+						// 在每次迭代中，代码会创建一个新的表格行元素 <tr>，用来表示表格中的一行数据
+						var row = document.createElement('tr');
+						// 这一行设置表格行的内容，使用了模板字符串来动态生成表格的 HTML 内容
+						row.innerHTML = `
+                        <td>${student.id}</td>
+                        <td>${student.number}</td>
+                        <td>${student.name}</td>
+                        <td>${student.gender}</td>
+                        <td>${student.state}</td>
+                        <td>${student.createDate}</td>
+                        <td>
+                             <form action="/main/update/${student.id}" method="post">
+                                 <input type="hidden" name="id" value="${student.id}">
+                                 <button type="submit">修改</button>
+                             </form>
+                             <form action="/main/delete/${student.id}" method="post">
+                                 <input type="hidden" name="id" value="${student.id}">
+                                 <button type="submit">删除</button>
+                             </form>
+                             <!--<button type="button" class="btn btn-outline btn-default" id="editButton">-->
+                              <!--<i class="glyphicon glyphicon-heart" aria-hidden="true"></i>-->
+                              <!--</button>-->
+                        </td>
+                    `;
+						// 最后，这一行将创建的表格行元素添加到表格的 <tbody> 元素中，以在页面上显示学生的信息
+						tableBody.appendChild(row);
+					});
+				})
+				.catch(function (error) {
+					console.error('Error fetching data:', error);
+				});
+		document.addEventListener("DOMContentLoaded", function () {
+			var addButton = document.getElementById("addButton");
+			// var editButton = document.getElementById("editButton");
+			// var deleteButton = document.getElementById("deleteButton");
+
+			// 添加按钮点击事件处理程序
+			addButton.addEventListener("click", function () {
+				// 在这里执行添加功能的代码
+				axios.post("/main/save",this.pagination).then((response) => {
+					alert("执行添加功能");
+				})
+			});
+
+			// editButton.addEventListener("click", function () {
+			// 	// 在这里执行修改功能的代码
+			// 	alert("执行修改功能");
+			// });
+
+			// deleteButton.addEventListener("click", function () {
+			// 	// 在这里执行删除功能的代码
+			// 	var selectedRows = Array.from(table.querySelectorAll('tr.selected'));
+			// 	if (selectedRows.length > 0) {
+			// 		// 在这里执行删除操作，例如从表格中删除选中的行
+			// 		selectedRows.forEach(function (row) {
+			// 			table.deleteRow(row.rowIndex);
+			// 		});
+			// 	} else {
+			// 		alert("请选择要删除的项目");
+			// 	}
+			// 	alert("执行删除功能");
+			// });
+
+			// 这里可以添加更复杂的逻辑来处理添加、修改和删除操作
+		});
+	</script>
+	</body>
+</html>
