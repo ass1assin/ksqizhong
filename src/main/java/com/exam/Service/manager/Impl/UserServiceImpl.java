@@ -1,9 +1,9 @@
-package com.exam.Service.Impl;
+package com.exam.Service.manager.Impl;
 
 
 
-import com.exam.Service.UserService;
-import com.exam.dao.UserDao;
+import com.exam.Service.manager.UserService;
+import com.exam.dao.manager.UserDao;
 import com.exam.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

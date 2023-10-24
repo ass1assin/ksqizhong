@@ -1,6 +1,6 @@
-package com.exam.Controller;
+package com.exam.Controller.manager;
 
-import com.exam.Service.DepService;
+import com.exam.Service.manager.DepService;
 import com.exam.entity.Dep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class DepContraller {
     private DepService depService;
 
 //显示所有信息
-    @GetMapping
+    @GetMapping("/showDep")
     public List showDep(){
         List<Dep> deps = depService.showDep();
         return deps;

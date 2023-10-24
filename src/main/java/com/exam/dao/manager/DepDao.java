@@ -1,13 +1,12 @@
-package com.exam.Service;
+package com.exam.dao.manager;
 
 import com.exam.entity.Dep;
 
 import java.util.List;
 
-public interface DepService {
+public interface DepDao {
     int addDepinfo(Dep dep);
     List<Dep> showDep();
-
     int deleteDep(int id);
     int updataDep(Dep dep);
     List<Dep> findByName(String depName);

@@ -1,11 +1,10 @@
-package com.exam.dao;
+package com.exam.dao.counsellor;
 
-import com.exam.entity.Dep;
 import com.exam.entity.Student;
 
 import java.util.List;
 
-public interface StudentDao {
+public interface StuInfoDao {
     int addStudentinfo(Student student);
     List<Student> showStudent();
     int deleteStudent(int id);

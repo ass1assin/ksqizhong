@@ -1,11 +1,10 @@
-package com.exam.Service;
+package com.exam.Service.counsellor;
 
-import com.exam.entity.Dep;
 import com.exam.entity.Student;
 
 import java.util.List;
 
-public interface StudentService {
+public interface StuInfoService {
     int addStudentinfo(Student student);
     List<Student> showStudent();
 

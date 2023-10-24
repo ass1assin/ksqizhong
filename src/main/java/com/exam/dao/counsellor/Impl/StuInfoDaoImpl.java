@@ -1,6 +1,6 @@
-package com.exam.dao.Impl;
+package com.exam.dao.counsellor.Impl;
 
-import com.exam.dao.StudentDao;
+import com.exam.dao.counsellor.StuInfoDao;
 import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -12,17 +12,17 @@ import java.util.List;
 
 //    CM03
 @Repository
-public class StudentDaoImpl implements StudentDao {
+public class StuInfoDaoImpl implements StuInfoDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     //显示所有信息
     @Override
     public List<Student> showStudent() {
-        String querysql="select * from sys_department";
+        String querysql="select * from sys_student" ;
         RowMapper<Student> rowMapper= new BeanPropertyRowMapper<>(Student.class);
-        List<Student> depList = jdbcTemplate.query(querysql,rowMapper);
-        return depList;
+        List<Student> students = jdbcTemplate.query(querysql,rowMapper);
+        return students;
     }
 
 
@@ -32,7 +32,7 @@ public class StudentDaoImpl implements StudentDao {
 //    功能名称： 添加学生信息模块
     @Override
     public int addStudentinfo(Student student) {
-        String addsql="insert into sys_department(depID,depName) values(?,?)";
+        String addsql="insert into sys_student(stuID,stuName) values(?,?)";
         Object[] acc= {student.getStuID(),student.getStuName()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);
@@ -43,7 +43,7 @@ public class StudentDaoImpl implements StudentDao {
 //    功能名称： 删除学生信息模块
     @Override
     public int deleteStudent(int id) {
-        String addsql="delete from sys_department where depID = ?";
+        String addsql="delete from sys_student where stuID = ?";
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int delete = jdbcTemplate.update(addsql, id);
         return delete;
@@ -54,7 +54,7 @@ public class StudentDaoImpl implements StudentDao {
 //    功能名称： 修改学生信息模块
     @Override
     public int updataStudent(Student student) {
-        String addsql="update sys_department set stuName=?where stuID=?";
+        String addsql="update sys_student set stuName=? where stuID=?";
         Object[] acc= {student.getStuName(),student.getStuID()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int updata = jdbcTemplate.update(addsql, acc);

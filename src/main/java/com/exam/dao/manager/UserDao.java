@@ -1,4 +1,4 @@
-package com.exam.dao;
+package com.exam.dao.manager;
 
 
 import com.exam.entity.User;

@@ -1,7 +1,7 @@
-package com.exam.Service.Impl;
+package com.exam.Service.manager.Impl;
 
-import com.exam.Service.DepService;
-import com.exam.dao.DepDao;
+import com.exam.Service.manager.DepService;
+import com.exam.dao.manager.DepDao;
 import com.exam.entity.Dep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

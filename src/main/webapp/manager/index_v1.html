@@ -81,7 +81,7 @@
 	<script src="../js/axios/axios.min.js"></script>
 
 	<script>
-		axios.get('/main')
+		axios.get('/stu/show')
 				.then(function (response) {
 					var list = response.data; // 假设后端返回的数据是一个包含学生信息的数组
 
@@ -98,11 +98,12 @@
                         <td>${student.state}</td>
                         <td>${student.createDate}</td>
                         <td>
-                             <form action="/main/update/${student.id}" method="post">
+                             <form action="/stu/updataStudent" method="post">
                                  <input type="hidden" name="id" value="${student.id}">
+                                 <input type="hidden" name="name" value="${student.name}">
                                  <button type="submit">修改</button>
                              </form>
-                             <form action="/main/delete/${student.id}" method="post">
+                             <form action="/stu/delete/${student.id}" method="get">
                                  <input type="hidden" name="id" value="${student.id}">
                                  <button type="submit">删除</button>
                              </form>

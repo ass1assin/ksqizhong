@@ -1,7 +1,7 @@
-package com.exam.Controller;
+package com.exam.Controller.manager;
 
 
-import com.exam.Service.UserService;
+import com.exam.Service.manager.UserService;
 import com.exam.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -125,14 +125,17 @@
                 // 如果这俩不为空
                 if (username && password) {
 
-                    axios.post("/login",this.pagination)
+                    axios.post("/login",this.username,this.password)
                         .then(response => {
                             // 在这里处理从后端返回的响应
-                            console.log("从后端接收到的数据：", response.data);
+                            if (response.data != null){
+                                //跳转页面
+                                console.log("从后端接收到的数据：", response.data);
+                            }else {
+                                console.error("请求出错：", error);
+                            }
                         })
-                        .catch(error => {
-                            console.error("请求出错：", error);
-                        });
+
                 } else {
                     console.log("请输入用户名和密码");
                 }

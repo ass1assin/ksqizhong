@@ -1,6 +1,6 @@
-package com.exam.dao.Impl;
+package com.exam.dao.manager.Impl;
 
-import com.exam.dao.DepDao;
+import com.exam.dao.manager.DepDao;
 import com.exam.entity.Dep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
