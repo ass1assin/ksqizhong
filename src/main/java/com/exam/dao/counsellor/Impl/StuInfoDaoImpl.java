@@ -20,8 +20,8 @@ public class StuInfoDaoImpl implements StuInfoDao {
     @Override
     public List<Student> showStudent() {
         String querysql="select * from sys_student" ;
-        RowMapper<Student> rowMapper= new BeanPropertyRowMapper<>(Student.class);
-        List<Student> students = jdbcTemplate.query(querysql,rowMapper);
+
+        List<Student> students = jdbcTemplate.query(querysql,new BeanPropertyRowMapper<Student>(Student.class));
         return students;
     }
 
@@ -43,9 +43,9 @@ public class StuInfoDaoImpl implements StuInfoDao {
 //    功能名称： 删除学生信息模块
     @Override
     public int deleteStudent(int id) {
-        String addsql="delete from sys_student where stuID = ?";
+        String deletesql="delete from sys_student where stuID = ?";
         //调用jdbcTemplate.update(实现添加 删除 修改等)
-        int delete = jdbcTemplate.update(addsql, id);
+        int delete = jdbcTemplate.update(deletesql, id);
         return delete;
 
     }
@@ -54,10 +54,10 @@ public class StuInfoDaoImpl implements StuInfoDao {
 //    功能名称： 修改学生信息模块
     @Override
     public int updataStudent(Student student) {
-        String addsql="update sys_student set stuName=? where stuID=?";
+        String updataql="update sys_student set stuName=? where stuID=?";
         Object[] acc= {student.getStuName(),student.getStuID()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
-        int updata = jdbcTemplate.update(addsql, acc);
+        int updata = jdbcTemplate.update(updataql, acc);
         return updata;
     }
 

@@ -14,8 +14,8 @@ import java.util.List;
 
 
 
-
-@ContextConfiguration(locations = {"classpath:spring.xml"})
+@ContextConfiguration({"classpath:spring.xml"})
+//@ContextConfiguration(locations = {"classpath:spring.xml"})
 @RunWith(SpringRunner.class)
 
 public class test01 {
@@ -25,7 +25,10 @@ public class test01 {
     private StuInfoDao stuInfoDao;
    @Test
     public void test(){
-//       List<Student> students = stuInfoDao.showStudent();
+       System.out.println("111");
+//       List list = stuInfoContraller.showStudent();
+//       System.out.println(list);
+       List<Student> students = stuInfoDao.showStudent();
        System.out.println(stuInfoDao.showStudent());
 //       System.out.println("miniinini");
 //       int i = stuInfoDao.deleteStudent(1);

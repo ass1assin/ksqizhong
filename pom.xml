@@ -8,12 +8,7 @@
   <name>ksqizhong Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+
     <!--spring context依赖-->
     <!--当你引入SpringContext依赖之后，表示将Spring的基础依赖引入了-->
     <dependency>
@@ -48,6 +43,11 @@
       <version>5.2.0.RELEASE</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>5.2.0.RELEASE</version>
+    </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
