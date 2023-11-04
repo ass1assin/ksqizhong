@@ -1,7 +1,9 @@
 package test;
 
 import com.exam.Controller.counsellor.StuInfoContraller;
+import com.exam.Controller.student.LeaveContraller;
 import com.exam.dao.counsellor.StuInfoDao;
+import com.exam.entity.Leave;
 import com.exam.entity.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,45 +21,28 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 
 public class test01 {
-//    @Autowired
-//    private StuInfoContraller stuInfoContraller;
+
     @Autowired
     private StuInfoDao stuInfoDao;
+    @Autowired
+    private LeaveContraller leaveContraller;
    @Test
     public void test(){
-       System.out.println("111");
-//       List list = stuInfoContraller.showStudent();
-//       System.out.println(list);
-       List<Student> students = stuInfoDao.showStudent();
-       System.out.println(stuInfoDao.showStudent());
-//       System.out.println("miniinini");
-//       int i = stuInfoDao.deleteStudent(1);
-//       StuInfoDao students= new StuInfoDao() {
-//
-//           @Override
-//           public int addStudentinfo(Student student) {
-//               return 0;
-//           }
-//
-//           @Override
-//           public List<Student> showStudent() {
-//               return null;
-//           }
-//
-//           @Override
-//           public int deleteStudent(int id) {
-//               return 0;
-//           }
-//
-//           @Override
-//           public int updataStudent(Student student) {
-//               return 0;
-//           }
-//
-//           @Override
-//           public List<Student> findByName(String stuName) {
-//               return null;
-//           }
+//       System.out.println("111");
+//       List<Student> students = stuInfoDao.showStudent();
+//       System.out.println(stuInfoDao.showStudent());
+       Leave leave = new Leave();
+       leave.setCourseID("1");
+       leave.setDaynum(3);
+       leave.setReason("asdasdasd");
+
+//       String s = leaveContraller.addCourse(leave);
+       //…Û∫À
+       leave.setBo(true);
+       leave.setLeaveID("20231104121536-315");
+       int s = leaveContraller.audit(leave);
+       System.out.println(s);
+
 
    };
 }

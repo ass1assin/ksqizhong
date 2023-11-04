@@ -7,7 +7,7 @@ import java.util.List;
 public interface StuInfoDao {
     int addStudentinfo(Student student);
     List<Student> showStudent();
-    int deleteStudent(int id);
+    int deleteStudent(List<Integer> ids);
     int updataStudent(Student student);
     List<Student> findByName(String stuName);
 }

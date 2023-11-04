@@ -32,8 +32,8 @@ public class StuInfoServiceImpl implements StuInfoService {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @Override
-    public int deleteStudent(int id) {
-        int deleteStudent = stuInfoDao.deleteStudent(id);
+    public int deleteStudent(List<Integer> ids) {
+        int deleteStudent = stuInfoDao.deleteStudent(ids);
         return deleteStudent;
     }
 

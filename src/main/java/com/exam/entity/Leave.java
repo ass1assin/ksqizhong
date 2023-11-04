@@ -14,4 +14,6 @@ public class Leave {
     private String status;
     private Date audittime;
     private String opinion;
+
+    private Boolean Bo;
 }

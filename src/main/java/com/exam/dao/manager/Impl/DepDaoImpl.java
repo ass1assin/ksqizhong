@@ -41,10 +41,10 @@ public class DepDaoImpl implements DepDao {
 //    CM03-02
 //    功能名称： 删除二级学院信息模块
     @Override
-    public int deleteDep(int id) {
-        String addsql="delete from sys_department where depID = ?";
+    public int deleteDep(List<Integer> ids) {
+        String addsql="delete from sys_department where depID in ?";
         //调用jdbcTemplate.update(实现添加 删除 修改等)
-        int delete = jdbcTemplate.update(addsql, id);
+        int delete = jdbcTemplate.update(addsql, ids);
         return delete;
 
     }

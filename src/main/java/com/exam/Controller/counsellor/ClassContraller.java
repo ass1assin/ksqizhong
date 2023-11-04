@@ -1,6 +1,8 @@
 package com.exam.Controller.counsellor;
 
+import com.exam.Service.counsellor.ClassService;
 import com.exam.Service.counsellor.StuInfoService;
+import com.exam.entity.Classes;
 import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,23 +10,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stu")
-public class StuInfoContraller {
+@RequestMapping("/class")
+public class ClassContraller {
     @Autowired
-    private StuInfoService stuInfoService;
+    private ClassService classService;
 
 //显示所有信息
     @GetMapping("/show")
-    public List showStudent(){
-        List<Student> stus = stuInfoService.showStudent();
-        return stus;
+    public List showClass(){
+        List<Classes> classesList = classService.showClass();
+        return classesList;
     }
 
 //    CM07-01
 //    功能名称： 添加学生信息模块
-    @PostMapping("/addStudent")
-    public String addDepinfo(@RequestBody Student student){
-        int i = stuInfoService.addStudentinfo(student);
+    @PostMapping("/addClass")
+    public String addClass(@RequestBody Classes classes){
+        int i = classService.addClass(classes);
 
         return "添加成功";
     }
@@ -33,17 +35,17 @@ public class StuInfoContraller {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @DeleteMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable List<Integer> ids){
-        int i = stuInfoService.deleteStudent(ids);
+    public String deleteClass(@PathVariable List<Integer> ids){
+        int i = classService.deleteClass(ids);
         return "成功";
     }
 
 
     //    CM07-03
 //    功能名称： 修改学生信息模块
-    @PostMapping("/updataStudent")
-    public String updataStudent(Student student){
-        int i = stuInfoService.updataStudent(student);
+    @PostMapping("/updataClass")
+    public String updataStudent(Classes classes){
+        int i = classService.updataClass(classes);
         if (i!=0){
             return "成功";
         }else {
@@ -55,8 +57,8 @@ public class StuInfoContraller {
     //    CM07-04
 //    功能名称： 查询学生信息模块
     @GetMapping("/likename/{name}")
-    public List showStudent(@PathVariable String name){
-        List<Student> byName = stuInfoService.findByName(name);
+    public List showClass(@PathVariable String name){
+        List<Classes> byName = classService.findByName(name);
         return byName;
     }
 }

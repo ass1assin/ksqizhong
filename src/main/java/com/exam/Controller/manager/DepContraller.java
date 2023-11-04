@@ -33,8 +33,8 @@ public class DepContraller {
     //    CM03-02
 //    功能名称： 删除二级学院信息模块
     @DeleteMapping("/{id}")
-    public String deleteDep(@PathVariable int id){
-        int i = depService.deleteDep(id);
+    public String deleteDep(@PathVariable List<Integer> ids){
+        int i = depService.deleteDep(ids);
         return "成功";
     }
 
