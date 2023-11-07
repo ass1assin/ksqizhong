@@ -21,7 +21,7 @@ public class UserLoginController {
     public ModelAndView login(@RequestBody String username, @RequestBody String password){
         ModelAndView modelAndView =new ModelAndView();
         User user1 = userService.findInfo(username, password);
-
+        System.out.println("ssssssssssssssssssssssssssssssssssssss"+user1);
         if (user1 == null){
 //         用户名或密码错误返回登录界面
             modelAndView.setViewName("login");
