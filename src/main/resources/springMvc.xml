@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+">
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven/>
+<!--    <context:component-scan base-package="com.exam"/>-->
+
+    <!--    配置thymeleaf模板解析器-->
+    <bean class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver" id="templateResolver">
+        <property name="prefix" value="/webapp/manager/"/>
+        <property name="suffix" value=".html"/>
+        <property name="characterEncoding" value="utf-8"/>
+        <!--        是否设置缓存-->
+        <property name="cacheable" value="false"/>
+        <!--        模板的类型 -->
+        <property name="templateMode" value="HTML5"/>
+    </bean>
+    <!--模板引擎-->
+    <bean id="engine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+    </bean>
+    <!--    视图解析器-->
+    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver" id="resolver">
+        <property name="templateEngine" ref="engine"/>
+    </bean>
+</beans>
