@@ -4,11 +4,13 @@ package com.exam.Controller.manager;
 import com.exam.Service.manager.UserService;
 import com.exam.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 public class UserLoginController {
     @Autowired
     private UserService userService;
@@ -16,16 +18,20 @@ public class UserLoginController {
 
 //    ------CM01:-------
     @PostMapping("/login")
-    public String login(@RequestBody String username,@RequestBody String password){
+    public ModelAndView login(@RequestBody String username, @RequestBody String password, ModelAndView modelAndView){
 
         User user1 = userService.findInfo(username, password);
 
         if (user1 == null){
 //         用户名或密码错误返回登录界面
-            return null;
+            modelAndView.setViewName("main.html");
     }
-//         登录成功
-            return "成功";
+        else {
+            //         登录成功
+            modelAndView.setViewName("main.html");
+        }
+        return modelAndView;
+
 }
 
 

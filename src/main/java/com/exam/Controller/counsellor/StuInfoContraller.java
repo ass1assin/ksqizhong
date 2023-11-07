@@ -3,13 +3,14 @@ package com.exam.Controller.counsellor;
 import com.exam.Service.counsellor.StuInfoService;
 import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-//@RequestMapping("/stu")
+@Controller
+@RequestMapping("/stu")
 public class StuInfoContraller {
     @Autowired
     private StuInfoService stuInfoService;
@@ -22,10 +23,10 @@ public class StuInfoContraller {
     }
     @RequestMapping("/test")
     public String test(Model model){
-        model.addAttribute("msg" ,"Hello,World!");
+        model.addAttribute("msg" ,"Hello,Worsssssssssssssld!");
         System.out.println("sssssssssssssssssssssss");
         System.out.println("sssssssssssssssssssssssssssssss"+model);
-        return "hello";
+        return "index_v1";
     }
 
 //    CM07-01

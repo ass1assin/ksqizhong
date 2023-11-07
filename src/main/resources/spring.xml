@@ -36,7 +36,7 @@
 
 <!--    新加的-->
     <bean class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver" id="templateResolver">
-        <property name="prefix" value="/webapp/admin/"/>
+        <property name="prefix" value="/admin/"/>
         <property name="suffix" value=".html"/>
         <property name="characterEncoding" value="utf-8"/>
         <!--        是否设置缓存-->
