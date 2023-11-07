@@ -3,12 +3,13 @@ package com.exam.Controller.counsellor;
 import com.exam.Service.counsellor.StuInfoService;
 import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/stu")
+//@RequestMapping("/stu")
 public class StuInfoContraller {
     @Autowired
     private StuInfoService stuInfoService;
@@ -18,6 +19,13 @@ public class StuInfoContraller {
     public List showStudent(){
         List<Student> stus = stuInfoService.showStudent();
         return stus;
+    }
+    @RequestMapping("/test")
+    public String test(Model model){
+        model.addAttribute("msg" ,"Hello,World!");
+        System.out.println("sssssssssssssssssssssss");
+        System.out.println("sssssssssssssssssssssssssssssss"+model);
+        return "hello";
     }
 
 //    CM07-01

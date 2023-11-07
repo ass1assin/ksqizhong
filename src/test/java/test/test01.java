@@ -8,6 +8,8 @@ import com.exam.entity.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,7 +19,7 @@ import java.util.List;
 
 
 @ContextConfiguration({"classpath:spring.xml"})
-//@ContextConfiguration(locations = {"classpath:spring.xml"})
+
 @RunWith(SpringRunner.class)
 
 public class test01 {
@@ -31,6 +33,8 @@ public class test01 {
 //       System.out.println("111");
 //       List<Student> students = stuInfoDao.showStudent();
 //       System.out.println(stuInfoDao.showStudent());
+//       ApplicationContext sc=new ClassPathXmlApplicationContext("spring.xml");
+//       LeaveContraller leaveContraller=sc.getBean(LeaveContraller.class);
        Leave leave = new Leave();
        leave.setCourseID("1");
        leave.setDaynum(3);

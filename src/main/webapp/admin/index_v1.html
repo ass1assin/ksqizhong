@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,12 +18,15 @@
 
 	<body class="gray-bg">
 
+
 	<div class="example-wrap">
 		<h4 class="example-title">事件</h4>
+		<div class="sdsdsds" th:text="${msg}">有东西没<div>
 		<div class="example">
 			<div class="alert alert-success" id="examplebtTableEventsResult" role="alert">
 				事件结果
 			</div>
+
 
 			<div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
 				<button type="button" class="btn btn-outline btn-default" id="addButton">
@@ -81,6 +84,12 @@
 	<script src="../js/axios/axios.min.js"></script>
 
 	<script>
+		// class MyComponent {
+		// 	constructor() {
+		// 		this.beforeHooks = [];
+		// 		this.afterHooks = [];
+		// 	};
+
 		axios.get('/stu/show')
 				.then(function (response) {
 					var list = response.data; // 假设后端返回的数据是一个包含学生信息的数组
@@ -120,6 +129,8 @@
 					console.error('Error fetching data:', error);
 				});
 		document.addEventListener("DOMContentLoaded", function () {
+
+
 			var addButton = document.getElementById("addButton");
 			// var editButton = document.getElementById("editButton");
 			// var deleteButton = document.getElementById("deleteButton");
