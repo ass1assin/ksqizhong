@@ -16,9 +16,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findUser(String fullname, String password) {
-        String selectsql = "select * from sys_user where fullname=? and password=?";
-        User user = jdbcTemplate.queryForObject(selectsql, new BeanPropertyRowMapper<>(User.class),fullname,password);
-        return user;
+        try {
+            String selectsql = "select * from sys_user where fullname=? and password=?";
+            User user = jdbcTemplate.queryForObject(selectsql, new BeanPropertyRowMapper<>(User.class),fullname,password);
+            return user;
+        }catch (Exception e){return null;}
+
     }
 
 

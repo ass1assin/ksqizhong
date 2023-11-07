@@ -4,6 +4,7 @@ import com.exam.Service.manager.DepService;
 import com.exam.entity.Dep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -15,9 +16,13 @@ public class DepContraller {
 
 //显示所有信息
     @GetMapping("/showDep")
-    public List showDep(){
+    public ModelAndView showDep(){
+        ModelAndView modelAndView = new ModelAndView();
         List<Dep> deps = depService.showDep();
-        return deps;
+        System.out.println(deps);
+        modelAndView.addObject("deps",deps);
+        modelAndView.setViewName("index_v1");
+        return modelAndView;
     }
 
 //    CM03-01

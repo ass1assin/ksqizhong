@@ -18,17 +18,17 @@ public class UserLoginController {
 
 //    ------CM01:-------
     @PostMapping("/login")
-    public ModelAndView login(@RequestBody String username, @RequestBody String password, ModelAndView modelAndView){
-
+    public ModelAndView login(@RequestBody String username, @RequestBody String password){
+        ModelAndView modelAndView =new ModelAndView();
         User user1 = userService.findInfo(username, password);
 
         if (user1 == null){
 //         用户名或密码错误返回登录界面
-            modelAndView.setViewName("main.html");
+            modelAndView.setViewName("login");
     }
         else {
             //         登录成功
-            modelAndView.setViewName("main.html");
+            modelAndView.setViewName("main");
         }
         return modelAndView;
 
