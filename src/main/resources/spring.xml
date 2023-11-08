@@ -11,6 +11,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
 ">
 
+
 <!--    新加的-->
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>
@@ -51,6 +52,7 @@
     <!--    视图解析器-->
     <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver" id="resolver">
         <property name="templateEngine" ref="engine"/>
+        <property name="characterEncoding" value="UTF-8"/>
     </bean>
 </beans>
 
