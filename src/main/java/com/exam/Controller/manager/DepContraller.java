@@ -28,10 +28,13 @@ public class DepContraller {
 //    CM03-01
 //    功能名称： 添加二级学院信息模块
     @PostMapping("/addDep")
-    public String addDepinfo(@RequestBody Dep dep){
+    public ModelAndView addDepinfo(@ModelAttribute Dep dep){
         int i = depService.addDepinfo(dep);
-
-        return "添加成功";
+        ModelAndView modelAndView =new ModelAndView();
+//        modelAndView.addObject();
+        modelAndView.setViewName("redirect:/dep/showDep");
+        return modelAndView;
+//        return "成功";
     }
 
 

@@ -20,30 +20,44 @@
 
 
 	<div class="example-wrap">
-		<h4 class="example-title">事件</h4>
-		<div th:text="${msg}">有东西没</div>
 		<div class="example">
-			<div class="alert alert-success" id="examplebtTableEventsResult" role="alert">
-				事件结果
+
+<!--			添加的弹出-->
+			<div id="modal-form" class="modal fade" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="row">
+								<div>
+
+									<form role="form" th:action="@{/dep/addDep}" th:method="post">
+										<div class="form-group" >
+											<label>二级学院编号：</label>
+											<input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control">
+										</div>
+										<div class="form-group">
+											<label>二级学院名称：</label>
+											<input type="text" name="depName"  placeholder="请输入二级学院名称" class="form-control">
+										</div>
+										<div>
+											<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
+											</button>
+										</div>
+									</form>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-
-
-			<div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
-				<button type="button" class="btn btn-outline btn-default" id="addButton">
-					<i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-				</button>
-<!--				<button type="button" class="btn btn-outline btn-default">-->
-<!--					<i class="glyphicon glyphicon-heart" aria-hidden="true"></i>-->
-<!--				</button>-->
-				 <!--<form action="/find?method=find&id=${student.id}" method="post">
-				     <input type="hidden" name="id" value="${student.id}">
-				     <button type="submit">修改</button>
-				 </form>-->
-<!--				<button type="button" class="btn btn-outline btn-default" id="deleteButton">-->
-<!--					<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>-->
-<!--				</button>-->
+<!--			添加按钮-->
+			<div class="ibox-content">
+				<div class="text-center" style="width:30px">
+					<a data-toggle="modal" class="btn btn-primary" href="#modal-form">新增</a>
+				</div>
 			</div>
-
 
 			<table id="exampleTableEvents" data-height="400" data-mobile-responsive="true">
 
@@ -56,6 +70,8 @@
 				<tr th:each="deps:${deps}">
 					<td th:text="${deps.depID}"></td>
 					<td th:text="${deps.depName}"></td>
+<!--					<td><button><a href="/dep/updataDep?depID=${deps.depID}">编辑</a></button></td>-->
+<!--					<td><button><a href="/dep/?id=${deps.depID}">删除</a></button></td>-->
 				</tr>
 
 			</table>
@@ -81,8 +97,6 @@
 	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 	<!--统计代码，可删除-->
 
-	<script src="../js/axios/axios-0.18.0.js"></script>
-	<script src="../js/axios/axios.min.js"></script>
 
 	</body>
 </html>
