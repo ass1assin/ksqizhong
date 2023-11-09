@@ -4,10 +4,8 @@ package com.exam.Controller.manager;
 import com.exam.Service.manager.UserService;
 import com.exam.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/person")
@@ -18,11 +16,16 @@ public class UserPersonController {
 
 //    -------CM02: 个人设置-显示信息------
     @PostMapping("/showInfo")
-    public User adminInfo(@RequestBody User user){
+    public ModelAndView adminInfo(@RequestParam User user){
+        ModelAndView modelAndView =new ModelAndView();
+
         String fullname = user.getFullname();
         String password = user.getPassword();
         User user1 = userService.findInfo(fullname, password);
-        return user1;
+
+        modelAndView.addObject("user",user1);
+        modelAndView.setViewName("index_v3");
+        return modelAndView;
     }
 
 //   ------- CM02: 个人设置-修改信息-------

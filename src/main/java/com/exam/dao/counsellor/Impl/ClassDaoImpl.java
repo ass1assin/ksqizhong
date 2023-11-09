@@ -34,7 +34,7 @@ public class ClassDaoImpl implements ClassDao {
 //    功能名称： 添加学生信息模块
     @Override
     public int addClass(Classes classes) {
-        String addsql="insert into sys_student(classID,className,depID,major,grade) values(?,?,?,?,?)";
+        String addsql="insert IGNORE into sys_student(classID,className,depID,major,grade) values(?,?,?,?,?)";
         Object[] acc= {classes.getClassID(),classes.getClassName(),classes.getDepID(),classes.getMajor(),classes.getGrade()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);

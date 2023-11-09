@@ -3,6 +3,7 @@ package com.exam.Controller.manager;
 import com.exam.Service.manager.DepService;
 import com.exam.entity.Dep;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,23 +28,27 @@ public class DepContraller {
 
 //    CM03-01
 //    功能名称： 添加二级学院信息模块
+//    @GetMapping("/addPage")
+//    public ModelAndView addPage(Model model){
+//        model.addAttribute("dep",new Dep());
+//        return new ModelAndView("add","depmodel",model)
+//    }
+
     @PostMapping("/addDep")
     public ModelAndView addDepinfo(@ModelAttribute Dep dep){
         int i = depService.addDepinfo(dep);
-        ModelAndView modelAndView =new ModelAndView();
-//        modelAndView.addObject();
-        modelAndView.setViewName("redirect:/dep/showDep");
+        ModelAndView modelAndView = new ModelAndView("redirect:/dep/showDep");
         return modelAndView;
-//        return "成功";
     }
 
 
     //    CM03-02
 //    功能名称： 删除二级学院信息模块
-    @DeleteMapping("/{id}")
-    public String deleteDep(@PathVariable List<Integer> ids){
+    @GetMapping("/{id}")
+    public ModelAndView deleteDep(@PathVariable List<String> ids){
         int i = depService.deleteDep(ids);
-        return "成功";
+        ModelAndView modelAndView = new ModelAndView("redirect:/dep/showDep");
+        return modelAndView;
     }
 
 

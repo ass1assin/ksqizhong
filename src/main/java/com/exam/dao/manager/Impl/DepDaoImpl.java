@@ -31,7 +31,7 @@ public class DepDaoImpl implements DepDao {
 //    功能名称： 添加二级学院信息模块
     @Override
     public int addDepinfo(Dep dep) {
-        String addsql="insert into sys_department(depID,depName) values(?,?)";
+        String addsql="insert IGNORE into sys_department(depID,depName) values(?,?)";
         Object[] acc= {dep.getDepID(),dep.getDepName()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);
@@ -41,7 +41,7 @@ public class DepDaoImpl implements DepDao {
 //    CM03-02
 //    功能名称： 删除二级学院信息模块
     @Override
-    public int deleteDep(List<Integer> ids) {
+    public int deleteDep(List<String> ids) {
         String addsql="delete from sys_department where depID in ?";
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int delete = jdbcTemplate.update(addsql, ids);

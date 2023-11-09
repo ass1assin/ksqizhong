@@ -71,7 +71,7 @@
 					<td th:text="${deps.depID}"></td>
 					<td th:text="${deps.depName}"></td>
 <!--					<td><button><a href="/dep/updataDep?depID=${deps.depID}">编辑</a></button></td>-->
-<!--					<td><button><a href="/dep/?id=${deps.depID}">删除</a></button></td>-->
+<!--					<td><button><a th:href="@{/dep/${deps.depID}}" th:method="get">删除</a></button></td>-->
 				</tr>
 
 			</table>

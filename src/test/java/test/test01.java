@@ -37,7 +37,7 @@ public class test01 {
 //       LeaveContraller leaveContraller=sc.getBean(LeaveContraller.class);
        Leave leave = new Leave();
        leave.setCourseID("1");
-       leave.setDaynum(3);
+       leave.setDayNum(3);
        leave.setReason("asdasdasd");
 
 //       String s = leaveContraller.addCourse(leave);

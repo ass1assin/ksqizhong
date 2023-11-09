@@ -32,7 +32,7 @@ public class StuInfoDaoImpl implements StuInfoDao {
 //    功能名称： 添加学生信息模块
     @Override
     public int addStudentinfo(Student student) {
-        String addsql="insert into sys_student(stuID,classID,stuName,sex,address,stuTel,contact,contactTel) values(?,?,?,?,?,?,?,?)";
+        String addsql="insert IGNORE into sys_student(stuID,classID,stuName,sex,address,stuTel,contact,contactTel) values(?,?,?,?,?,?,?,?)";
         Object[] acc= {student.getStuID(),student.getClassID(),student.getStuName(),student.getSex(),student.getAddress(),
                 student.getStuTel(),student.getContact(),student.getContactTel()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)

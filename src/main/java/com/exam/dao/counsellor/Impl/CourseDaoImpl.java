@@ -34,7 +34,7 @@ public class CourseDaoImpl implements CourseDao {
 //    功能名称： 添加学生信息模块
     @Override
     public int addCourse(Course course) {
-        String addsql="insert into sys_course(courseID,classID,courseName,year,term,hour) values(?,?,?,?,?,?)";
+        String addsql="insert IGNORE  into sys_course(courseID,classID,courseName,year,term,hour) values(?,?,?,?,?,?)";
         Object[] acc= {course.getCourseID(),course.getClassID(),course.getCourseName(),course.getYear(),course.getTerm(),course.getHour()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);

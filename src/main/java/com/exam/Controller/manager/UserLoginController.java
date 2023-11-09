@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,10 +25,9 @@ public class UserLoginController {
 
 //    ------CM01:-------
     @PostMapping("/login")
-    public ModelAndView login(@RequestBody String username, @RequestBody String password){
+    public ModelAndView login(@RequestParam String username, @RequestParam String password){
         ModelAndView modelAndView =new ModelAndView();
         User user1 = userService.findInfo(username, password);
-//        System.out.println("ssssssssssssssssssssssssssssssssssssss"+user1);
         List<Dep> deps = depService.showDep();
 
         if (user1 == null){
@@ -37,7 +37,9 @@ public class UserLoginController {
         else {
             //         登录成功
             modelAndView.addObject("deps", deps);
+            modelAndView.addObject("user",user1);
             modelAndView.setViewName("main");
+
         }
         return modelAndView;
     }
