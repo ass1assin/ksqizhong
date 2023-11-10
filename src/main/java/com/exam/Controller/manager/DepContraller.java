@@ -16,21 +16,21 @@ public class DepContraller {
     private DepService depService;
 
 //显示所有信息
-//    @GetMapping("/showDep")
-//    public ModelAndView showDep(){
-//        ModelAndView modelAndView = new ModelAndView();
-//        List<Dep> deps = depService.showDep();
-//        System.out.println(deps);
-//        modelAndView.addObject("deps",deps);
-//        modelAndView.setViewName("index_v1");
-//        return modelAndView;
-//    }
-
     @GetMapping("/showDep")
-    public List<Dep> showDep(){
+    public ModelAndView showDep(){
+        ModelAndView modelAndView = new ModelAndView();
         List<Dep> deps = depService.showDep();
-        return deps;
+        System.out.println(deps);
+        modelAndView.addObject("deps",deps);
+        modelAndView.setViewName("collegemanage");
+        return modelAndView;
     }
+
+//    @GetMapping("/showDep")
+//    public List<Dep> showDep(){
+//        List<Dep> deps = depService.showDep();
+//        return deps;
+//    }
 
 //    CM03-01
 //    功能名称： 添加二级学院信息模块
@@ -51,7 +51,7 @@ public class DepContraller {
     //    CM03-02
 //    功能名称： 删除二级学院信息模块
     @GetMapping("/{id}")
-    public ModelAndView deleteDep(@PathVariable List<String> ids){
+    public ModelAndView deleteDep(@PathVariable List<Integer> ids){
         int i = depService.deleteDep(ids);
         ModelAndView modelAndView = new ModelAndView("redirect:/dep/showDep");
         return modelAndView;

@@ -11,12 +11,12 @@
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.7" rel="stylesheet">
-    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css?v=4.1.0" rel="stylesheet">
-    
+    <link rel="shortcut icon" href="favicon.ico"> <link href="../../css/bootstrap.min.css?v=3.3.7" rel="stylesheet">
+    <link href="../../css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css?v=4.1.0" rel="stylesheet">
+
 
 </head>
 
@@ -101,20 +101,24 @@
                                 <table id="exampleTableEvents" data-height="400" data-mobile-responsive="true">
                                     <thead>
                                         <tr>
-                                            <th data-field="state" data-checkbox="true"></th>
+<!--                                            <th data-field="state" data-checkbox="true"></th>-->
                                             <th data-field="depID">ID</th>
                                             <th data-field="depName">名称</th>
-<!--                                            <th>操作</th>-->
+                                            <th>操作</th>
                                         </tr>
                                     </thead>
-<!--                                    <tr th:each="deps:${deps}">-->
+                                    <tr th:each="deps:${deps}">
 <!--                                        <th data-field="state" data-checkbox="true"></th>-->
-<!--                                        <th th:text="${deps.depID}"></th>-->
+                                        <th th:text="${deps.depID}"></th>
+                                        <th th:text="${deps.depName}"></th>
+<!--                                        <th>-->
+<!--                                            <button class="btn btn-warning btn-sm edit-btn" th:onclick="'editRow(\'' + ${dep.depID} + '\', \'' + ${dep.depName} + '\')'">编辑</button>-->
+<!--                                            <button class="btn btn-danger btn-sm delete-btn" th:onclick="'deleteRow(\'' + ${dep.depID} + '\', \'' + ${dep.depName} + '\')'">删除</button>-->
+<!--                                        </th>-->
 <!--                                        <th th:text="${deps.depName}"></th>-->
-<!--                                        <th th:text="${deps.depName}"></th>-->
-<!--                                        &lt;!&ndash;					<td><button><a href="/dep/updataDep?depID=${deps.depID}">编辑</a></button></td>&ndash;&gt;-->
-<!--                                        &lt;!&ndash;					<td><button><a href="/dep/?id=${deps.depID}">删除</a></button></td>&ndash;&gt;-->
-<!--                                    </tr>-->
+                                        <!--					<td><button><a href="/dep/updataDep?depID=${deps.depID}">编辑</a></button></td>-->
+                                        <!--					<td><button><a href="/dep/?id=${deps.depID}">删除</a></button></td>-->
+                                    </tr>
                                 </table>
                             </div>
                         </div>
@@ -127,23 +131,23 @@
     </div>
 
     <!-- 全局js -->
-    <script src="js/jquery.min.js?v=2.1.4"></script>
-    <script src="js/bootstrap.min.js?v=3.3.7"></script>
+    <script src="../../js/jquery.min.js?v=2.1.4"></script>
+    <script src="../../js/bootstrap.min.js?v=3.3.7"></script>
 
     <!-- 自定义js -->
-    <script src="js/content.js?v=1.0.0"></script>
+    <script src="../../js/content.js?v=1.0.0"></script>
 
 
     <!-- Bootstrap table -->
-    <script src="js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
-    <script src="js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
-    <script src="js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="../../js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
-<!--    boostrap表单设置（js、样式等）-->
-    <script src="js/demo/bootstrap-table-demo.js"></script>
+<!--&lt;!&ndash;    boostrap表单设置（js、样式等）&ndash;&gt;-->
+<!--    <script src="../../js/demo/bootstrap-table-demo.js"></script>-->
 
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-    <!--统计代码，可删除-->
+<!--    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
+<!--    &lt;!&ndash;统计代码，可删除&ndash;&gt;-->
 
 </body>
 
