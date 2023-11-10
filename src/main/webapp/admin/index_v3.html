@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -62,13 +62,14 @@
             <div class="ibox float-e-margins">
 
                 <div>
-                    <div class="ibox-content no-padding border-left-right">
-                        <img alt="image" class="img-responsive" src="../img/profile_small.jpg">
-                    </div>
-                    <div class="ibox-content profile-content">
-                        <p>姓名:</p>
-                        <p>密码:</p>
-                        <p>手机号信息:</p>
+<!--                    <div class="ibox-content no-padding border-left-right">-->
+<!--                        <img alt="image" class="img-responsive" src="../img/profile_small.jpg">-->
+<!--                    </div>-->
+
+                    <div th:object="${user}" class="ibox-content profile-content" >
+                        <p th:text="${user.fullname}">姓名:</p>
+                        <p th:text="${user.password}">密码:</p>
+                        <p th:text="${user.telephone}">手机号信息:</p>
                         <div class="user-button">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -84,12 +85,12 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>个人资料</h5>
-                    <div class="ibox-tools">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="profile.html#">
-                            帮助
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                    </div>
+<!--                    <div class="ibox-tools">-->
+<!--                        <a class="dropdown-toggle" data-toggle="dropdown" href="profile.html#">-->
+<!--                            帮助-->
+<!--                            <i class="fa fa-wrench"></i>-->
+<!--                        </a>-->
+<!--                    </div>-->
                 </div>
                 <div class="ibox-content">
 
@@ -98,19 +99,19 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">姓名:</label>
                                 <div class="col-sm-9">
-                                    <input type="password" class="form-control" name="password" placeholder="请输入密码">
+                                    <input type="password" class="form-control" name="password" placeholder="请输入姓名">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">密码：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="" class="form-control" placeholder="请输入文本">
+                                    <input type="text" name="" class="form-control" placeholder="请输入密码">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">手机号信息：</label>
                                 <div class="col-sm-9">
-                                    <input type="password" class="form-control" name="password" placeholder="请输入密码">
+                                    <input type="password" class="form-control" name="password" placeholder="请输入手机号">
                                 </div>
                             </div>
                         </div>

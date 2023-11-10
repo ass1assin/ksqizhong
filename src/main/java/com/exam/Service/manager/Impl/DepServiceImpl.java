@@ -32,7 +32,7 @@ public class DepServiceImpl implements DepService {
     //    CM03-02
 //    功能名称： 删除二级学院信息模块
     @Override
-    public int deleteDep(List<Integer> ids) {
+    public int deleteDep(List<String> ids) {
         int deleteDep = depDao.deleteDep(ids);
         return deleteDep;
     }

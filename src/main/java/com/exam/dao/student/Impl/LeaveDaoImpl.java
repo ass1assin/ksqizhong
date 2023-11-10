@@ -35,8 +35,8 @@ public class LeaveDaoImpl implements LeaveDao {
 //    功能名称： 添加学生信息模块
     @Override
     public int addLeave(Leave leave) {
-        String addsql="insert into sys_leave(leaveID,courseID,reason,daynum,status) values(?,?,?,?,?)";
-        Object[] acc= {leave.getLeaveID(),leave.getCourseID(),leave.getReason(),leave.getDaynum(),leave.getStatus()};
+        String addsql="insert IGNORE into sys_leave(leaveID,courseID,reason,daynum,status) values(?,?,?,?,?)";
+        Object[] acc= {leave.getLeaveID(),leave.getCourseID(),leave.getReason(),leave.getDayNum(),leave.getStatus()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);
         return add;
@@ -64,7 +64,7 @@ public class LeaveDaoImpl implements LeaveDao {
     @Override
     public int audit(Leave leave) {
         String audSql="update sys_leave set audittime=?, status=? where leaveID=?";
-        Object[] acc= {leave.getAudittime(),leave.getStatus(),leave.getLeaveID()};
+        Object[] acc= {leave.getAuditTime(),leave.getStatus(),leave.getLeaveID()};
         int aud = jdbcTemplate.update(audSql, acc);
         return aud;
     }

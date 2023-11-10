@@ -32,7 +32,7 @@ public class InstInfoDaoImpl implements InstInfoDao {
 //    功能名称： 添加辅导员信息模块
     @Override
     public int addInst(Inst inst) {
-        String addsql="insert into sys_instructor(instID,instName,depID,telephone) values(?,?,?,?)";
+        String addsql="insert IGNORE into sys_instructor(instID,instName,depID,telephone) values(?,?,?,?)";
         Object[] acc= {inst.getInstID(),inst.getInstName(),inst.getDepID(),inst.getTelephone()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);

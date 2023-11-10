@@ -6,6 +6,6 @@ import lombok.Data;
 public class Inst {
     private String instID;
     private String instName;
-    private int depID;
+    private String depID;
     private String telephone;
 }

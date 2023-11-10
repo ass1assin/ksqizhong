@@ -64,7 +64,7 @@ public class LeaveServiceImpl implements LeaveService {
         }
         //审核时间
         Date date1 = new Date();
-        leave.setAudittime(date1);
+        leave.setAuditTime(date1);
 
         int audit = leaveDao.audit(leave);
         return audit;
