@@ -32,6 +32,9 @@ public class DepDaoImpl implements DepDao {
     @Override
     public int addDepinfo(Dep dep) {
         String addsql="insert into sys_department(depID,depName) values(?,?)";
+//        String addsql="insert into TABLE(depID,depName) select 'depID' from DUAL where NOT exists(select sys_department from TABLE where sys_department=?)";
+
+
         Object[] acc= {dep.getDepID(),dep.getDepName()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);

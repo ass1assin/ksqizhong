@@ -15,14 +15,20 @@ public class DepContraller {
     private DepService depService;
 
 //显示所有信息
+//    @GetMapping("/showDep")
+//    public ModelAndView showDep(){
+//        ModelAndView modelAndView = new ModelAndView();
+//        List<Dep> deps = depService.showDep();
+//        System.out.println(deps);
+//        modelAndView.addObject("deps",deps);
+//        modelAndView.setViewName("index_v1");
+//        return modelAndView;
+//    }
+
     @GetMapping("/showDep")
-    public ModelAndView showDep(){
-        ModelAndView modelAndView = new ModelAndView();
+    public List<Dep> showDep(){
         List<Dep> deps = depService.showDep();
-        System.out.println(deps);
-        modelAndView.addObject("deps",deps);
-        modelAndView.setViewName("index_v1");
-        return modelAndView;
+        return deps;
     }
 
 //    CM03-01
