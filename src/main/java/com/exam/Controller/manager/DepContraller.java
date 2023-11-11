@@ -56,6 +56,12 @@ public class DepContraller {
         ModelAndView modelAndView = new ModelAndView("redirect:/dep/showDep");
         return modelAndView;
     }
+//    @GetMapping("/delete")
+//    public ModelAndView deleteDep(@RequestParam List<Integer> ids){
+//        int i = depService.deleteDep(ids);
+//        ModelAndView modelAndView = new ModelAndView("redirect:/dep/showDep");
+//        return modelAndView;
+//    }
 
 
     //    CM03-03

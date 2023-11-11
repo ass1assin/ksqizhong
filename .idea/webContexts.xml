@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/hplus/index.html" value="file://$PROJECT_DIR$/src/main/webapp/hplus" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/manager/index_v1.html" value="file://$PROJECT_DIR$/src/main/webapp/manager" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/admin/collegemanage.html" value="file://$PROJECT_DIR$/src/main/webapp/view/admin" />
       </map>
     </option>
   </component>

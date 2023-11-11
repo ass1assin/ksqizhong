@@ -17,6 +17,29 @@
     <link href="../../css/animate.css" rel="stylesheet">
     <link href="../../css/style.css?v=4.1.0" rel="stylesheet">
 
+    <style>
+        #exampleTableEvents {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        #exampleTableEvents th, #exampleTableEvents td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #exampleTableEvents th {
+            background-color: #f2f2f2;
+        }
+
+
+
+        .btn {
+            margin-right: 5px;
+        }
+    </style>
 
 </head>
 
@@ -65,6 +88,7 @@
                                                     <div class="row">
                                                         <div>
 
+<!--                                                            增加弹窗-->
                                                             <form role="form" th:action="@{/dep/addDep}" th:method="post">
                                                                 <div class="form-group" >
                                                                     <label>二级学院编号：</label>
@@ -87,39 +111,121 @@
                                             </div>
                                         </div>
                                     </div>
+
+<!--                                    修改弹窗-->
+                                    <div id="modal-form2" class="modal fade" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div>
+
+                                                            <!--                                                            增加弹窗-->
+                                                            <form role="form" th:action="@{/dep/updataDep}" th:method="post">
+                                                                <div class="form-group" >
+                                                                    <label>二级学院编号：</label>
+<!--                                                                    加上value查询就报500了-->
+                                                                    <input type="text" name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>二级学院名称：</label>
+                                                                    <input type="text" name="depName"  placeholder="修改二级学院名称" class="form-control"  id="depName">
+                                                                </div>
+                                                                <div>
+                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+<!--                                    删除弹窗-->
+                                    <div id="modal-form3" class="modal fade" aria-hidden="true">
+                                        <div class="modal-dialog" style="max-width: 400px;">
+                                            <div class="modal-content">
+                                                <div class="modal-body" style="padding: 50px 90px 50px 90px;">
+                                                    <div class="row">
+                                                        <div>
+
+                                                            <!-- 增加弹窗 -->
+                                                            <form role="form" th:action="@{/dep/delete}" style="padding: 15px; text-align: center">
+                                                                <input type="hidden" id="deleteDepID" name="deleteDepID" />
+                                                                <h3>确认是否删除</h3>
+                                                                <div>
+                                                                    <button class="btn btn-danger btn-sm delete-btn" type="submit" style="width: 100%;"><strong>确认删除</strong></button>
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
 <!--                                    新增-->
                                     <button type="button" class="btn btn-outline btn-default" data-toggle="modal" href="#modal-form">
                                         <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline btn-default">
-                                        <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-outline btn-default">
-                                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                                    </button>
+
+                                    <div th:action="@{/dep/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
+                                        <input type="text" class="form-control" placeholder="学院名称" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <i class="glyphicon glyphicon-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+
+
                                 </div>
                                 <table id="exampleTableEvents" data-height="400" data-mobile-responsive="true">
                                     <thead>
                                         <tr>
-<!--                                            <th data-field="state" data-checkbox="true"></th>-->
                                             <th data-field="depID">ID</th>
                                             <th data-field="depName">名称</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tr th:each="deps:${deps}">
-<!--                                        <th data-field="state" data-checkbox="true"></th>-->
-                                        <th th:text="${deps.depID}"></th>
-                                        <th th:text="${deps.depName}"></th>
-<!--                                        <th>-->
-<!--                                            <button class="btn btn-warning btn-sm edit-btn" th:onclick="'editRow(\'' + ${dep.depID} + '\', \'' + ${dep.depName} + '\')'">编辑</button>-->
-<!--                                            <button class="btn btn-danger btn-sm delete-btn" th:onclick="'deleteRow(\'' + ${dep.depID} + '\', \'' + ${dep.depName} + '\')'">删除</button>-->
-<!--                                        </th>-->
-<!--                                        <th th:text="${deps.depName}"></th>-->
-                                        <!--					<td><button><a href="/dep/updataDep?depID=${deps.depID}">编辑</a></button></td>-->
-                                        <!--					<td><button><a href="/dep/?id=${deps.depID}">删除</a></button></td>-->
+                                        <td th:text="${deps.depID}"></td>
+                                        <td th:text="${deps.depName}"></td>
+                                        <td>
+                                            <!-- 修改按钮 -->
+                                            <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
+                                                    th:attr="data-dep-id=${deps.depID},data-dep-name=${deps.depName}"
+                                                    onclick="setModalValues(this)"
+                                            >编辑</button>
+                                            <!-- 删除按钮 -->
+<!--                                            th:href="@{'/dep/'+${deps.depID}}"-->
+                                            <button class="btn btn-danger btn-sm delete-btn"
+                                                    th:attr="data-dep-id=${deps.depID}"
+                                                    data-toggle="modal" href="#modal-form3"
+                                                    onclick="setDeleteModalValue(this)"
+                                            >删除</button>
+                                        </td>
                                     </tr>
                                 </table>
+<!--                                分页-----先别删这个注释-->
+<!--                                <ul class="pagination">-->
+<!--                                    <li th:class="${pagedDeps.number == 0} ? 'disabled' : ''">-->
+<!--                                        <a th:href="@{${'/?page=' + (pagedDeps.number - 1)}}">&laquo;</a>-->
+<!--                                    </li>-->
+<!--                                    &lt;!&ndash; 使用Thymeleaf迭代标签生成分页按钮 &ndash;&gt;-->
+<!--                                    <li th:each="i : ${#numbers.sequence(0, pagedDeps.totalPages-1)}" th:class="${pagedDeps.number == i} ? 'active' : ''">-->
+<!--                                        <a th:href="@{${'/?page=' + i}}" th:text="${i + 1}"></a>-->
+<!--                                    </li>-->
+<!--                                    <li th:class="${pagedDeps.number == pagedDeps.totalPages-1} ? 'disabled' : ''">-->
+<!--                                        <a th:href="@{${'/?page=' + (pagedDeps.number + 1)}}">&raquo;</a>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
                             </div>
                         </div>
                         <!-- End Example Events -->
@@ -137,12 +243,27 @@
     <!-- 自定义js -->
     <script src="../../js/content.js?v=1.0.0"></script>
 
-
     <!-- Bootstrap table -->
     <script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="../../js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
+    <script th:inline="javascript">
+        function setModalValues(button) {
+            var depID = button.getAttribute('data-dep-id');
+            var depName = button.getAttribute('data-dep-name');
+
+            // 设置模态框中的输入框值
+            document.getElementById('depID').value = depID;
+            document.getElementById('depName').value = depName;
+        }
+        function setDeleteModalValue(button) {
+            var depID = button.getAttribute('data-dep-id');
+
+            // 设置删除模态框中的隐藏表单值
+            document.getElementById('deleteDepID').value = depID;
+        }
+    </script>
 <!--&lt;!&ndash;    boostrap表单设置（js、样式等）&ndash;&gt;-->
 <!--    <script src="../../js/demo/bootstrap-table-demo.js"></script>-->
 
