@@ -30,16 +30,18 @@ public class UserPersonController {
 
 //   ------- CM02: 个人设置-修改信息-------
     @PostMapping("/updataInfo")
-    public String updataInfo(@RequestBody User user){
-
+    public ModelAndView updataInfo(@ModelAttribute User user){
+        ModelAndView modelAndView = new ModelAndView("redirect:/person/showInfo");
         int updataUser = userService.updataUser(user);
-
+        String message = null;
         if (updataUser !=0){
 
-            return "成功";
+            message="更新成功";
         }else {
-            return "失败";
+            message="更新失败";
         }
+        modelAndView.addObject("message",message);
+        return modelAndView;
     }
 
 

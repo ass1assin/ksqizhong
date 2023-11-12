@@ -61,7 +61,7 @@ import java.util.List;
             //    CM03-03
 //    功能名称： 修改二级学院信息模块
             @PostMapping("/updataDep")
-            public ModelAndView updataDep(Department department){
+            public ModelAndView updataDep(@ModelAttribute Department department){
                 int i = departmentService.updataDep(department);
                 ModelAndView modelAndView = new ModelAndView("redirect:/department/showDep");
                 String message = null;
