@@ -34,23 +34,12 @@ public class UserLoginController {
     public ModelAndView login(@RequestParam String username, @RequestParam String password, HttpSession session){
         ModelAndView modelAndView =new ModelAndView();
         User user1 = userService.findInfo(username, password);
-        System.out.println("ssssssssssssssssssssssssssssssssssssssss"+user1);
-
 
         if (user1 == null){
 //         用户名或密码错误返回登录界面
             modelAndView.setViewName("login");
     }
         else {
-//怎么使用呢
-//            Map<String,Object> claims=new HashMap<>();
-//            claims.put("username",user1.getFullname());
-//            String jwtToken= JwtUtils.generateJWT(claims);
-//
-//            Cookie cookie = new Cookie("jwtToken", jwtToken);
-//            cookie.setPath("/"); // 设置 Cookie 的路径，确保在整个应用程序中都可以访问
-////            cookie.setHttpOnly(true); // 设置 HttpOnly 属性，提高安全性
-//            response.addCookie(cookie);
 
             List<Dep> deps = depService.showDep();
             session.setAttribute("userLoggedIn", true);
@@ -58,7 +47,6 @@ public class UserLoginController {
             modelAndView.addObject("deps", deps);
             modelAndView.addObject("user",user1);
             modelAndView.setViewName("/common/index");
-
         }
         return modelAndView;
     }

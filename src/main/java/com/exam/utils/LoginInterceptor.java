@@ -14,6 +14,11 @@ public class LoginInterceptor implements HandlerInterceptor{
         System.out.println("生sssssssssssssssssssxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         Object userLoggedIn = request.getSession().getAttribute("userLoggedIn");
 
+        // 添加判断条件，如果是登录页面的请求，不进行拦截
+        if (request.getRequestURI().endsWith("/view/common/login.html")) {
+            return true;
+        }
+
         if (userLoggedIn != null && (Boolean) userLoggedIn) {
             // 用户已登录，继续执行后续的请求处理
             return true;
@@ -27,10 +32,12 @@ public class LoginInterceptor implements HandlerInterceptor{
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 //        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+        System.out.println("ssssssssssssssssssssssssssssssssssssssssss");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 //        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+        System.out.println("ddddddddddddddddddddddddddddddddddddddddddddddd");
     }
 }
