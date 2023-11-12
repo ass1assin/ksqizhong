@@ -1,12 +1,8 @@
 package com.exam.Service.student.Impl;
 
-import com.exam.Service.counsellor.CourseService;
 import com.exam.Service.student.LeaveService;
-import com.exam.dao.counsellor.CourseDao;
 import com.exam.dao.student.LeaveDao;
-import com.exam.entity.Course;
 import com.exam.entity.Leave;
-import com.exam.entity.LeaveDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Random;
@@ -25,21 +21,34 @@ public class LeaveServiceImpl implements LeaveService {
         return LeaveList;
     }
 
+    @Override
+    public List<Leave> getLeavesWithPagination(int page, int pageSize) {
+        return leaveDao.findAllWithPagination(page,pageSize);
+    }
+
+    @Override
+    public int getTotalPages(int pageSize) {
+        int totalCount = leaveDao.getTotalCount();
+        int pageSum = (totalCount / pageSize )+1;
+        return pageSum;
+    }
+
 
     //    CM07-01
 //    功能名称： 添加学生信息模块
     @Override
     public int addLeave(Leave leave) {
         //创建时间
-        Date date1 = new Date();
-//        leave.setApplytime(date1);
+        Date date = new Date();
+
 
         //请假单号（自动生成），编号规则：yyyyMMddHHmmsss+3 位随机数字
         Random random = new Random();
         int randomNum = random.nextInt(1000);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss-");
-        String currentTime = dateFormat.format(date1);
+        String currentTime = dateFormat.format(date);
+
         leave.setLeaveID(currentTime+randomNum);
 
         int addLeave= leaveDao.addLeave(leave);
@@ -50,8 +59,8 @@ public class LeaveServiceImpl implements LeaveService {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @Override
-    public int deleteLeave(List<Integer> ids) {
-        int deleteClass = leaveDao.deleteLeave(ids);
+    public int deleteLeave(String id) {
+        int deleteClass = leaveDao.deleteLeave(id);
         return deleteClass;
     }
 
@@ -62,9 +71,7 @@ public class LeaveServiceImpl implements LeaveService {
         }else {
             leave.setStatus("2");
         }
-        //审核时间
-        Date date1 = new Date();
-        leave.setAuditTime(date1);
+
 
         int audit = leaveDao.audit(leave);
         return audit;

@@ -26,11 +26,10 @@ public class UserLoginController {
 
 //    ------CM01:-------
     @PostMapping("/login")
-    public ModelAndView login(@RequestParam String username, @RequestParam String password, HttpSession session){
+    public ModelAndView login(@RequestParam String username, @RequestParam String password,@RequestParam String type, HttpSession session){
         ModelAndView modelAndView =new ModelAndView();
         User user1 = userService.findInfo(username, password);
-        System.out.println("ssssssssssssssssssssssssssssssssssssssss"+user1);
-
+        user1.setType(type);
 
         if (user1 == null){
 //         用户名或密码错误返回登录界面

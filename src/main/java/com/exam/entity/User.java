@@ -7,6 +7,6 @@ public class User {
     private String fullname;
     private String password;
     private Integer telephone;
-
+    private String type;
 
 }
