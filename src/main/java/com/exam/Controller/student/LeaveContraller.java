@@ -18,6 +18,7 @@ public class LeaveContraller {
 
 //显示所有信息
     @GetMapping("/showLeave")
+
     public List showLeave(){
         List<Leave> LeaveList = leaveService.showLeave();
         return LeaveList;

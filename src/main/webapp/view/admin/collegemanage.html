@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 
 <head>
 
@@ -18,6 +18,36 @@
     <link href="../../css/style.css?v=4.1.0" rel="stylesheet">
 
     <style>
+
+        .pagination {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+
+        .pagination li {
+            margin-right: 5px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            color: #007bff;
+            padding: 8px 12px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .pagination a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .pagination .active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
         #exampleTableEvents {
             width: 100%;
             border-collapse: collapse;
@@ -53,6 +83,18 @@
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#">选项1</a>
+                        </li>
+                        <li><a href="#">选项2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
                 </div>
             </div>
 
@@ -68,7 +110,7 @@
                             <div class="example">
                                 <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
 
-<!--                               增加弹窗-->
+<!--                                    弹出窗口-->
                                     <div id="modal-form" class="modal fade" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -76,18 +118,18 @@
                                                     <div class="row">
                                                         <div>
 
-                                                            <form role="form" th:action="@{/dep/addDep}" th:method="post">
+<!--                                                            增加弹窗-->
+                                                            <form role="form" th:action="@{/department/addDep}" th:method="post">
                                                                 <div class="form-group" >
                                                                     <label>二级学院编号：</label>
-                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control" oninput="checkDepID()" maxlength="3">
-                                                                    <small id="depIDError" class="text-danger"></small>
+                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>二级学院名称：</label>
                                                                     <input type="text" name="depName"  placeholder="请输入二级学院名称" class="form-control">
                                                                 </div>
                                                                 <div>
-                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="showSuccessAdd()"><strong>确认</strong>
+                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
                                                                     </button>
                                                                 </div>
                                                             </form>
@@ -108,18 +150,19 @@
                                                     <div class="row">
                                                         <div>
 
-                                                            <form role="form" th:action="@{/dep/updataDep}" th:method="post">
+                                                            <!--                                                            增加弹窗-->
+                                                            <form role="form" th:action="@{/department/updataDep}" th:method="post">
                                                                 <div class="form-group" >
                                                                     <label>二级学院编号：</label>
-                                                                    <input  name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID" oninput="checkDepID2()" maxlength="3">
-                                                                    <small id="depIDError2" class="text-danger"></small>
+<!--                                                                    加上value查询就报500了-->
+                                                                    <input type="text" name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>二级学院名称：</label>
                                                                     <input type="text" name="depName"  placeholder="修改二级学院名称" class="form-control"  id="depName">
                                                                 </div>
                                                                 <div>
-                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="showSuccessUpdate()"><strong>确认</strong>
+                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
                                                                     </button>
                                                                 </div>
                                                             </form>
@@ -140,11 +183,12 @@
                                                     <div class="row">
                                                         <div>
 
-                                                            <form role="form" th:action="@{/dep/delete}" style="padding: 15px; text-align: center">
+                                                            <!-- 增加弹窗 -->
+                                                            <form role="form" th:action="@{/department/delete}" style="padding: 15px; text-align: center">
                                                                 <input type="hidden" id="deleteDepID" name="deleteDepID" />
                                                                 <h3>确认是否删除</h3>
                                                                 <div>
-                                                                    <button class="btn btn-danger btn-sm delete-btn" type="submit" style="width: 100%;" onclick="showSuccessDelete()"><strong>确认删除</strong></button>
+                                                                    <button class="btn btn-danger btn-sm delete-btn" type="submit" style="width: 100%;"><strong>确认删除</strong></button>
                                                                 </div>
                                                             </form>
 
@@ -161,10 +205,10 @@
                                         <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                                     </button>
 
-                                    <form th:action="@{/dep/likename}" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
+                                    <form th:action="@{/department/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
                                         <input type="text" name="depName" class="form-control" placeholder="学院名称" />
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default" type="submit">
+                                            <button class="btn btn-default" type="button">
                                                 <i class="glyphicon glyphicon-search"></i>
                                             </button>
                                         </span>
@@ -180,37 +224,34 @@
                                             <th>操作</th>
                                         </tr>
                                     </thead>
-                                    <tr th:each="deps:${deps}">
-                                        <td th:text="${deps.depID}"></td>
-                                        <td th:text="${deps.depName}"></td>
+                                    <tr th:each="departments:${departments}">
+                                        <td th:text="${departments.depID}"></td>
+                                        <td th:text="${departments.depName}"></td>
                                         <td>
                                             <!-- 修改按钮 -->
                                             <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
-                                                    th:attr="data-dep-id=${deps.depID},data-dep-name=${deps.depName}"
+                                                    th:attr="data-departments-id=${departments.depID},data-departments-name=${departments.depName}"
                                                     onclick="setModalValues(this)"
                                             >编辑</button>
                                             <!-- 删除按钮 -->
+
                                             <button class="btn btn-danger btn-sm delete-btn"
-                                                    th:attr="data-dep-id=${deps.depID}"
+                                                    th:attr="data-departments-id=${departments.depID}"
                                                     data-toggle="modal" href="#modal-form3"
                                                     onclick="setDeleteModalValue(this)"
                                             >删除</button>
                                         </td>
                                     </tr>
                                 </table>
-<!--                                分页-----先别删这个注释-->
-<!--                                <ul class="pagination">-->
-<!--                                    <li th:class="${pagedDeps.number == 0} ? 'disabled' : ''">-->
-<!--                                        <a th:href="@{${'/?page=' + (pagedDeps.number - 1)}}">&laquo;</a>-->
-<!--                                    </li>-->
-<!--                                    &lt;!&ndash; 使用Thymeleaf迭代标签生成分页按钮 &ndash;&gt;-->
-<!--                                    <li th:each="i : ${#numbers.sequence(0, pagedDeps.totalPages-1)}" th:class="${pagedDeps.number == i} ? 'active' : ''">-->
-<!--                                        <a th:href="@{${'/?page=' + i}}" th:text="${i + 1}"></a>-->
-<!--                                    </li>-->
-<!--                                    <li th:class="${pagedDeps.number == pagedDeps.totalPages-1} ? 'disabled' : ''">-->
-<!--                                        <a th:href="@{${'/?page=' + (pagedDeps.number + 1)}}">&raquo;</a>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
+                                <div>
+                                    <ul class="pagination">
+                                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
+                                            <a th:href=" @{/department/showDep(page=${pageNumber}, pageSize=${10})}"
+                                               th:text="${pageNumber}"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+
                             </div>
                         </div>
                         <!-- End Example Events -->

@@ -1,33 +1,28 @@
 package com.exam.Controller.manager;
 
 
-import com.exam.Service.manager.DepService;
+import com.exam.Service.manager.DepartmentService;
 import com.exam.Service.manager.UserService;
-import com.exam.entity.Dep;
+
+import com.exam.entity.Department;
 import com.exam.entity.User;
 //import com.exam.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class UserLoginController {
     @Autowired
     private UserService userService;
     @Autowired
-    private DepService depService;
+    private DepartmentService departmentService;
 
 //    ------CM01:-------
     @PostMapping("/login")
@@ -52,7 +47,7 @@ public class UserLoginController {
 ////            cookie.setHttpOnly(true); // 设置 HttpOnly 属性，提高安全性
 //            response.addCookie(cookie);
 
-            List<Dep> deps = depService.showDep();
+            List<Department> deps = departmentService.showDep();
             session.setAttribute("userLoggedIn", true);
             //         登录成功
             modelAndView.addObject("deps", deps);
