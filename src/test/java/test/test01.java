@@ -1,21 +1,13 @@
 package test;
 
-import com.exam.Controller.counsellor.StuInfoContraller;
 import com.exam.Controller.student.LeaveContraller;
 import com.exam.dao.counsellor.StuInfoDao;
 import com.exam.entity.Leave;
-import com.exam.entity.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 
 @ContextConfiguration({"classpath:spring.xml"})
@@ -37,7 +29,7 @@ public class test01 {
 //       LeaveContraller leaveContraller=sc.getBean(LeaveContraller.class);
        Leave leave = new Leave();
        leave.setCourseID("1");
-       leave.setDayNum(3);
+       leave.setDaynum(3);
        leave.setReason("asdasdasd");
 
 //       String s = leaveContraller.addCourse(leave);

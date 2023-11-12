@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -46,17 +46,32 @@
 							</div>
 							<div class="logo-element">H+</div>
 						</li>
-						<li>
-							<a class="J_menuItem" href="dep/showDep"><i class="fa fa-columns"></i> <span class="nav-label">二级学院信息管理</span></a>
+<!--						管理员-->
+						<li th:if="${user.type == 'admin'}">
+							<a class="J_menuItem" href="/department/showDep"><i class="fa fa-columns"></i> <span class="nav-label">二级学院信息管理</span></a>
 						</li>
-						<li>
-							<a class="J_menuItem" href="dep/showDep"><i class="fa fa-columns"></i> <span class="nav-label">辅导员信息管理</span></a>
+						<li th:if="${user.type == 'admin'}">
+							<a class="J_menuItem" href="/department/showDep"><i class="fa fa-columns"></i> <span class="nav-label">辅导员信息管理</span></a>
 						</li>
-						<li>
-							<a class="J_menuItem" href="/person/showInfo"><i class="fa fa-columns"></i> <span class="nav-label">班级课程信息管理</span></a>
-						</li>
-						<li>
+
+						<li th:if="${user.type == 'admin'}">
 							<a class="J_menuItem" href="/view/admin/personinfomation.html"><i class="fa fa-columns"></i> <span class="nav-label">个人设置</span></a>
+						</li>
+
+<!--						辅导员-->
+						<li th:if="${user.type == 'teacher' or user.type == 'admin' }">
+							<a class="J_menuItem" href="/department/showDep"><i class="fa fa-columns"></i> <span class="nav-label">班级信息管理</span></a>
+						</li>
+						<li th:if="${user.type == 'teacher' or user.type == 'admin' }">
+							<a class="J_menuItem" href="/department/showDep"><i class="fa fa-columns"></i> <span class="nav-label">课程信息管理</span></a>
+						</li>
+						<li th:if="${user.type == 'teacher'}">
+							<a class="J_menuItem" href="/leave/showLeave"><i class="fa fa-columns"></i> <span class="nav-label">学生信息管理</span></a>
+						</li>
+
+<!--						学生-->
+						<li th:if="${user.type == 'student' or user.type == 'teacher'}">
+							<a class="J_menuItem" href="/department/showDep"><i class="fa fa-columns"></i> <span class="nav-label">请假信息管理</span></a>
 						</li>
 					</ul>
 				</div>
@@ -90,7 +105,7 @@
 					<a href="#" class="roll-nav roll-right tabReload"><i class="fa fa-refresh"></i> 刷新</a>
 				</div>
 				<div class="row J_mainContent" id="content-main">
-					<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="dep/showDep" frameborder="0" data-id="dep/showDep" seamless></iframe>
+					<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/department/showDep" frameborder="0" data-id="department/showDep" seamless></iframe>
 				</div>
 				<div class="footer">
 					<div class="pull-right">&copy; 2014-2015 <a href="http://www.zi-han.net/" target="_blank">zihan's blog</a></div>
