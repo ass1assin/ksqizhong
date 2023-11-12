@@ -10,36 +10,27 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
 ">
-
-
 <!--    新加的-->
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>
 
-<!--    &lt;!&ndash; 配置拦截器 &ndash;&gt;-->
-<!--    <mvc:interceptors>-->
-<!--        <mvc:interceptor>-->
-<!--            &lt;!&ndash; /**代表拦截所有mvc控制器 &ndash;&gt;-->
-<!--            <mvc:mapping path="/**"/>-->
-<!--            &lt;!&ndash; mvc:exclude-mapping作用是对某个请求进行 |不拦截| &ndash;&gt;-->
-<!--            <mvc:exclude-mapping path="/testLogin" />-->
-<!--            &lt;!&ndash; 指定的拦截处理类，该类一定要实现HandlerInterceptor &ndash;&gt;-->
-<!--            <bean class="com.exam.utils.LoginInterceptor"></bean>-->
-<!--        </mvc:interceptor>-->
-<!--    </mvc:interceptors>-->
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/> <!-- 设置拦截的路径，这里是全部路径 -->
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/view/common/login.html"/>
+            <bean class="com.exam.utils.LoginInterceptor"/> <!-- 拦截器的类 -->
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
 <context:component-scan base-package="com.exam"/>
-<!--    <context:component-scan base-package="com.exam.dao"/>-->
-<!--    <context:component-scan base-package="com.exam.Service"/>-->
-<!--    <context:component-scan base-package="com.exam.Controller"/>-->
-<!--    <context:component-scan base-package="com.exam.entity"/>-->
 
 <!--    扫描xx包下的注解-->
 
 <context:property-placeholder location="classpath:db.properties"/>
 <!--引入外部配置文件xx.properties-->
-<!--    <bean class="com.exam.config.InterceptorConfig" />-->
 
     <bean id="druid" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="url" value="${hh.url}"/>

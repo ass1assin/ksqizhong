@@ -18,10 +18,7 @@
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
     </init-param>
-    <!--    <init-param>-->
-    <!--      <param-name>forceEncoding</param-name>-->
-    <!--      <param-value>true</param-value>-->
-    <!--    </init-param>-->
+
   </filter>
   <filter-mapping>
     <filter-name>characterEncodingFilter</filter-name>
@@ -29,11 +26,6 @@
   </filter-mapping>
 
 
-<!--  <context-param>-->
-<!--    <param-name>contextConfigLocationone</param-name>-->
-<!--    <param-value>classpath:spring.xml</param-value>-->
-<!--  </context-param>-->
-<!--  什么玩意-->
   <servlet>
     <servlet-name>dispatcherServlet</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
