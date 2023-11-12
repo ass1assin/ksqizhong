@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -66,9 +66,9 @@
                         <img alt="image" class="img-responsive" src="../../img/profile_small.jpg">
                     </div>
                     <div class="ibox-content profile-content">
-                        <p>姓名:</p>
-                        <p>密码:</p>
-                        <p>手机号信息:</p>
+                        <p>姓名: <span th:text="${user.fullname}"></span></p>
+                        <p>密码:<span th:text="${user.password}"></span></p>
+                        <p>手机号信息:<span th:text="${user.telephone}"></span></p>
                         <div class="user-button">
                             <div class="row">
                                 <div class="col-sm-6">

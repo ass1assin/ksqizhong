@@ -5,6 +5,7 @@ import com.exam.Service.manager.DepService;
 import com.exam.Service.manager.UserService;
 import com.exam.entity.Dep;
 import com.exam.entity.User;
+//import com.exam.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UserLoginController {
@@ -25,20 +31,33 @@ public class UserLoginController {
 
 //    ------CM01:-------
     @PostMapping("/login")
-    public ModelAndView login(@RequestParam String username, @RequestParam String password){
+    public ModelAndView login(@RequestParam String username, @RequestParam String password, HttpSession session){
         ModelAndView modelAndView =new ModelAndView();
         User user1 = userService.findInfo(username, password);
-        List<Dep> deps = depService.showDep();
+        System.out.println("ssssssssssssssssssssssssssssssssssssssss"+user1);
+
 
         if (user1 == null){
 //         用户名或密码错误返回登录界面
             modelAndView.setViewName("login");
     }
         else {
+//怎么使用呢
+//            Map<String,Object> claims=new HashMap<>();
+//            claims.put("username",user1.getFullname());
+//            String jwtToken= JwtUtils.generateJWT(claims);
+//
+//            Cookie cookie = new Cookie("jwtToken", jwtToken);
+//            cookie.setPath("/"); // 设置 Cookie 的路径，确保在整个应用程序中都可以访问
+////            cookie.setHttpOnly(true); // 设置 HttpOnly 属性，提高安全性
+//            response.addCookie(cookie);
+
+            List<Dep> deps = depService.showDep();
+            session.setAttribute("userLoggedIn", true);
             //         登录成功
             modelAndView.addObject("deps", deps);
             modelAndView.addObject("user",user1);
-            modelAndView.setViewName("main");
+            modelAndView.setViewName("/common/index");
 
         }
         return modelAndView;

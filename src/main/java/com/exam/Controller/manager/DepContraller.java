@@ -22,7 +22,7 @@ public class DepContraller {
         List<Dep> deps = depService.showDep();
         System.out.println(deps);
         modelAndView.addObject("deps",deps);
-        modelAndView.setViewName("collegemanage");
+        modelAndView.setViewName("admin/collegemanage");
         return modelAndView;
     }
 

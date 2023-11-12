@@ -53,18 +53,6 @@
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#">选项1</a>
-                        </li>
-                        <li><a href="#">选项2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
                 </div>
             </div>
 
@@ -80,7 +68,7 @@
                             <div class="example">
                                 <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
 
-<!--                                    弹出窗口-->
+<!--                               增加弹窗-->
                                     <div id="modal-form" class="modal fade" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -88,18 +76,18 @@
                                                     <div class="row">
                                                         <div>
 
-<!--                                                            增加弹窗-->
                                                             <form role="form" th:action="@{/dep/addDep}" th:method="post">
                                                                 <div class="form-group" >
                                                                     <label>二级学院编号：</label>
-                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control">
+                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control" oninput="checkDepID()" maxlength="3">
+                                                                    <small id="depIDError" class="text-danger"></small>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>二级学院名称：</label>
                                                                     <input type="text" name="depName"  placeholder="请输入二级学院名称" class="form-control">
                                                                 </div>
                                                                 <div>
-                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
+                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="showSuccessAdd()"><strong>确认</strong>
                                                                     </button>
                                                                 </div>
                                                             </form>
@@ -120,19 +108,18 @@
                                                     <div class="row">
                                                         <div>
 
-                                                            <!--                                                            增加弹窗-->
                                                             <form role="form" th:action="@{/dep/updataDep}" th:method="post">
                                                                 <div class="form-group" >
                                                                     <label>二级学院编号：</label>
-<!--                                                                    加上value查询就报500了-->
-                                                                    <input type="text" name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID">
+                                                                    <input  name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID" oninput="checkDepID2()" maxlength="3">
+                                                                    <small id="depIDError2" class="text-danger"></small>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>二级学院名称：</label>
                                                                     <input type="text" name="depName"  placeholder="修改二级学院名称" class="form-control"  id="depName">
                                                                 </div>
                                                                 <div>
-                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
+                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" onclick="showSuccessUpdate()"><strong>确认</strong>
                                                                     </button>
                                                                 </div>
                                                             </form>
@@ -153,12 +140,11 @@
                                                     <div class="row">
                                                         <div>
 
-                                                            <!-- 增加弹窗 -->
                                                             <form role="form" th:action="@{/dep/delete}" style="padding: 15px; text-align: center">
                                                                 <input type="hidden" id="deleteDepID" name="deleteDepID" />
                                                                 <h3>确认是否删除</h3>
                                                                 <div>
-                                                                    <button class="btn btn-danger btn-sm delete-btn" type="submit" style="width: 100%;"><strong>确认删除</strong></button>
+                                                                    <button class="btn btn-danger btn-sm delete-btn" type="submit" style="width: 100%;" onclick="showSuccessDelete()"><strong>确认删除</strong></button>
                                                                 </div>
                                                             </form>
 
@@ -175,14 +161,14 @@
                                         <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                                     </button>
 
-                                    <div th:action="@{/dep/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
-                                        <input type="text" class="form-control" placeholder="学院名称" />
+                                    <form th:action="@{/dep/likename}" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
+                                        <input type="text" name="depName" class="form-control" placeholder="学院名称" />
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">
+                                            <button class="btn btn-default" type="submit">
                                                 <i class="glyphicon glyphicon-search"></i>
                                             </button>
                                         </span>
-                                    </div>
+                                    </form>
 
 
                                 </div>
@@ -204,7 +190,6 @@
                                                     onclick="setModalValues(this)"
                                             >编辑</button>
                                             <!-- 删除按钮 -->
-<!--                                            th:href="@{'/dep/'+${deps.depID}}"-->
                                             <button class="btn btn-danger btn-sm delete-btn"
                                                     th:attr="data-dep-id=${deps.depID}"
                                                     data-toggle="modal" href="#modal-form3"
@@ -249,6 +234,56 @@
     <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
     <script th:inline="javascript">
+        // 限定只能输入数字，可以在input上和type=number配合使用
+        // let input = document.getElementById('number');
+        // input.oninput = function(){
+        //     this.value = this.value.replace(/\D/g, '');
+        // }
+
+        document.getElementById("submitButton").addEventListener("click", function (event) {
+            // 在提交按钮点击时执行 checkDepID 函数
+            if (!checkDepID()) {
+                event.preventDefault(); // 取消表单提交
+            }
+        });
+        function checkDepID() {
+            var depIDInput = document.getElementById("depID");
+            var depIDError = document.getElementById("depIDError");
+
+            // 正则表达式，匹配'G1'或'G2'
+            var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
+
+            if (!pattern.test(depIDInput.value)) {
+                depIDError.textContent = "请输入'G1'-'G30'的形式";
+            } else {
+                depIDError.textContent = "";
+            }
+        }
+
+        function checkDepID2() {
+            var depIDInput = document.getElementById("depID");
+            var depIDError2 = document.getElementById("depIDError2");
+
+            // 正则表达式，匹配'G1'或'G2'
+            var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
+
+            if (!pattern.test(depIDInput.value)) {
+                depIDError2.textContent = "请输入'G1'-'G30'的形式";
+                return false; // 阻止表单提交
+            } else {
+                depIDError2.textContent = "";
+                return true; // 阻止表单提交
+            }
+        }
+
+        // 弹出成功操作
+        // function showSuccessAdd( ) {alert("添加成功! ");
+        // }
+        // function showSuccessUpdate( ) {alert("修改成功! ");
+        // }
+        // function showSuccessDelete( ) {alert("删除成功! ");
+        // }
+
         function setModalValues(button) {
             var depID = button.getAttribute('data-dep-id');
             var depName = button.getAttribute('data-dep-name');

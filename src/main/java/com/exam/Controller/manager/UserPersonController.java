@@ -24,9 +24,14 @@ public class UserPersonController {
         User user1 = userService.findInfo(fullname, password);
 
         modelAndView.addObject("user",user1);
-        modelAndView.setViewName("index_v3");
+        modelAndView.setViewName("personinfomation");
         return modelAndView;
     }
+//    @GetMapping("/showInfo")
+//    public ModelAndView adminInfo(){
+//        ModelAndView modelAndView =new ModelAndView();
+//
+//    }
 
 //   ------- CM02: 个人设置-修改信息-------
     @PostMapping("/updataInfo")
