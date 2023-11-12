@@ -15,23 +15,18 @@ public class UserPersonController {
 
 
 //    -------CM02: 个人设置-显示信息------
-    @PostMapping("/showInfo")
-    public ModelAndView adminInfo(@RequestParam User user){
+    @GetMapping("/showInfo")
+    public ModelAndView adminInfo(@RequestParam String fullname, @RequestParam String password){
         ModelAndView modelAndView =new ModelAndView();
 
-        String fullname = user.getFullname();
-        String password = user.getPassword();
+
         User user1 = userService.findInfo(fullname, password);
 
         modelAndView.addObject("user",user1);
-        modelAndView.setViewName("personinfomation");
+        modelAndView.setViewName("admin/personinfomation");
         return modelAndView;
     }
-//    @GetMapping("/showInfo")
-//    public ModelAndView adminInfo(){
-//        ModelAndView modelAndView =new ModelAndView();
-//
-//    }
+
 
 //   ------- CM02: 个人设置-修改信息-------
     @PostMapping("/updataInfo")
