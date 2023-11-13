@@ -122,7 +122,8 @@
                                                             <form role="form" th:action="@{/department/addDep}" th:method="post">
                                                                 <div class="form-group" >
                                                                     <label>二级学院编号：</label>
-                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control">
+                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control"  id="depID2" oninput="checkDepID2()" maxlength="3">
+                                                                    <small id="depIDError2" class="text-danger"></small>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>二级学院名称：</label>
@@ -155,7 +156,8 @@
                                                                 <div class="form-group" >
                                                                     <label>二级学院编号：</label>
 <!--                                                                    加上value查询就报500了-->
-                                                                    <input type="text" name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID">
+                                                                    <input type="text" name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID" oninput="checkDepID()" maxlength="3">
+                                                                    <small id="depIDError" class="text-danger"></small>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>二级学院名称：</label>
@@ -281,41 +283,41 @@
         //     this.value = this.value.replace(/\D/g, '');
         // }
 
-        // document.getElementById("submitButton").addEventListener("click", function (event) {
-        //     // 在提交按钮点击时执行 checkDepID 函数
-        //     if (!checkDepID()) {
-        //         event.preventDefault(); // 取消表单提交
-        //     }
-        // });
-        // function checkDepID() {
-        //     var depIDInput = document.getElementById("depID");
-        //     var depIDError = document.getElementById("depIDError");
-        //
-        //     // 正则表达式，匹配'G1'或'G2'
-        //     var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
-        //
-        //     if (!pattern.test(depIDInput.value)) {
-        //         depIDError.textContent = "请输入'G1'-'G30'的形式";
-        //     } else {
-        //         depIDError.textContent = "";
-        //     }
-        // }
-        //
-        // function checkDepID2() {
-        //     var depIDInput = document.getElementById("depID");
-        //     var depIDError2 = document.getElementById("depIDError2");
-        //
-        //     // 正则表达式，匹配'G1'或'G2'
-        //     var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
-        //
-        //     if (!pattern.test(depIDInput.value)) {
-        //         depIDError2.textContent = "请输入'G1'-'G30'的形式";
-        //         return false; // 阻止表单提交
-        //     } else {
-        //         depIDError2.textContent = "";
-        //         return true; // 阻止表单提交
-        //     }
-        // }
+        document.getElementById("submitButton").addEventListener("click", function (event) {
+            // 在提交按钮点击时执行 checkDepID 函数
+            if (!checkDepID()) {
+                event.preventDefault(); // 取消表单提交
+            }
+        });
+        function checkDepID() {
+            var depIDInput = document.getElementById("depID");
+            var depIDError = document.getElementById("depIDError");
+
+            // 正则表达式，匹配'G1'或'G2'
+            var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
+
+            if (!pattern.test(depIDInput.value)) {
+                depIDError.textContent = "请输入'G1'-'G30'的形式";
+            } else {
+                depIDError.textContent = "";
+            }
+        }
+
+        function checkDepID2() {
+            var depIDInput = document.getElementById("depID");
+            var depIDError2 = document.getElementById("depIDError2");
+
+            // 正则表达式，匹配'G1'或'G2'
+            var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
+
+            if (!pattern.test(depIDInput.value)) {
+                depIDError2.textContent = "请输入'G1'-'G30'的形式";
+                return false; // 阻止表单提交
+            } else {
+                depIDError2.textContent = "";
+                return true; // 阻止表单提交
+            }
+        }
 
         // 弹出成功操作
         // function showSuccessAdd( ) {alert("添加成功! ");
