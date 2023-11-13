@@ -66,10 +66,8 @@ import java.util.List;
                 ModelAndView modelAndView = new ModelAndView("redirect:/department/showDep");
                 String message = null;
                 if (i!=0){
-
                     message="更新成功";
                 }else {
-
                     message="更新失败";
                 }
                 modelAndView.addObject("message",message);
@@ -80,11 +78,22 @@ import java.util.List;
             //    CM03-04
 //    功能名称： 查询二级学院信息模块
             @GetMapping("/likename")
-            public ModelAndView showDep(@RequestParam(name = "depName")String depName){
-                ModelAndView modelAndView = new ModelAndView();
-                List<Department> departments = departmentService.findByName(depName);
-                modelAndView.addObject("deps", departments);
-                modelAndView.setViewName("collegemanage");
+            public ModelAndView showDep(String depName,
+                                        @RequestParam(name = "page",defaultValue = "1") int page,
+                                        @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
+                ModelAndView modelAndView = new ModelAndView("admin/collegemanage");
+
+                List<Department> departments = departmentService.findByName(depName,page,pageSize);
+
+                int totalPages = departmentService.getTotalPagesByName(pageSize,depName);
+
+                Boolean pageIf =true;
+//                根据条件查询到的数据
+                modelAndView.addObject("departments", departments);
+//                前端根据likename显示文本
+                modelAndView.addObject("likeName",depName);
+
+                modelAndView.addObject("totalPages", totalPages);
                 return modelAndView;
             }
         }

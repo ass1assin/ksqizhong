@@ -63,18 +63,18 @@
 
 <!--						辅导员-->
 						<li th:if="${user.type == 'teacher' or user.type == 'admin' }">
-							<a class="J_menuItem" href="/department/showDep"><i class="fa fa-columns"></i> <span class="nav-label">班级信息管理</span></a>
+							<a class="J_menuItem" href="/class/showClass"><i class="fa fa-columns"></i> <span class="nav-label">班级信息管理</span></a>
 						</li>
 						<li th:if="${user.type == 'teacher' or user.type == 'admin' }">
-							<a class="J_menuItem" href="/department/showDep"><i class="fa fa-columns"></i> <span class="nav-label">课程信息管理</span></a>
+							<a class="J_menuItem" href="/course/showCourse"><i class="fa fa-columns"></i> <span class="nav-label">课程信息管理</span></a>
 						</li>
 						<li th:if="${user.type == 'teacher'}">
-							<a class="J_menuItem" href="/leave/showLeave"><i class="fa fa-columns"></i> <span class="nav-label">学生信息管理</span></a>
+							<a class="J_menuItem" href="/student/showStudent"><i class="fa fa-columns"></i> <span class="nav-label">学生信息管理</span></a>
 						</li>
 
 <!--						学生-->
 						<li th:if="${user.type == 'student' or user.type == 'teacher'}">
-							<a class="J_menuItem" href="/department/showDep"><i class="fa fa-columns"></i> <span class="nav-label">请假信息管理</span></a>
+							<a class="J_menuItem" href="/leave/showLeave"><i class="fa fa-columns"></i> <span class="nav-label">请假信息管理</span></a>
 						</li>
 					</ul>
 				</div>

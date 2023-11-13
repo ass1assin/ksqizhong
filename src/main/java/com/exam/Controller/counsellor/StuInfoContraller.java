@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/stu")
+@RequestMapping("/student")
 public class StuInfoContraller {
     @Autowired
     private StuInfoService stuInfoService;
 
 //显示所有信息
-    @GetMapping("/show")
+    @GetMapping("/showStudent")
     public List showStudent(){
         List<Student> stus = stuInfoService.showStudent();
         return stus;

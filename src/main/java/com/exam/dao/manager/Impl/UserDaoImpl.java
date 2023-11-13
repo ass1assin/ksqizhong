@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
     public int updataUser(User user) {
         String sql="update sys_user set fullname=? ,password=? ,telephone=? where userid=?";
 
-        Object[] user1= {user.getFullname(),user.getPassword(),user.getTelephone(),user.getId()};
+        Object[] user1= {user.getFullname(),user.getPassword(),user.getTelephone(),user.getUserid()};
 
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int update = jdbcTemplate.update(sql, user1);

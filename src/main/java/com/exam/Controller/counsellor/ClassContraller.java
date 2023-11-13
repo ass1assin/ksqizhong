@@ -16,7 +16,7 @@ public class ClassContraller {
     private ClassService classService;
 
 //显示所有信息
-    @GetMapping("/show")
+    @GetMapping("/showClass")
     public List showClass(){
         List<Classes> classesList = classService.showClass();
         return classesList;

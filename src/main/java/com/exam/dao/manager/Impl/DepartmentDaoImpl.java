@@ -21,8 +21,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
         String querysql="select * from sys_department";
         RowMapper<Department> rowMapper= new BeanPropertyRowMapper<>(Department.class);
         List<Department> departmentList = jdbcTemplate.query(querysql,rowMapper);
-        return departmentList;
-    }
+        return departmentList;   }
     @Override
     public List<Department> findAllWithPagination(int page, int pageSize) {
         int offset = (page - 1) * pageSize;
@@ -44,14 +43,13 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Override
     public int addDepinfo(Department department) {
         String addsql="insert into sys_department(depID,depName) values(?,?)";
-//        String addsql="insert into TABLE(depID,depName) select 'depID' from DUAL where NOT exists(select sys_department from TABLE where sys_department=?)";
-
-
         Object[] acc= {department.getDepID(), department.getDepName()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);
         return add;
     }
+
+
 
 //    CM03-02
 //    功能名称： 删除二级学院信息模块
@@ -64,12 +62,14 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     }
 
+
+
 //    CM03-03
 //    功能名称： 修改二级学院信息模块
     @Override
     public int updataDep(Department department) {
-        String addsql="update sys_department set depName=? where depID=?";
-        Object[] acc= {department.getDepName(), department.getDepID()};
+        String addsql="update sys_department set  depID=?,depName=? where depID=?";
+        Object[] acc= {department.getDepID(),department.getDepName(), department.getDepID()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int updata = jdbcTemplate.update(addsql, acc);
         return updata;
@@ -80,16 +80,20 @@ public class DepartmentDaoImpl implements DepartmentDao {
 //    CM03-04
 //    功能名称： 查询二级学院信息模块
     @Override
-    public List<Department> findByName(String depName) {
-        String findByName="select * from sys_department where depName like concat('%',?,'%')";
-
+    public List<Department> findByName(String depName,int page, int pageSize) {
+        String findByName="select * from sys_department where depName like concat('%',?,'%') limit ? offset ?";
+        int offset = (page - 1) * pageSize;
         RowMapper<Department> rowMapper= new BeanPropertyRowMapper<>(Department.class);
 
-        List<Department> departmentList = jdbcTemplate.query(findByName,rowMapper,depName);
+        List<Department> departmentList = jdbcTemplate.query(findByName,rowMapper,depName, pageSize, offset);
         return departmentList;
     }
 
-
+    @Override
+    public int getTotalCountByName(String depName) {
+        String countQuery = "SELECT COUNT(*) FROM sys_department where depName like concat('%',?,'%')";
+        return jdbcTemplate.queryForObject(countQuery, Integer.class,depName);
+    }
 
 
 }

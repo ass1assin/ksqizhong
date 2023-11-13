@@ -3,10 +3,10 @@ import lombok.Data;
 
 @Data
 public class User {
-    private int id;
+    private String userid;
     private String fullname;
     private String password;
-    private Integer telephone;
+    private String telephone;
     private String type;
 
 }

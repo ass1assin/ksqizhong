@@ -31,11 +31,10 @@ public class UserPersonController {
 //   ------- CM02: 个人设置-修改信息-------
     @PostMapping("/updataInfo")
     public ModelAndView updataInfo(@ModelAttribute User user){
-        ModelAndView modelAndView = new ModelAndView("redirect:/person/showInfo");
+        ModelAndView modelAndView = new ModelAndView("admin/personinfomation");
         int updataUser = userService.updataUser(user);
         String message = null;
         if (updataUser !=0){
-
             message="更新成功";
         }else {
             message="更新失败";
