@@ -153,12 +153,13 @@
 
                                                             <!-- 修改弹窗-->
                                                             <form role="form" th:action="@{/department/updataDep}" th:method="post" id="UpdateFormId">
+
                                                                 <div class="form-group" >
                                                                     <label>二级学院编号：</label>
 <!--                                                                    加上value查询就报500了-->
-                                                                    <input type="text" name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID" oninput="UpdatecheckDepID()" maxlength="3">
-                                                                    <small id="depIDError" class="text-danger"></small>
+                                                                    <input type="text" name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID"  readonly>
                                                                 </div>
+
                                                                 <div class="form-group">
                                                                     <label>二级学院名称：</label>
                                                                     <input type="text" name="depName"  placeholder="修改二级学院名称" class="form-control"  id="depName">

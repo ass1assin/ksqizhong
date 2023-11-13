@@ -82,17 +82,6 @@
                 </div>
             </div>
         </div>
-<!--        <div class="col-sm-8">-->
-<!--            <div class="ibox float-e-margins">-->
-<!--                <div class="ibox-title">-->
-<!--                    <h5>个人资料</h5>-->
-<!--                    <div class="ibox-tools">-->
-<!--                        <a class="dropdown-toggle" data-toggle="dropdown" href="profile.html#">-->
-<!--                            帮助-->
-<!--                            <i class="fa fa-wrench"></i>-->
-<!--                        </a>-->
-<!--                    </div>-->
-<!--                </div>-->
 
 
 <!--                修改弹窗&ndash;&gt;-->
@@ -106,7 +95,6 @@
                                         <!--                                                            增加弹窗-->
                                         <form role="form" th:action="@{/person/updataInfo}" th:method="post">
                                             <div class="form-group">
-
                                                 <input type="hidden" name="userid" th:value="${user.userid}" />
                                             </div>
                                             <div class="form-group" >
@@ -135,38 +123,6 @@
                     </div>
                 </div>
 
-
-<!--                <div class="ibox-content">-->
-<!--                    <form role="form" th:action="@{/person/updataInfo}" th:method="post">-->
-<!--                    <div>-->
-<!--                        <div class="col-md-12">-->
-<!--                            <div class="form-group">-->
-<!--                                <label class="col-sm-3 control-label">姓名:</label>-->
-<!--                                    <input type="text" name="fullname" id="fullname" placeholder="请输入密码">-->
-<!--                            </div>-->
-
-<!--                            <div class="form-group">-->
-<!--                                <label class="col-sm-3 control-label">密码：</label>-->
-<!--                                    <input type="text" name="password" id="password" placeholder="请输入文本">-->
-<!--                            </div>-->
-
-<!--                            <div class="form-group">-->
-<!--                                <label class="col-sm-3 control-label">手机号：</label>-->
-<!--                                <input type="text" name="telephone" id="telephone" placeholder="请输入文本">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div>-->
-<!--                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" href="#modal-form2" data-toggle="modal"-->
-<!--                                    th:attr="data-user-fullname=${user.fullname},data-user-password=${user.password},data-user-telephone=${user.telephone}"-->
-<!--                                    onclick="setModalValues(this)"-->
-<!--                            ><strong>修改信息</strong>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-
         </div>
     </div>
 </div>
@@ -187,8 +143,7 @@
 <!-- Peity -->
 <script src="../../js/demo/peity-demo.js"></script>
 
-<!--<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
-<!--&lt;!&ndash;统计代码，可删除&ndash;&gt;-->
+
 <script>
     function setModalValues(button) {
         var fullname = button.getAttribute('data-user-fullname');

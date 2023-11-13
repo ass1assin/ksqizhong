@@ -295,64 +295,8 @@
     <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
     <script th:inline="javascript">
-        // 限定只能输入数字，可以在input上和type=number配合使用
-        // let input = document.getElementById('number');
-        // input.oninput = function(){
-        //     this.value = this.value.replace(/\D/g, '');
-        // }
 
-        // document.getElementById("submitButton").addEventListener("click", function (event) {
-        //     // 在提交按钮点击时执行 checkDepID 函数
-        //     if (!checkDepID()) {
-        //         event.preventDefault(); // 取消表单提交
-        //     }
-        // });
-        // function checkDepID() {
-        //     var depIDInput = document.getElementById("depID");
-        //     var depIDError = document.getElementById("depIDError");
-        //
-        //     // 正则表达式，匹配'G1'或'G2'
-        //     var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
-        //
-        //     if (!pattern.test(depIDInput.value)) {
-        //         depIDError.textContent = "请输入'G1'-'G30'的形式";
-        //     } else {
-        //         depIDError.textContent = "";
-        //     }
-        // }
-        //
-        // function checkDepID2() {
-        //     var depIDInput = document.getElementById("depID");
-        //     var depIDError2 = document.getElementById("depIDError2");
-        //
-        //     // 正则表达式，匹配'G1'或'G2'
-        //     var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
-        //
-        //     if (!pattern.test(depIDInput.value)) {
-        //         depIDError2.textContent = "请输入'G1'-'G30'的形式";
-        //         return false; // 阻止表单提交
-        //     } else {
-        //         depIDError2.textContent = "";
-        //         return true; // 阻止表单提交
-        //     }
-        // }
 
-        // 弹出成功操作
-        // function showSuccessAdd( ) {alert("添加成功! ");
-        // }
-        // function showSuccessUpdate( ) {alert("修改成功! ");
-        // }
-        // function showSuccessDelete( ) {alert("删除成功! ");
-        // }
-
-        // function setModalValues(button) {
-        //     var depID = button.getAttribute('data-leaves-id');
-        //     var depName = button.getAttribute('data-dep-name');
-        //
-        //     // 设置模态框中的输入框值
-        //     document.getElementById('depID').value = depID;
-        //     document.getElementById('depName').value = depName;
-        // }
         function setDeleteModalValue(button) {
             var leaveID = button.getAttribute('data-leaves-id');
 
@@ -360,11 +304,7 @@
             document.getElementById('deleteLeaveID').value = leaveID;
         }
     </script>
-<!--&lt;!&ndash;    boostrap表单设置（js、样式等）&ndash;&gt;-->
-<!--    <script src="../../js/demo/bootstrap-table-demo.js"></script>-->
 
-<!--    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
-<!--    &lt;!&ndash;统计代码，可删除&ndash;&gt;-->
 
 </body>
 
