@@ -119,10 +119,10 @@
                                                         <div>
 
 <!--                                                            增加弹窗-->
-                                                            <form role="form" th:action="@{/department/addDep}" th:method="post">
+                                                            <form role="form" th:action="@{/department/addDep}" th:method="post" id="AddFormId">
                                                                 <div class="form-group" >
                                                                     <label>二级学院编号：</label>
-                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control"  id="depID2" oninput="checkDepID2()" maxlength="3">
+                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control"  id="depID2" oninput="AddcheckDepID()" maxlength="3">
                                                                     <small id="depIDError2" class="text-danger"></small>
                                                                 </div>
                                                                 <div class="form-group">
@@ -151,12 +151,12 @@
                                                     <div class="row">
                                                         <div>
 
-                                                            <!--                                                            增加弹窗-->
-                                                            <form role="form" th:action="@{/department/updataDep}" th:method="post">
+                                                            <!-- 修改弹窗-->
+                                                            <form role="form" th:action="@{/department/updataDep}" th:method="post" id="UpdateFormId">
                                                                 <div class="form-group" >
                                                                     <label>二级学院编号：</label>
 <!--                                                                    加上value查询就报500了-->
-                                                                    <input type="text" name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID" oninput="checkDepID()" maxlength="3">
+                                                                    <input type="text" name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID" oninput="UpdatecheckDepID()" maxlength="3">
                                                                     <small id="depIDError" class="text-danger"></small>
                                                                 </div>
                                                                 <div class="form-group">
@@ -282,14 +282,23 @@
         // input.oninput = function(){
         //     this.value = this.value.replace(/\D/g, '');
         // }
-
-        document.getElementById("submitButton").addEventListener("click", function (event) {
+// 修改不对时拦截
+        document.getElementById("UpdateFormId").addEventListener("submit", function (event) {
             // 在提交按钮点击时执行 checkDepID 函数
-            if (!checkDepID()) {
+            if (!UpdatecheckDepID()) {
                 event.preventDefault(); // 取消表单提交
+                alert("修改内容不符合要求");
             }
         });
-        function checkDepID() {
+// 增加不对时拦截
+        document.getElementById("AddFormId").addEventListener("submit", function (event) {
+            // 在提交按钮点击时执行 checkDepID 函数
+            if (!AddcheckDepID()) {
+                event.preventDefault(); // 取消表单提交
+                alert("填写内容不符合要求")
+            }
+        });
+        function UpdatecheckDepID() {
             var depIDInput = document.getElementById("depID");
             var depIDError = document.getElementById("depIDError");
 
@@ -298,13 +307,15 @@
 
             if (!pattern.test(depIDInput.value)) {
                 depIDError.textContent = "请输入'G1'-'G30'的形式";
+                return false;
             } else {
                 depIDError.textContent = "";
+                return true;
             }
         }
 
-        function checkDepID2() {
-            var depIDInput = document.getElementById("depID");
+        function AddcheckDepID() {
+            var depIDInput = document.getElementById("depID2");
             var depIDError2 = document.getElementById("depIDError2");
 
             // 正则表达式，匹配'G1'或'G2'
