@@ -93,6 +93,8 @@ import java.util.List;
 //                前端根据likename显示文本
                 modelAndView.addObject("likeName",depName);
 
+
+                System.out.println("试试");
                 modelAndView.addObject("totalPages", totalPages);
                 return modelAndView;
             }
