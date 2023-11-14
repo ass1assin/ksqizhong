@@ -66,9 +66,10 @@ public class LeaveContraller {
 
 
     @PostMapping("/auditLeave")
-    public int audit(@PathVariable Leave leave) {
+    public ModelAndView audit(@PathVariable Leave leave) {
         int audit = leaveService.audit(leave);
-        return audit;
+        ModelAndView modelAndView = new ModelAndView("redirect:/leave/showLeave");
+        return modelAndView;
     }
 
 
