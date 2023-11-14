@@ -119,15 +119,25 @@
                                                         <div>
 
 <!--                                                            增加弹窗-->
-                                                            <form role="form" th:action="@{/department/addDep}" th:method="post" id="AddFormId">
+                                                            <form role="form" th:action="@{/inst/addInst}" th:method="post" id="AddFormId">
+                                                                <div class="form-group" >
+                                                                    <label>辅导员编号：</label>
+                                                                    <input type="text" name="instID"  placeholder="请输入辅导员编号" class="form-control">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>辅导员名称：</label>
+                                                                    <input type="text" name="instName"  placeholder="请输入辅导员名称" class="form-control">
+                                                                </div>
+
                                                                 <div class="form-group" >
                                                                     <label>二级学院编号：</label>
-                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control"  id="depID2" oninput="AddcheckDepID()" maxlength="3">
-                                                                    <small id="depIDError2" class="text-danger"></small>
+                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control" >
                                                                 </div>
+
                                                                 <div class="form-group">
-                                                                    <label>二级学院名称：</label>
-                                                                    <input type="text" name="depName"  placeholder="请输入二级学院名称" class="form-control">
+                                                                    <label>电话信息：</label>
+                                                                    <input type="text" name="telephone"  placeholder="请输入电话信息" class="form-control">
                                                                 </div>
                                                                 <div>
                                                                     <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
@@ -152,17 +162,27 @@
                                                         <div>
 
                                                             <!-- 修改弹窗-->
-                                                            <form role="form" th:action="@{/department/updataDep}" th:method="post" id="UpdateFormId">
+                                                            <form role="form" th:action="@{/inst/updataInst}" th:method="post" id="UpdateFormId">
 
                                                                 <div class="form-group" >
-                                                                    <label>二级学院编号：</label>
+                                                                    <label>辅导员编号：</label>
 <!--                                                                    加上value查询就报500了-->
-                                                                    <input type="text" name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID"  readonly>
+                                                                    <input type="text" name="instID"  placeholder="修改二级学院编号" class="form-control"  id="instID"  readonly>
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label>二级学院名称：</label>
-                                                                    <input type="text" name="depName"  placeholder="修改二级学院名称" class="form-control"  id="depName">
+                                                                    <label>辅导员名称：</label>
+                                                                    <input type="text" name="instName"  placeholder="修改二级学院名称" class="form-control"  id="instName">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>二级学院ID：</label>
+                                                                    <input type="text" name="depID"  placeholder="修改二级学院名称" class="form-control"  id="depID">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>电话信息：</label>
+                                                                    <input type="text" name="telephone"  placeholder="修改二级学院名称" class="form-control"  id="telephone">
                                                                 </div>
                                                                 <div>
                                                                     <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
@@ -187,8 +207,8 @@
                                                         <div>
 
                                                             <!-- 增加弹窗 -->
-                                                            <form role="form" th:action="@{/department/delete}" style="padding: 15px; text-align: center">
-                                                                <input type="hidden" id="deleteDepID" name="deleteDepID" />
+                                                            <form role="form" th:action="@{/inst/delete}" style="padding: 15px; text-align: center">
+                                                                <input type="hidden" id="deleteInstID" name="deleteInstID" />
 
                                                                 <h3>确认是否删除</h3>
                                                                 <div>
@@ -209,53 +229,61 @@
                                         <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                                     </button>
 <!--                                    搜索栏-->
-                                    <form th:action="@{/department/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
+                                    <form th:action="@{/inst/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
 
-                                        <input type="text" name="depName" class="form-control" placeholder="学院名称" th:value="${likeName}"/>
+                                        <input type="text" name="instName" class="form-control" placeholder="辅导员名称" th:value="${likeName}"/>
 
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default" type="submit" onclick="togglePagination('likenamePagination', 'showDepPagination')">
+                                            <button class="btn btn-default" type="submit" onclick="togglePagination('likenamePagination', 'showPagination')">
                                                 <i class="glyphicon glyphicon-search"></i>
                                             </button>
                                         </span>
                                     </form>
 
 <!--                                    重置搜索-->
-                                    <a  class="J_menuItem" href="/department/showDep"> <button class="btn btn-outline btn-default"><span class="nav-label">
+                                    <a  class="J_menuItem" href="/inst/showInst"> <button class="btn btn-outline btn-default"><span class="nav-label">
                                         重置</span></button></a>
 
                                 </div>
                                 <table id="exampleTableEvents" data-height="400" data-mobile-responsive="true">
                                     <thead>
                                         <tr>
-                                            <th data-field="depID">ID</th>
-                                            <th data-field="depName">名称</th>
+                                            <th data-field="instID">辅导员ID</th>
+                                            <th data-field="instName">辅导员名称</th>
+                                            <th data-field="depID">所属学院</th>
+                                            <th data-field="telephone">电话号码</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
-                                    <tr th:each="departments:${departments}">
-                                        <td th:text="${departments.depID}"></td>
-                                        <td th:text="${departments.depName}"></td>
+                                    <tr th:each="Insts:${Insts}">
+                                        <td th:text="${Insts.instID}"></td>
+                                        <td th:text="${Insts.instName}"></td>
+                                        <td th:text="${Insts.depID}"></td>
+                                        <td th:text="${Insts.telephone}"></td>
                                         <td>
                                             <!-- 修改按钮 -->
                                             <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
-                                                    th:attr="data-departments-id=${departments.depID},data-departments-name=${departments.depName}"
+                                                    th:attr="
+                                                    data-Insts-id=${Insts.instID},
+                                                    data-Insts-name=${Insts.instName},
+                                                    data-Insts-depID=${Insts.depID},
+                                                    data-Insts-telephone=${Insts.telephone}"
                                                     onclick="setModalValues(this)"
                                             >编辑</button>
                                             <!-- 删除按钮 -->
 
                                             <button class="btn btn-danger btn-sm delete-btn"
-                                                    th:attr="data-departments-id=${departments.depID}"
+                                                    th:attr="data-Insts-id=${Insts.instID}"
                                                     data-toggle="modal" href="#modal-form3"
                                                     onclick="setDeleteModalValue(this)"
                                             >删除</button>
                                         </td>
                                     </tr>
                                 </table>
-                                <div id="showDepPagination" class="pagination-container">
+                                <div id="showPagination" class="pagination-container">
                                     <ul class="pagination">
                                         <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
-                                            <a th:href="@{ /department/showDep(page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
+                                            <a th:href="@{ /inst/showInst(page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -263,7 +291,7 @@
                                 <div id="likenamePagination" class="pagination-container" style="display: none;">
                                     <ul class="pagination">
                                         <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
-                                            <a th:href="@{ /department/likename(page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
+                                            <a th:href="@{ /inst/likename(page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -293,62 +321,72 @@
 
     <script th:inline="javascript">
 
-// 增加不对时拦截
-        document.getElementById("AddFormId").addEventListener("submit", function (event) {
-            // 在提交按钮点击时执行 checkDepID 函数
-            if (!AddcheckDepID()) {
-                event.preventDefault(); // 取消表单提交
-                alert("填写内容不符合要求")
-            }
-        });
-        function UpdatecheckDepID() {
-            var depIDInput = document.getElementById("depID");
-            var depIDError = document.getElementById("depIDError");
+// // 增加不对时拦截
+//         document.getElementById("AddFormId").addEventListener("submit", function (event) {
+//             // 在提交按钮点击时执行 checkDepID 函数
+//             if (!AddcheckDepID()) {
+//                 event.preventDefault(); // 取消表单提交
+//                 alert("填写内容不符合要求")
+//             }
+//         });
+//         function UpdatecheckDepID() {
+//             var depIDInput = document.getElementById("depID");
+//             var depIDError = document.getElementById("depIDError");
+//
+//             // 正则表达式，匹配'G1'或'G2'
+//             var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
+//
+//             if (!pattern.test(depIDInput.value)) {
+//                 depIDError.textContent = "请输入'G1'-'G30'的形式";
+//                 return false;
+//             } else {
+//                 depIDError.textContent = "";
+//                 return true;
+//             }
+//         }
+//
+//         function AddcheckDepID() {
+//             var depIDInput = document.getElementById("depID2");
+//             var depIDError2 = document.getElementById("depIDError2");
+//
+//             // 正则表达式，匹配'G1'或'G2'
+//             var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
+//
+//             if (!pattern.test(depIDInput.value)) {
+//                 depIDError2.textContent = "请输入'G1'-'G30'的形式";
+//                 return false; // 阻止表单提交
+//             } else {
+//                 depIDError2.textContent = "";
+//                 return true; // 阻止表单提交
+//             }
+//         }
 
-            // 正则表达式，匹配'G1'或'G2'
-            var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
-
-            if (!pattern.test(depIDInput.value)) {
-                depIDError.textContent = "请输入'G1'-'G30'的形式";
-                return false;
-            } else {
-                depIDError.textContent = "";
-                return true;
-            }
-        }
-
-        function AddcheckDepID() {
-            var depIDInput = document.getElementById("depID2");
-            var depIDError2 = document.getElementById("depIDError2");
-
-            // 正则表达式，匹配'G1'或'G2'
-            var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
-
-            if (!pattern.test(depIDInput.value)) {
-                depIDError2.textContent = "请输入'G1'-'G30'的形式";
-                return false; // 阻止表单提交
-            } else {
-                depIDError2.textContent = "";
-                return true; // 阻止表单提交
-            }
-        }
-
-
+//     data-Insts-id=${Insts.instID},
+//     data-Insts-name=${Insts.instName},
+//     data-Insts-depID=${Insts.depID},
+//     data-Insts-telephone=${Insts.telephone}
         function setModalValues(button) {
-            var depID = button.getAttribute('data-departments-id');
-            var depName = button.getAttribute('data-departments-name');
+            var instID = button.getAttribute('data-Insts-id');
+            var instName = button.getAttribute('data-Insts-name');
+            var depID = button.getAttribute('data-Insts-depID');
+            var telephone = button.getAttribute('data-Insts-telephone');
 
             // 设置模态框中的输入框值
+            document.getElementById('instID').value = instID;
+            document.getElementById('instName').value = instName;
             document.getElementById('depID').value = depID;
-            document.getElementById('depName').value = depName;
+            document.getElementById('telephone').value = telephone;
         }
         function setDeleteModalValue(button) {
-            var depID = button.getAttribute('data-departments-id');
+            var instID = button.getAttribute('data-Insts-id');
 
             // 设置删除模态框中的隐藏表单值
-            document.getElementById('deleteDepID').value = depID;
+            document.getElementById('deleteInstID').value = instID;
+
         }
-        document.getElementById('showDepPagination').style.display = 'block';
+
+
+        document.getElementById('showPagination').style.display = 'block';
 
         // JavaScript函数，用于切换分页的显示和隐藏
         function togglePagination(showPagination, hidePagination) {

@@ -2,6 +2,7 @@ package com.exam.Service.manager.Impl;
 
 import com.exam.Service.manager.InstInfoService;
 import com.exam.dao.manager.InstInfoDao;
+import com.exam.entity.Department;
 import com.exam.entity.Inst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,15 @@ public class InstInfoServiceImpl implements InstInfoService {
         List<Inst> inst = instInfoDao.showInst();
         return inst;
     }
-
+    @Override
+    public List<Inst> getDepsWithPagination(int page, int pageSize) {
+        return instInfoDao.findAllWithPagination(page,pageSize);
+    }
+    public int getTotalPages(int pageSize) {
+        int totalCount = instInfoDao.getTotalCount();
+        int pageSum = (totalCount / pageSize )+1;
+        return pageSum;
+    }
 
     //    CM03-01
 //    功能名称： 添加辅导员信息模块
@@ -32,8 +41,8 @@ public class InstInfoServiceImpl implements InstInfoService {
     //    CM03-02
 //    功能名称： 删除辅导员信息模块
     @Override
-    public int deleteInst(List<Integer> ids) {
-        int deleteInst = instInfoDao.deleteInst(ids);
+    public int deleteInst(String id) {
+        int deleteInst = instInfoDao.deleteInst(id);
         return deleteInst;
     }
 
@@ -49,10 +58,18 @@ public class InstInfoServiceImpl implements InstInfoService {
 
     //    CM03-04
 //    功能名称： 查询辅导员信息模块
+
     @Override
-    public List<Inst> findByName(String depName) {
-        List<Inst> findByname = instInfoDao.findByName(depName);
+    public List<Inst> findByName(String instName, int page, int pageSize) {
+        List<Inst> findByname = instInfoDao.findByName(instName,page,pageSize);
         return findByname;
+    }
+
+    @Override
+    public int getTotalPagesByName(int pageSize,String Name) {
+        int totalCount = instInfoDao.getTotalCountByName(Name);
+        int pageSum = (totalCount / pageSize )+1;
+        return pageSum;
     }
 
 
