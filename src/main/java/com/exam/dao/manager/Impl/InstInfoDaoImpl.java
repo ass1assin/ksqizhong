@@ -1,6 +1,7 @@
 package com.exam.dao.manager.Impl;
 
 import com.exam.dao.manager.InstInfoDao;
+import com.exam.entity.Department;
 import com.exam.entity.Inst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -25,6 +26,20 @@ public class InstInfoDaoImpl implements InstInfoDao {
         return InstList;
     }
 
+    @Override
+    public List<Inst> findAllWithPagination(int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        String querysql = "select * from sys_instructor limit ? offset ?";
+        BeanPropertyRowMapper<Inst> depBeanPropertyRowMapper = new BeanPropertyRowMapper<>(Inst.class);
+        List<Inst> InstList =  jdbcTemplate.query(querysql, depBeanPropertyRowMapper, pageSize, offset);
+        return InstList;
+    }
+
+    @Override
+    public int getTotalCount() {
+        String countQuery = "SELECT COUNT(*) FROM sys_department";
+        return jdbcTemplate.queryForObject(countQuery, Integer.class);
+    }
 
 
 
@@ -42,10 +57,10 @@ public class InstInfoDaoImpl implements InstInfoDao {
 //    CM03-02
 //    功能名称： 删除辅导员信息模块
     @Override
-    public int deleteInst(List<Integer> ids) {
-        String addsql="delete from sys_department where instID in ?";
+    public int deleteInst(String id) {
+        String addsql="delete from sys_instructor where instID = ?";
         //调用jdbcTemplate.update(实现添加 删除 修改等)
-        int delete = jdbcTemplate.update(addsql, ids);
+        int delete = jdbcTemplate.update(addsql, id);
         return delete;
 
     }
@@ -66,12 +81,17 @@ public class InstInfoDaoImpl implements InstInfoDao {
 //    CM03-04
 //    功能名称： 查询辅导员信息模块
     @Override
-    public List<Inst> findByName(String instName) {
-        String findByName="select * from sys_instructor where instName like concat('%',?,'%')";
-
+    public List<Inst> findByName(String instName,int page, int pageSize) {
+        String findByName="select * from sys_instructor where instName like concat('%',?,'%') limit ? offset ?";
+        int offset = (page - 1) * pageSize;
         RowMapper<Inst> rowMapper= new BeanPropertyRowMapper<>(Inst.class);
 
-        List<Inst> instList = jdbcTemplate.query(findByName,rowMapper);
+        List<Inst> instList = jdbcTemplate.query(findByName,rowMapper,instName,pageSize,offset);
         return instList;
+    }
+    @Override
+    public int getTotalCountByName(String instName) {
+        String countQuery = "SELECT COUNT(*) FROM sys_instructor where instName like concat('%',?,'%')";
+        return jdbcTemplate.queryForObject(countQuery, Integer.class,instName);
     }
 }

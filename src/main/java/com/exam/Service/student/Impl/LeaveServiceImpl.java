@@ -51,6 +51,9 @@ public class LeaveServiceImpl implements LeaveService {
 
         leave.setLeaveID(currentTime+randomNum);
 
+        //状态默认为0
+        leave.setStatus("0");
+
         int addLeave= leaveDao.addLeave(leave);
         return addLeave;
     }

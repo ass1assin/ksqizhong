@@ -70,8 +70,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public int getTotalPagesByName(int pageSize,String depName) {
-        int totalCount = departmentDao.getTotalCountByName(depName);
+    public int getTotalPagesByName(int pageSize,String Name) {
+        int totalCount = departmentDao.getTotalCountByName(Name);
         int pageSum = (totalCount / pageSize )+1;
         return pageSum;
     }
