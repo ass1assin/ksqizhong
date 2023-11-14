@@ -18,6 +18,35 @@
     <link href="../../css/style.css?v=4.1.0" rel="stylesheet">
 
     <style>
+        .invalid-feedback {
+            display: block;
+            width: 100%;
+            margin-top: .25rem;
+            font-size: 80%;
+            color: #dc3545;
+        }
+
+        /* Style for form buttons */
+        .btn-primary, .btn-danger {
+            margin-right: 10px;
+        }
+
+        /* Style for form labels */
+        .col-form-label {
+            padding-top: 8px;
+        }
+
+        /* Optional: Style for form labels when using horizontal form layout */
+        .form-group.row {
+            margin-bottom: 15px;
+        }
+
+        /* Optional: Style for form input fields */
+        .form-control {
+            margin-bottom: 10px;
+        }
+
+
 
         .pagination {
             list-style: none;
@@ -83,15 +112,7 @@
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#">选项1</a>
-                        </li>
-                        <li><a href="#">选项2</a>
-                        </li>
-                    </ul>
+
                     <a class="close-link">
                         <i class="fa fa-times"></i>
                     </a>
@@ -110,43 +131,7 @@
                             <div class="example">
                                 <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
 
-<!--                                    弹出窗口-->
-                                    <div id="modal-form" class="modal fade" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <div>
-
-<!--                                                            增加弹窗-->
-                                                            <form role="form" th:action="@{/leave/addLeave}" th:method="post">
-                                                                <div class="form-group" >
-                                                                    <label>请假课程ID：</label>
-                                                                    <input type="text" name="courseID"  placeholder="请输入请假课程ID" class="form-control">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>请假事由：</label>
-                                                                    <input type="text" name="reason"  placeholder="请输入请假事由" class="form-control">
-                                                                </div>
-                                                                <div class="form-group" >
-                                                                    <label>请假天数：</label>
-                                                                    <input type="text" name="daynum"  placeholder="请输入请假天数" class="form-control">
-                                                                </div>
-                                                                <div>
-                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
-                                                                    </button>
-                                                                </div>
-                                                            </form>
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-<!--                                    修改弹窗-->
+<!--                                    审核弹窗-->
                                     <div id="modal-form2" class="modal fade" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -154,22 +139,67 @@
                                                     <div class="row">
                                                         <div>
 
-                                                            <!--                                                            增加弹窗-->
-<!--                                                            <form role="form" th:action="@{/department/updataDep}" th:method="post">-->
-<!--                                                                <div class="form-group" >-->
-<!--                                                                    <label>二级学院编号：</label>-->
-<!--&lt;!&ndash;                                                                    加上value查询就报500了&ndash;&gt;-->
-<!--                                                                    <input type="text" name="depID"  placeholder="修改二级学院编号" class="form-control"  id="depID">-->
-<!--                                                                </div>-->
-<!--                                                                <div class="form-group">-->
-<!--                                                                    <label>二级学院名称：</label>-->
-<!--                                                                    <input type="text" name="depName"  placeholder="修改二级学院名称" class="form-control"  id="depName">-->
-<!--                                                                </div>-->
-<!--                                                                <div>-->
-<!--                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>-->
-<!--                                                                    </button>-->
-<!--                                                                </div>-->
-<!--                                                            </form>-->
+
+                                                            <form role="form" th:action="@{/leave/auditLeave}" th:method="post">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">请假编号：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="leaveID" placeholder="请输入请假编号" class="form-control" id="leaveID">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">课程编号：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="courseID"  placeholder="修改二级学院名称" class="form-control"  id="courseID">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">请假事由：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="reason"  placeholder="修改二级学院名称" class="form-control"  id="reason">
+                                                                    </div>
+                                                                </div>
+                                                                <div  class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">天数：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="daynum"  placeholder="修改二级学院名称" class="form-control"  id="daynum">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">学号：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="stuNo" placeholder="修改二级学院名称" class="form-control" id="stuNo">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">请假时间：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" placeholder="修改二级学院名称" class="form-control" id="applytime">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">状态：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" placeholder="修改二级学院名称" class="form-control" id="status">
+                                                                    </div>
+                                                                    <div id="status-display"></div>
+                                                                </div>
+
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">审核意见：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <textarea name="opinion" placeholder="修改二级学院名称" class="form-control" id="opinion" rows="4"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs approval-btn" type="submit" name="Bo" value="false"><strong>不同意</strong>
+                                                                    </button>
+                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs approval-btn" type="submit" name="Bo" value="true"><strong>同意</strong>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
 
                                                         </div>
 
@@ -204,11 +234,6 @@
                                     </div>
 
 
-<!--                                    新增-->
-                                    <button type="button" class="btn btn-outline btn-default" data-toggle="modal" href="#modal-form">
-                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                                    </button>
-
                                     <form th:action="@{/department/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
                                         <input type="text" name="depName" class="form-control" placeholder="学院名称" />
                                         <span class="input-group-btn">
@@ -225,36 +250,43 @@
                                         <tr>
                                             <th data-field="leaveID">ID</th>
                                             <th data-field="courseID">请假课程ID</th>
-                                            <th data-field="reason">请假事由</th>
                                             <th data-field="daynum">请假日期</th>
                                             <th data-field="stuNo">申请人学号</th>
                                             <th data-field="applytime">申请时间</th>
                                             <th data-field="status">状态</th>
                                             <th data-field="audittime">审核时间</th>
-                                            <th data-field="opinion">意见</th>
-
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tr th:each="leaves:${leaves}">
                                         <td th:text="${leaves.leaveID}"></td>
                                         <td th:text="${leaves.courseID}"></td>
-                                        <td th:text="${leaves.reason}"></td>
                                         <td th:text="${leaves.daynum}"></td>
                                         <td th:text="${leaves.stuNo}"></td>
                                         <td th:text="${leaves.applytime}"></td>
-                                        <td th:text="${leaves.status}"></td>
-                                        <td th:text="${leaves.audittime}"></td>
-                                        <td th:text="${leaves.opinion}"></td>
-
+<!--                                        <td th:text="${leaves.status}"></td>-->
                                         <td>
-                                            <!-- 修改按钮 -->
-<!--                                            <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"-->
-<!--                                                    th:attr="data-departments-id=${departments.depID},data-departments-name=${departments.depName}"-->
-<!--                                                    onclick="setModalValues(this)"-->
-<!--                                            >编辑</button>-->
-                                            <!-- 删除按钮 -->
+                                            <span th:if="${leaves.status == '0'}" class="text-success">未审批</span>
+                                            <span th:if="${leaves.status == '1'}" class="text-success">已同意</span>
+                                            <span th:if="${leaves.status == '2'}" class="text-danger">已拒绝</span>
+                                        </td>
+                                        <td th:text="${leaves.audittime}"></td>
+                                        <td>
+                                            <!-- 审核按钮 -->
+                                            <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
+                                                    th:attr="data-leaves-leaveID=${leaves.leaveID},
+                                                             data-leaves-courseID=${leaves.courseID},
+                                                             data-leaves-reason=${leaves.reason},
+                                                             data-leaves-daynum=${leaves.daynum},
+                                                             data-leaves-stuNo=${leaves.stuNo},
+                                                             data-leaves-applytime=${leaves.applytime},
+                                                             data-leaves-status=${leaves.status},
+                                                             data-leaves-audittime=${leaves.audittime},
+                                                             data-leaves-opinion=${leaves.opinion}"
+                                                    onclick="auditForm(this)"
+                                            >预览</button>
 
+                                            <!-- 删除按钮 -->
                                             <button class="btn btn-danger btn-sm delete-btn"
                                                     th:attr="data-leaves-id=${leaves.leaveID}"
                                                     data-toggle="modal" href="#modal-form3"
@@ -295,76 +327,56 @@
     <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
     <script th:inline="javascript">
-        // 限定只能输入数字，可以在input上和type=number配合使用
-        // let input = document.getElementById('number');
-        // input.oninput = function(){
-        //     this.value = this.value.replace(/\D/g, '');
-        // }
 
-        // document.getElementById("submitButton").addEventListener("click", function (event) {
-        //     // 在提交按钮点击时执行 checkDepID 函数
-        //     if (!checkDepID()) {
-        //         event.preventDefault(); // 取消表单提交
-        //     }
-        // });
-        // function checkDepID() {
-        //     var depIDInput = document.getElementById("depID");
-        //     var depIDError = document.getElementById("depIDError");
-        //
-        //     // 正则表达式，匹配'G1'或'G2'
-        //     var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
-        //
-        //     if (!pattern.test(depIDInput.value)) {
-        //         depIDError.textContent = "请输入'G1'-'G30'的形式";
-        //     } else {
-        //         depIDError.textContent = "";
-        //     }
-        // }
-        //
-        // function checkDepID2() {
-        //     var depIDInput = document.getElementById("depID");
-        //     var depIDError2 = document.getElementById("depIDError2");
-        //
-        //     // 正则表达式，匹配'G1'或'G2'
-        //     var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
-        //
-        //     if (!pattern.test(depIDInput.value)) {
-        //         depIDError2.textContent = "请输入'G1'-'G30'的形式";
-        //         return false; // 阻止表单提交
-        //     } else {
-        //         depIDError2.textContent = "";
-        //         return true; // 阻止表单提交
-        //     }
-        // }
+// 弹窗监视
+        function auditForm(button) {
+            var leaveID = button.getAttribute('data-leaves-id');
+            var courseID = button.getAttribute('data-leaves-courseID');
+            var reason = button.getAttribute('data-leaves-reason');
+            var daynum = button.getAttribute('data-leaves-daynum');
+            var stuNo = button.getAttribute('data-leaves-stuNo');
+            var applytime = button.getAttribute('data-leaves-applytime');
+            var status = button.getAttribute('data-leaves-status');
+            var audittime = button.getAttribute('data-leaves-audittime');
+            var opinion = button.getAttribute('data-leaves-opinion');
 
-        // 弹出成功操作
-        // function showSuccessAdd( ) {alert("添加成功! ");
-        // }
-        // function showSuccessUpdate( ) {alert("修改成功! ");
-        // }
-        // function showSuccessDelete( ) {alert("删除成功! ");
-        // }
 
-        // function setModalValues(button) {
-        //     var depID = button.getAttribute('data-leaves-id');
-        //     var depName = button.getAttribute('data-dep-name');
-        //
-        //     // 设置模态框中的输入框值
-        //     document.getElementById('depID').value = depID;
-        //     document.getElementById('depName').value = depName;
-        // }
+            var approvalButtons = document.querySelectorAll('.approval-btn');
+            if (status === '0') {
+                // 如果状态为0，显示按钮
+                approvalButtons.forEach(function(button) {
+                    button.style.display = 'block';
+                });
+            } else {
+                // 如果状态为1、2，显示按钮
+                approvalButtons.forEach(function(button) {
+                    button.style.display = 'none';
+                });
+            }
+
+
+            // 设置模态框中的输入框值
+            document.getElementById('leaveID').value = leaveID;
+            document.getElementById('courseID').value = courseID;
+            document.getElementById('reason').value = reason;
+            document.getElementById('daynum').value = daynum;
+            document.getElementById('stuNo').value = stuNo;
+            document.getElementById('applytime').value = applytime;
+            if (status == '1'){
+            document.getElementById('status').value = '已同意';}
+            else if(status =='2'){
+            document.getElementById('status').value = '已拒绝';}
+            else
+            {document.getElementById('status').value ='未审批'}
+            document.getElementById('audittime').value = audittime;
+            document.getElementById('opinion').value = opinion;
+        }
         function setDeleteModalValue(button) {
             var leaveID = button.getAttribute('data-leaves-id');
-
             // 设置删除模态框中的隐藏表单值
             document.getElementById('deleteLeaveID').value = leaveID;
         }
     </script>
-<!--&lt;!&ndash;    boostrap表单设置（js、样式等）&ndash;&gt;-->
-<!--    <script src="../../js/demo/bootstrap-table-demo.js"></script>-->
-
-<!--    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
-<!--    &lt;!&ndash;统计代码，可删除&ndash;&gt;-->
 
 </body>
 
