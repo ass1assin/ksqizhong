@@ -6,6 +6,7 @@ import com.exam.entity.Classes;
 import com.exam.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -16,10 +17,24 @@ public class CourseContraller {
     private CourseService courseService;
 
 //显示所有信息
+//    @GetMapping("/showCourse")
+//    public List showCourse(){
+//        List<Course> CourseList = courseService.showCourse();
+//        return CourseList;
+//    }
     @GetMapping("/showCourse")
-    public List showCourse(){
-        List<Course> CourseList = courseService.showCourse();
-        return CourseList;
+    public ModelAndView showCourse(@RequestParam(name = "page",defaultValue = "1") int page,
+                                @RequestParam(name = "pageSize",defaultValue = "10") int pageSize) {
+    ModelAndView modelAndView = new ModelAndView("counsellor/coursemanager");
+
+    List<Course> courses = courseService.getDepsWithPagination(page, pageSize);
+    int totalPages = courseService.getTotalPages(pageSize);
+
+    modelAndView.addObject("courses", courses);
+
+    modelAndView.addObject("totalPages", totalPages);
+
+    return modelAndView;
     }
 
 //    CM07-01
@@ -44,21 +59,38 @@ public class CourseContraller {
     //    CM07-03
 //    功能名称： 修改学生信息模块
     @PostMapping("/updataCourse")
-    public String updataCourse(Course course){
+    public ModelAndView updataCourse(@ModelAttribute Course course){
         int i = courseService.updataCourse(course);
-        if (i!=0){
-            return "成功";
-        }else {
-            return "失败";
-        }
+        ModelAndView modelAndView=new ModelAndView("redirect:/couse/showCourse");
+
+        return modelAndView;
     }
 
 
     //    CM07-04
 //    功能名称： 查询学生信息模块
-    @GetMapping("/likename/{name}")
-    public List showCourse(@PathVariable String name){
-        List<Course> byName = courseService.findByName(name);
-        return byName;
+//    @GetMapping("/likename/{name}")
+//    public List showCourse(@PathVariable String name){
+//        List<Course> byName = courseService.findByName(name);
+//        return byName;
+//    }
+    @GetMapping("/likename")
+    public ModelAndView showCourse(String courseName,
+                                @RequestParam(name = "page",defaultValue = "1") int page,
+                                @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
+        ModelAndView modelAndView = new ModelAndView("coursellor/coursemanager");
+
+        List<Course> courses = courseService.findByName(courseName,page,pageSize);
+
+        int totalPages = courseService.getTotalPagesByName(pageSize,courseName);
+
+        Boolean pageIf =true;
+//              根据条件查询到的数据
+        modelAndView.addObject("courses", courses);
+//              前端根据likename显示文本
+        modelAndView.addObject("likeName",courseName);
+
+        modelAndView.addObject("totalPages", totalPages);
+        return modelAndView;
     }
 }

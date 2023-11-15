@@ -1,8 +1,6 @@
 package com.exam.dao.counsellor.Impl;
 
-import com.exam.dao.counsellor.ClassDao;
 import com.exam.dao.counsellor.CourseDao;
-import com.exam.entity.Classes;
 import com.exam.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -26,6 +24,21 @@ public class CourseDaoImpl implements CourseDao {
         List<Course> courseListList = jdbcTemplate.query(querysql,new BeanPropertyRowMapper<>(Course.class));
         return courseListList;
     }
+    @Override
+    public List<Course> findAllWithPagination(int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        String querysql = "select * from sys_course limit ? offset ?";
+        BeanPropertyRowMapper<Course> courseBeanPropertyRowMapper = new BeanPropertyRowMapper<>(Course.class);
+        List<Course> courseListList =  jdbcTemplate.query(querysql, courseBeanPropertyRowMapper, pageSize, offset);
+        return courseListList;
+    }
+
+    @Override
+    public int getTotalCount() {
+        String countQuery = "SELECT COUNT(*) FROM sys_course";
+        return jdbcTemplate.queryForObject(countQuery, Integer.class);
+    }
+
 
 
 
@@ -67,13 +80,28 @@ public class CourseDaoImpl implements CourseDao {
 
 //    CM07-04
 //    功能名称： 查询学生信息模块
+//    @Override
+//    public List<Course> findByName(String className) {
+//        String findByName="select * from sys_course where courseName like concat('%',?,'%')";
+//
+//        RowMapper<Course> rowMapper= new BeanPropertyRowMapper<>(Course.class);
+//
+//        List<Course> ClassesList = jdbcTemplate.query(findByName,rowMapper);
+//        return ClassesList;
+//    }
+@Override
+public List<Course> findByName(String courseName,int page, int pageSize) {
+    String findByName="select * from sys_course where courseName like concat('%',?,'%') limit ? offset ?";
+    int offset = (page - 1) * pageSize;
+    RowMapper<Course> rowMapper= new BeanPropertyRowMapper<>(Course.class);
+
+    List<Course> courseList = jdbcTemplate.query(findByName,rowMapper,courseName, pageSize, offset);
+    return courseList;
+}
+
     @Override
-    public List<Course> findByName(String className) {
-        String findByName="select * from sys_course where courseName like concat('%',?,'%')";
-
-        RowMapper<Course> rowMapper= new BeanPropertyRowMapper<>(Course.class);
-
-        List<Course> ClassesList = jdbcTemplate.query(findByName,rowMapper);
-        return ClassesList;
+    public int getTotalCountByName(String courseName) {
+        String countQuery = "SELECT COUNT(*) FROM sys_course where courseName like concat('%',?,'%')";
+        return jdbcTemplate.queryForObject(countQuery, Integer.class,courseName);
     }
 }

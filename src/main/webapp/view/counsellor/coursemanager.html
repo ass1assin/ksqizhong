@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - Bootstrap Table</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="../../css/bootstrap.min.css?v=3.3.7" rel="stylesheet">
+    <link href="../../css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css?v=4.1.0" rel="stylesheet">
+
+    <style>
+
+        .pagination {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+
+        .pagination li {
+            margin-right: 5px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            color: #007bff;
+            padding: 8px 12px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .pagination a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .pagination .active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        #exampleTableEvents {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        #exampleTableEvents th, #exampleTableEvents td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #exampleTableEvents th {
+            background-color: #f2f2f2;
+        }
+
+
+
+        .btn {
+            margin-right: 5px;
+        }
+    </style>
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>其他</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-wrench"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#">选项1</a>
+                    </li>
+                    <li><a href="#">选项2</a>
+                    </li>
+                </ul>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+
+
+
+
+        <div class="ibox-content">
+            <div class="row row-lg">
+
+
+                <div class="col-sm-12">
+                    <div class="example-wrap">
+                        <div class="example">
+                            <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
+
+                                <!--                                    弹出窗口-->
+                                <div id="modal-form" class="modal fade" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div>
+
+                                                        <!--                                                            增加弹窗-->
+                                                        <form role="form" th:action="@{/coursee/addCourse}" th:method="post" id="AddFormId">
+                                                            <div class="form-group" >
+                                                                <label>二级学院编号：</label>
+                                                                <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control"  id="depID2" oninput="AddcheckDepID()" maxlength="3">
+                                                                <small id="depIDError2" class="text-danger"></small>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>二级学院名称：</label>
+                                                                <input type="text" name="depName"  placeholder="请输入二级学院名称" class="form-control">
+                                                            </div>
+                                                            <div>
+                                                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
+                                                                </button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--                                    修改弹窗-->
+                                <div id="modal-form2" class="modal fade" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div>
+
+                                                        <!-- 修改弹窗-->
+                                                        <form role="form" th:action="@{/course/updataCourse}" th:method="post">
+
+                                                            <div class="form-group" >
+                                                                <label>二级学院编号：</label>
+                                                                <!--                                                                    加上value查询就报500了-->
+                                                                <input type="text" name="courseID"  placeholder="修改二级学院编号" class="form-control"  id="courseID"  readonly>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>二级学院名称：</label>
+                                                                <input type="text" name="classID"  placeholder="修改二级学院名称" class="form-control"  id="classID">
+                                                            </div>
+                                                            <div class="form-group" >
+                                                                <label>二级学院编号：</label>
+                                                                <!--                                                                    加上value查询就报500了-->
+                                                                <input type="text" name="courseName"  placeholder="修改二级学院编号" class="form-control"  id="courseName"  readonly>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>二级学院名称：</label>
+                                                                <input type="text" name="year"  placeholder="修改二级学院名称" class="form-control"  id="year">
+                                                            </div>
+                                                            <div class="form-group" >
+                                                                <label>二级学院编号：</label>
+                                                                <!--                                                                    加上value查询就报500了-->
+                                                                <input type="text" name="term"  placeholder="修改二级学院编号" class="form-control"  id="term"  readonly>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>二级学院名称：</label>
+                                                                <input type="text" name="hour"  placeholder="修改二级学院名称" class="form-control"  id="hour">
+                                                            </div>
+                                                            <div>
+                                                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
+                                                                </button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--                                    删除弹窗-->
+                                <div id="modal-form3" class="modal fade" aria-hidden="true">
+                                    <div class="modal-dialog" style="max-width: 400px;">
+                                        <div class="modal-content">
+                                            <div class="modal-body" style="padding: 50px 90px 50px 90px;">
+                                                <div class="row">
+                                                    <div>
+
+                                                        <form role="form" th:action="@{/course/delete}" style="padding: 15px; text-align: center">
+                                                            <input type="hidden" id="deleteDepID" name="deleteDepID" />
+
+                                                            <h3>确认是否删除</h3>
+                                                            <div>
+                                                                <button class="btn btn-danger btn-sm delete-btn" type="submit" style="width: 100%;"><strong>确认删除</strong></button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--                                    新增-->
+                                <button type="button" class="btn btn-outline btn-default" data-toggle="modal" href="#modal-form">
+                                    <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                                </button>
+                                <!--                                    搜索栏-->
+                                <form th:action="@{/course/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
+
+                                    <input type="text" name="courseName" class="form-control" placeholder="学院名称" th:value="${likeName}"/>
+
+                                    <span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit" onclick="togglePagination('likenamePagination', 'showCoursePagination')">
+                                                <i class="glyphicon glyphicon-search"></i>
+                                            </button>
+                                        </span>
+                                </form>
+
+                                <!--                                    重置搜索-->
+                                <a  class="J_menuItem" href="/course/showCourse"> <button class="btn btn-outline btn-default"><span class="nav-label">
+                                        重置</span></button></a>
+
+                            </div>
+                            <table id="exampleTableEvents" data-height="400" data-mobile-responsive="true">
+                                <thead>
+                                <tr>
+                                    <th data-field="courseID">课程编号</th>
+                                    <th data-field="classID">班号</th>
+                                    <th data-field="courseName">课程名称</th>
+                                    <th data-field="year">学年</th>
+                                    <th data-field="term">学期</th>
+                                    <th data-field="hour">学时</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tr th:each="courses:${courses}">
+                                    <td th:text="${courses.courseID}"></td>
+                                    <td th:text="${courses.classID}"></td>
+                                    <td th:text="${courses.courseName}"></td>
+                                    <td th:text="${courses.year}"></td>
+                                    <td th:text="${courses.term}"></td>
+                                    <td th:text="${courses.hour}"></td>
+                                    <td>
+                                        <!-- 修改按钮 -->
+                                        <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
+                                                th:attr="data-departments-courseID=${courses.courseID},
+                                                         data-departments-classID=${courses.classID},
+                                                         data-departments-courseName=${courses.courseName},
+                                                         data-departments-year=${courses.year},
+                                                         data-departments-term=${courses.term},
+                                                         data-departments-hour=${courses.hour}",
+
+                                                onclick="setModalValues(this)"
+                                        >编辑</button>
+                                        <!-- 删除按钮 -->
+
+                                        <button class="btn btn-danger btn-sm delete-btn"
+                                                th:attr="data-departments-courseID=${courses.courseID}"
+                                                data-toggle="modal" href="#modal-form3"
+                                                onclick="setDeleteModalValue(this)"
+                                        >删除</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div id="showCoursePagination" class="pagination-container">
+                                <ul class="pagination">
+                                    <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
+                                        <a th:href="@{/course/showCourse(page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div id="likenamePagination" class="pagination-container" style="display: none;">
+                                <ul class="pagination">
+                                    <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
+                                        <a th:href="@{/course/likename(page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- End Example Events -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 全局js -->
+<script src="../../js/jquery.min.js?v=2.1.4"></script>
+<script src="../../js/bootstrap.min.js?v=3.3.7"></script>
+
+<!-- 自定义js -->
+<script src="../../js/content.js?v=1.0.0"></script>
+
+<!-- Bootstrap table -->
+<script src="../../js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../../js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+<script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+<script th:inline="javascript">
+
+    // 增加不对时拦截
+    document.getElementById("AddFormId").addEventListener("submit", function (event) {
+        // 在提交按钮点击时执行 checkDepID 函数
+        if (!AddcheckDepID()) {
+            event.preventDefault(); // 取消表单提交
+            alert("填写内容不符合要求")
+        }
+    });
+    function UpdatecheckDepID() {
+        var depIDInput = document.getElementById("depID");
+        var depIDError = document.getElementById("depIDError");
+
+        // 正则表达式，匹配'G1'或'G2'
+        var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
+
+        if (!pattern.test(depIDInput.value)) {
+            depIDError.textContent = "请输入'G1'-'G30'的形式";
+            return false;
+        } else {
+            depIDError.textContent = "";
+            return true;
+        }
+    }
+
+    function AddcheckDepID() {
+        var depIDInput = document.getElementById("depID2");
+        var depIDError2 = document.getElementById("depIDError2");
+
+        // 正则表达式，匹配'G1'或'G2'
+        var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
+
+        if (!pattern.test(depIDInput.value)) {
+            depIDError2.textContent = "请输入'G1'-'G30'的形式";
+            return false; // 阻止表单提交
+        } else {
+            depIDError2.textContent = "";
+            return true; // 阻止表单提交
+        }
+    }
+
+
+    function setModalValues(button) {
+        var courseID = button.getAttribute('data-departments-courseID');
+        var classID = button.getAttribute('data-departments-classID');
+        var courseName = button.getAttribute('data-departments-courseName');
+        var year = button.getAttribute('data-departments-year');
+        var term = button.getAttribute('data-departments-term');
+        var hour = button.getAttribute('data-departments-hour');
+
+        // 设置模态框中的输入框值
+        document.getElementById('courseID').value = courseID;
+        document.getElementById('classID').value = classID;
+        document.getElementById('courseName').value = courseName;
+        document.getElementById('year').value = year;
+        document.getElementById('term').value = term;
+        document.getElementById('hour').value = hour;
+    }
+    function setDeleteModalValue(button) {
+        var depID = button.getAttribute('data-departments-id');
+
+        // 设置删除模态框中的隐藏表单值
+        document.getElementById('deleteDepID').value = depID;
+    }
+    document.getElementById('showCoursePagination').style.display = 'block';
+
+    // JavaScript函数，用于切换分页的显示和隐藏
+    function togglePagination(showPagination, hidePagination) {
+        document.getElementById(showPagination).style.display = 'block';
+        document.getElementById(hidePagination).style.display = 'none';
+    }
+</script>
+
+</body>
+
+</html>
