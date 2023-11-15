@@ -194,7 +194,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div>
-                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs approval-btn" type="submit" name="Bo" value="false"><strong>不同意</strong>
+                                                                    <button class="btn btn-sm btn-danger pull-right m-t-n-xs approval-btn" type="submit" name="Bo" value="false"><strong>不同意</strong>
                                                                     </button>
                                                                     <button class="btn btn-sm btn-primary pull-right m-t-n-xs approval-btn" type="submit" name="Bo" value="true"><strong>同意</strong>
                                                                     </button>
@@ -233,6 +233,13 @@
                                         </div>
                                     </div>
 
+<!--                                    文件导出按钮-->
+                                    <form th:action="@{/leave/export}" >
+                                        <button type="submit" style="margin-bottom: 7px; background: #ee162d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;"><strong>文件导出</strong>
+                                        </button>
+                                    </form>
+<!--                                    <a  class="J_menuItem" href="/leave/export"> <button class="btn btn-outline btn-default"><span class="nav-label">-->
+<!--                                        重置</span></button></a>-->
 
                                     <form th:action="@{/department/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
                                         <input type="text" name="depName" class="form-control" placeholder="学院名称" />
@@ -242,6 +249,11 @@
                                             </button>
                                         </span>
                                     </form>
+
+
+
+
+
 
 
                                 </div>
@@ -266,7 +278,7 @@
                                         <td th:text="${leaves.applytime}"></td>
 <!--                                        <td th:text="${leaves.status}"></td>-->
                                         <td>
-                                            <span th:if="${leaves.status == '0'}" class="text-success">未审批</span>
+                                            <span th:if="${leaves.status == '0'}" class="text-warning">未审批</span>
                                             <span th:if="${leaves.status == '1'}" class="text-success">已同意</span>
                                             <span th:if="${leaves.status == '2'}" class="text-danger">已拒绝</span>
                                         </td>
@@ -330,7 +342,7 @@
 
 // 弹窗监视
         function auditForm(button) {
-            var leaveID = button.getAttribute('data-leaves-id');
+            var leaveID = button.getAttribute('data-leaves-leaveID');
             var courseID = button.getAttribute('data-leaves-courseID');
             var reason = button.getAttribute('data-leaves-reason');
             var daynum = button.getAttribute('data-leaves-daynum');

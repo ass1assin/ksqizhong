@@ -32,7 +32,7 @@ public class LeaveContraller {
     @GetMapping("/showLeave")
     public ModelAndView showDep(@RequestParam(name = "page", defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
-        ModelAndView modelAndView = new ModelAndView("admin/leavemanage");
+        ModelAndView modelAndView = new ModelAndView("counsellor/leavemanage");
 
         List<Leave> leaves = leaveService.getLeavesWithPagination(page, pageSize);
         int totalPages = leaveService.getTotalPages(pageSize);
@@ -66,7 +66,7 @@ public class LeaveContraller {
 
 
     @PostMapping("/auditLeave")
-    public ModelAndView audit(@PathVariable Leave leave) {
+    public ModelAndView audit(@ModelAttribute Leave leave) {
         int audit = leaveService.audit(leave);
         ModelAndView modelAndView = new ModelAndView("redirect:/leave/showLeave");
         return modelAndView;
@@ -77,6 +77,7 @@ public class LeaveContraller {
         // 获取请假数据
         List<Leave> leaveList = leaveService.showLeave();
 
+//        System.out.println("sssssssssssssssssss" + leaveList);
         // 创建工作簿
         try (Workbook workbook = new XSSFWorkbook()) {
             // 创建工作表
@@ -125,6 +126,7 @@ public class LeaveContraller {
             // 设置响应头
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setHeader("Content-Disposition", "attachment; filename=leave_data.xlsx");
+            response.setCharacterEncoding("UTF-8");
 
             // 将工作簿写入响应流
             try {
