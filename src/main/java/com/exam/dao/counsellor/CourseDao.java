@@ -12,7 +12,7 @@ public interface CourseDao {
 
     List<Course> findAllWithPagination(int page, int pageSize);
     int getTotalCount();
-    int deleteCourse(List<Integer> ids);
+    int deleteCourse(String id);
 
     int updataCourse(Course course);
 //    List<Course> findByName(String courseName);

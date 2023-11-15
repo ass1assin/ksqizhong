@@ -46,8 +46,8 @@ public class CourseServiceImpl implements CourseService {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @Override
-    public int deleteCourse(List<Integer> ids) {
-        int deleteClass = courseDao.deleteCourse(ids);
+    public int deleteCourse(String id) {
+        int deleteClass = courseDao.deleteCourse(id);
         return deleteClass;
     }
 

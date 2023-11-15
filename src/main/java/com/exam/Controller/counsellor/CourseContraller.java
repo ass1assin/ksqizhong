@@ -40,19 +40,20 @@ public class CourseContraller {
 //    CM07-01
 //    功能名称： 添加学生信息模块
     @PostMapping("/addCourse")
-    public String addCourse(@RequestBody Course course){
+    public ModelAndView addCourse(@ModelAttribute Course course){
         int i =courseService.addCourse(course);
-
-        return "添加成功";
+        ModelAndView modelAndView = new ModelAndView("redirect:/course/showCourse");
+        return modelAndView;
     }
 
 
     //    CM07-02
 //    功能名称： 删除学生信息模块
-    @DeleteMapping("/delete/{id}")
-    public String deleteCourse(@PathVariable List<Integer> ids){
-        int i =courseService.deleteCourse(ids);
-        return "成功";
+    @GetMapping("/delete")
+    public ModelAndView deleteCourse(String deleteCourseID){
+        int i =courseService.deleteCourse(deleteCourseID);
+        ModelAndView modelAndView = new ModelAndView("redirect:/course/showCourse");
+        return modelAndView;
     }
 
 
@@ -61,7 +62,7 @@ public class CourseContraller {
     @PostMapping("/updataCourse")
     public ModelAndView updataCourse(@ModelAttribute Course course){
         int i = courseService.updataCourse(course);
-        ModelAndView modelAndView=new ModelAndView("redirect:/couse/showCourse");
+        ModelAndView modelAndView=new ModelAndView("redirect:/course/showCourse");
 
         return modelAndView;
     }
@@ -78,7 +79,7 @@ public class CourseContraller {
     public ModelAndView showCourse(String courseName,
                                 @RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
-        ModelAndView modelAndView = new ModelAndView("coursellor/coursemanager");
+        ModelAndView modelAndView = new ModelAndView("counsellor/coursemanager");
 
         List<Course> courses = courseService.findByName(courseName,page,pageSize);
 

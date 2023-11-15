@@ -12,7 +12,7 @@ public interface CourseService {
 
     List<Course> getDepsWithPagination(int page, int pageSize);
     int getTotalPages(int pageSize);
-    int deleteCourse(List<Integer> ids);
+    int deleteCourse(String id);
     int updataCourse(Course course);
     List<Course> findByName(String className,int page, int  pageSize);
     int getTotalPagesByName(int pageSize ,String depName);

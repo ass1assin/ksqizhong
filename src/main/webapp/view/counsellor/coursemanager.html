@@ -119,16 +119,20 @@
                                                     <div>
 
                                                         <!--                                                            增加弹窗-->
-                                                        <form role="form" th:action="@{/coursee/addCourse}" th:method="post" id="AddFormId">
+                                                        <form role="form" th:action="@{/course/addCourse}" th:method="post" id="AddFormId">
                                                             <div class="form-group" >
-                                                                <label>二级学院编号：</label>
-                                                                <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control"  id="depID2" oninput="AddcheckDepID()" maxlength="3">
-                                                                <small id="depIDError2" class="text-danger"></small>
+                                                                <label>课程编号：</label>
+                                                                <input type="text" name="courseID"  placeholder="请输入课程编号" class="form-control" oninput="AddcheckDepID()" maxlength="3">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label>二级学院名称：</label>
-                                                                <input type="text" name="depName"  placeholder="请输入二级学院名称" class="form-control">
+                                                                <label>课程名称：</label>
+                                                                <input type="text" name="courseName"  placeholder="请输入课程名称" class="form-control">
                                                             </div>
+                                                            <div class="form-group" >
+                                                                <label>学期：</label>
+                                                                <input type="text" name="term"  placeholder="学期" class="form-control" oninput="AddcheckDepID()" maxlength="3">
+                                                            </div>
+
                                                             <div>
                                                                 <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
                                                                 </button>
@@ -155,34 +159,34 @@
                                                         <form role="form" th:action="@{/course/updataCourse}" th:method="post">
 
                                                             <div class="form-group" >
-                                                                <label>二级学院编号：</label>
+                                                                <label>课程编号：</label>
                                                                 <!--                                                                    加上value查询就报500了-->
-                                                                <input type="text" name="courseID"  placeholder="修改二级学院编号" class="form-control"  id="courseID"  readonly>
+                                                                <input type="text" name="courseID"  placeholder="课程编号" class="form-control"  id="courseID"  readonly>
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label>二级学院名称：</label>
-                                                                <input type="text" name="classID"  placeholder="修改二级学院名称" class="form-control"  id="classID">
+                                                                <label>班号：</label>
+                                                                <input type="text" name="classID"  placeholder="班号" class="form-control"  id="classID">
                                                             </div>
                                                             <div class="form-group" >
-                                                                <label>二级学院编号：</label>
+                                                                <label>课程名称：</label>
                                                                 <!--                                                                    加上value查询就报500了-->
-                                                                <input type="text" name="courseName"  placeholder="修改二级学院编号" class="form-control"  id="courseName"  readonly>
+                                                                <input type="text" name="courseName"  placeholder="课程名称" class="form-control"  id="courseName">
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label>二级学院名称：</label>
-                                                                <input type="text" name="year"  placeholder="修改二级学院名称" class="form-control"  id="year">
+                                                                <label>学年：</label>
+                                                                <input type="text" name="year"  placeholder="学年" class="form-control"  id="year" readonly>
                                                             </div>
                                                             <div class="form-group" >
-                                                                <label>二级学院编号：</label>
+                                                                <label>学期：</label>
                                                                 <!--                                                                    加上value查询就报500了-->
-                                                                <input type="text" name="term"  placeholder="修改二级学院编号" class="form-control"  id="term"  readonly>
+                                                                <input type="text" name="term"  placeholder="学期" class="form-control"  id="term">
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label>二级学院名称：</label>
-                                                                <input type="text" name="hour"  placeholder="修改二级学院名称" class="form-control"  id="hour">
+                                                                <label>学时：</label>
+                                                                <input type="text" name="hour"  placeholder="学时" class="form-control"  id="hour" readonly>
                                                             </div>
                                                             <div>
                                                                 <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
@@ -207,7 +211,7 @@
                                                     <div>
 
                                                         <form role="form" th:action="@{/course/delete}" style="padding: 15px; text-align: center">
-                                                            <input type="hidden" id="deleteDepID" name="deleteDepID" />
+                                                            <input type="hidden" id="deleteCourseID" name="deleteCourseID" />
 
                                                             <h3>确认是否删除</h3>
                                                             <div>
@@ -236,7 +240,7 @@
                                             <button class="btn btn-default" type="submit" onclick="togglePagination('likenamePagination', 'showCoursePagination')">
                                                 <i class="glyphicon glyphicon-search"></i>
                                             </button>
-                                        </span>
+                                    </span>
                                 </form>
 
                                 <!--                                    重置搜索-->
@@ -384,10 +388,10 @@
         document.getElementById('hour').value = hour;
     }
     function setDeleteModalValue(button) {
-        var depID = button.getAttribute('data-departments-id');
+        var courseID = button.getAttribute('data-departments-courseID');
 
         // 设置删除模态框中的隐藏表单值
-        document.getElementById('deleteDepID').value = depID;
+        document.getElementById('deleteCourseID').value = courseID;
     }
     document.getElementById('showCoursePagination').style.display = 'block';
 

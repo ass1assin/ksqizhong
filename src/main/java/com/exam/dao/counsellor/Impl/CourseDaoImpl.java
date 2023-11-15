@@ -57,10 +57,10 @@ public class CourseDaoImpl implements CourseDao {
 //    CM07-02
 //    功能名称： 删除学生信息模块
     @Override
-    public int deleteCourse(List<Integer> ids) {
-        String deletesql="delete from sys_course where classID in ?";
+    public int deleteCourse(String id) {
+        String deletesql="delete from sys_course where courseID = ?";
         //调用jdbcTemplate.update(实现添加 删除 修改等)
-        int delete = jdbcTemplate.update(deletesql, ids);
+        int delete = jdbcTemplate.update(deletesql, id);
         return delete;
 
     }
