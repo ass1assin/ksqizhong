@@ -1,9 +1,6 @@
 package com.exam.Service.student;
 
-import com.exam.entity.Course;
-import com.exam.entity.Department;
 import com.exam.entity.Leave;
-import com.exam.entity.LeaveDTO;
 
 import java.util.List;
 
@@ -17,5 +14,10 @@ public interface LeaveService {
 
     int deleteLeave(String id);
     int audit(Leave leave);
+
+    List<Leave> findAllWithPaginationBystuID(String stuID, int page, int pageSize);
+
+    int getTotalCountByID(String stuID,int pageSize);
+
 
 }

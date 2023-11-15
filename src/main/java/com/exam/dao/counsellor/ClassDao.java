@@ -1,14 +1,28 @@
 package com.exam.dao.counsellor;
 
 import com.exam.entity.Classes;
+import com.exam.entity.Inst;
 import com.exam.entity.Student;
 
 import java.util.List;
 
 public interface ClassDao {
-    int addClass(Classes classes);
+    //    总查询
+    List<Classes> findAllWithPagination(int page, int pageSize);
+    int getTotalCount();
     List<Classes> showClass();
-    int deleteClass(List<Integer> ids);
-    int updataClass(Classes classes);
-    List<Classes> findByName(String className);
+
+    //    增加
+    int addClass(Classes classes);
+
+    //    删除
+    int deleteClasses(String id);
+
+    //    修改
+    int updataClasses(Classes classes);
+
+
+    //    模糊查询
+    List<Classes> findByName(String className,int page, int pageSize);
+    int getTotalCountByName(String className);
 }

@@ -30,15 +30,17 @@ public class LeaveContraller {
 
     //显示所有信息
     @GetMapping("/showLeave")
-    public ModelAndView showDep(@RequestParam(name = "page", defaultValue = "1") int page,
-                                @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
+    public ModelAndView showDep(String type,
+                                @RequestParam(name = "page", defaultValue = "1") int page,
+                                @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
+                                ) {
         ModelAndView modelAndView = new ModelAndView("counsellor/leavemanage");
 
         List<Leave> leaves = leaveService.getLeavesWithPagination(page, pageSize);
         int totalPages = leaveService.getTotalPages(pageSize);
         System.out.println(leaves);
         modelAndView.addObject("leaves", leaves);
-
+        modelAndView.addObject("type",type);
         modelAndView.addObject("totalPages", totalPages);
 
         return modelAndView;
@@ -50,7 +52,9 @@ public class LeaveContraller {
     @PostMapping("/addLeave")
     public ModelAndView addDepinfo(@ModelAttribute Leave leave) {
         int i = leaveService.addLeave(leave);
-        ModelAndView modelAndView = new ModelAndView("redirect:/leave/showLeave");
+        ModelAndView modelAndView = new ModelAndView("redirect:/leave/showLeaveBystuID");
+        modelAndView.addObject("stuID",leave.getStuNo());
+        modelAndView.addObject("type","student");
         return modelAndView;
     }
 
@@ -58,9 +62,11 @@ public class LeaveContraller {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @GetMapping("/delete")
-    public ModelAndView deleteDep(String deleteLeaveID) {
+    public ModelAndView deleteDep(String deleteLeaveID,String stuNo) {
         int i = leaveService.deleteLeave(deleteLeaveID);
-        ModelAndView modelAndView = new ModelAndView("redirect:/leave/showLeave");
+        ModelAndView modelAndView = new ModelAndView("redirect:/leave/showLeaveBystuID");
+        modelAndView.addObject("stuID", stuNo);
+        modelAndView.addObject("type","student");
         return modelAndView;
     }
 
@@ -69,6 +75,7 @@ public class LeaveContraller {
     public ModelAndView audit(@ModelAttribute Leave leave) {
         int audit = leaveService.audit(leave);
         ModelAndView modelAndView = new ModelAndView("redirect:/leave/showLeave");
+        modelAndView.addObject("type","teacher");
         return modelAndView;
     }
 
@@ -77,7 +84,6 @@ public class LeaveContraller {
         // 获取请假数据
         List<Leave> leaveList = leaveService.showLeave();
 
-//        System.out.println("sssssssssssssssssss" + leaveList);
         // 创建工作簿
         try (Workbook workbook = new XSSFWorkbook()) {
             // 创建工作表
@@ -138,5 +144,23 @@ public class LeaveContraller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @GetMapping("/showLeaveBystuID")
+    public ModelAndView showLeaveBystuId(String type,
+                                        @RequestParam(name = "page", defaultValue = "1") int page,
+                                        @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                                        String stuID
+    ) {
+        ModelAndView modelAndView = new ModelAndView("counsellor/leavemanage");
+
+        List<Leave> leaves = leaveService.findAllWithPaginationBystuID(stuID,page, pageSize);
+        int totalPages = leaveService.getTotalCountByID(stuID,pageSize);
+        modelAndView.addObject("stuID", stuID);
+
+        modelAndView.addObject("leaves", leaves);
+        modelAndView.addObject("type",type);
+        modelAndView.addObject("totalPages", totalPages);
+
+        return modelAndView;
     }
 }

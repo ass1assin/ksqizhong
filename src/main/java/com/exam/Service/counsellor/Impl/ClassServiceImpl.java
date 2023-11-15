@@ -5,6 +5,7 @@ import com.exam.Service.counsellor.StuInfoService;
 import com.exam.dao.counsellor.ClassDao;
 import com.exam.dao.counsellor.StuInfoDao;
 import com.exam.entity.Classes;
+import com.exam.entity.Inst;
 import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +18,24 @@ public class ClassServiceImpl implements ClassService {
     private ClassDao classDao;
 
     @Override
-    public List<Classes> showClass() {
+    public List<Classes> showClasses() {
         List<Classes> classesList= classDao.showClass();
         return classesList;
     }
 
-
+    @Override
+    public List<Classes> getClassesWithPagination(int page, int pageSize) {
+        return classDao.findAllWithPagination(page,pageSize);
+    }
+    public int getTotalPages(int pageSize) {
+        int totalCount = classDao.getTotalCount();
+        int pageSum = (totalCount / pageSize )+1;
+        return pageSum;
+    }
     //    CM07-01
 //    功能名称： 添加学生信息模块
     @Override
-    public int addClass(Classes classes) {
+    public int addClasses(Classes classes) {
         int addClass= classDao.addClass(classes);
         return addClass;
     }
@@ -35,8 +44,8 @@ public class ClassServiceImpl implements ClassService {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @Override
-    public int deleteClass(List<Integer> ids) {
-        int deleteClass = classDao.deleteClass(ids);
+    public int deleteClasses(String id) {
+        int deleteClass = classDao.deleteClasses(id);
         return deleteClass;
     }
 
@@ -44,19 +53,28 @@ public class ClassServiceImpl implements ClassService {
     //    CM07-03
 //    功能名称： 修改学生信息模块
     @Override
-    public int updataClass(Classes classes) {
-        int updataClass = classDao.updataClass(classes);
+    public int updataClasses(Classes classes) {
+        int updataClass = classDao.updataClasses(classes);
         return updataClass;
     }
 
 
     //    CM07-04
 //    功能名称： 查询学生信息模块
+
     @Override
-    public List<Classes> findByName(String className) {
-        List<Classes> findByname = classDao.findByName(className);
+    public List<Classes> findByName(String className, int page, int pageSize) {
+        List<Classes> findByname = classDao.findByName(className,page,pageSize);
         return findByname;
     }
+
+    @Override
+    public int getTotalPagesByName(int pageSize,String Name) {
+        int totalCount = classDao.getTotalCountByName(Name);
+        int pageSum = (totalCount / pageSize )+1;
+        return pageSum;
+    }
+
 
 
 

@@ -74,11 +74,22 @@ public class LeaveServiceImpl implements LeaveService {
         }else {
             leave.setStatus("2");
         }
-
-
         int audit = leaveDao.audit(leave);
         return audit;
     }
+
+    @Override
+    public List<Leave> findAllWithPaginationBystuID(String stuID, int page, int pageSize) {
+        return leaveDao.findAllWithPaginationBystuID(stuID,page,pageSize);
+    }
+
+    @Override
+    public int getTotalCountByID(String stuID,int pageSize) {
+        int totalCount = leaveDao.getTotalCountByID(stuID);
+        int pageSum = (totalCount / pageSize )+1;
+        return pageSum;
+    }
+
 
 
 }
