@@ -6,6 +6,7 @@ import com.exam.dao.counsellor.ClassDao;
 import com.exam.dao.counsellor.CourseDao;
 import com.exam.entity.Classes;
 import com.exam.entity.Course;
+import com.exam.entity.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,16 @@ public class CourseServiceImpl implements CourseService {
         return CourseList;
     }
 
+    @Override
+    public List<Course> getDepsWithPagination(int page, int pageSize) {
+        return courseDao.findAllWithPagination(page,pageSize);
+    }
+    public int getTotalPages(int pageSize) {
+        int totalCount = courseDao.getTotalCount();
+        int pageSum = (totalCount / pageSize )+1;
+        return pageSum;
+    }
+
 
     //    CM07-01
 //    功能名称： 添加学生信息模块
@@ -35,8 +46,8 @@ public class CourseServiceImpl implements CourseService {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @Override
-    public int deleteCourse(List<Integer> ids) {
-        int deleteClass = courseDao.deleteCourse(ids);
+    public int deleteCourse(String id) {
+        int deleteClass = courseDao.deleteCourse(id);
         return deleteClass;
     }
 
@@ -52,10 +63,22 @@ public class CourseServiceImpl implements CourseService {
 
     //    CM07-04
 //    功能名称： 查询学生信息模块
+//    @Override
+//    public List<Course> findByName(String courseName) {
+//        List<Course> findByname = courseDao.findByName(courseName);
+//        return findByname;
+//    }
     @Override
-    public List<Course> findByName(String courseName) {
-        List<Course> findByname = courseDao.findByName(courseName);
+    public List<Course> findByName(String courseName, int page, int pageSize) {
+        List<Course> findByname = courseDao.findByName(courseName,page,pageSize);
         return findByname;
+    }
+
+    @Override
+    public int getTotalPagesByName(int pageSize,String Name) {
+        int totalCount = courseDao.getTotalCountByName(Name);
+        int pageSum = (totalCount / pageSize )+1;
+        return pageSum;
     }
 
 
