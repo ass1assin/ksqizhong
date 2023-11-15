@@ -155,6 +155,7 @@ public class LeaveContraller {
 
         List<Leave> leaves = leaveService.findAllWithPaginationBystuID(stuID,page, pageSize);
         int totalPages = leaveService.getTotalCountByID(stuID,pageSize);
+        modelAndView.addObject("stuID", stuID);
 
         modelAndView.addObject("leaves", leaves);
         modelAndView.addObject("type",type);

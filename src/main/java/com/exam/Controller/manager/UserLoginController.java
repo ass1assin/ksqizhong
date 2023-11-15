@@ -73,7 +73,7 @@ public class UserLoginController {
                 }
                 else {
                     loginName=student.getStuName();
-                    modelAndView.addObject("stuID",student.getStuID());
+
                     student.setType(type);
                     modelAndView.setViewName("/common/index");
                     //         登录成功
@@ -83,6 +83,7 @@ public class UserLoginController {
         modelAndView.addObject("user",user1);
         modelAndView.addObject("inst",inst);
         modelAndView.addObject("student",student);
+        modelAndView.addObject("stuID",student.getStuID());
         modelAndView.addObject("loginName",loginName);
 
         session.setAttribute("userLoggedIn", true);

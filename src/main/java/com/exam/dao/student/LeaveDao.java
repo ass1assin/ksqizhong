@@ -11,7 +11,7 @@ public interface LeaveDao {
     List<Leave> findAllWithPagination(int page, int pageSize);
 
     int getTotalCount();
-    int deleteLeave(String ids);
+    int deleteLeave(String id);
 
     int audit(Leave leave);
 
