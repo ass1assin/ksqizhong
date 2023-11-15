@@ -2,6 +2,7 @@ package com.exam.Service.counsellor.Impl;
 
 import com.exam.Service.counsellor.StuInfoService;
 import com.exam.dao.counsellor.StuInfoDao;
+import com.exam.entity.Department;
 import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,15 @@ public class StuInfoServiceImpl implements StuInfoService {
         return students;
     }
 
+    @Override
+    public List<Student> getDepsWithPagination(int page, int pageSize) {
+        return stuInfoDao.findAllWithPagination(page,pageSize);
+    }
+    public int getTotalPages(int pageSize) {
+        int totalCount = stuInfoDao.getTotalCount();
+        int pageSum = (totalCount / pageSize )+1;
+        return pageSum;
+    }
 
     //    CM07-01
 //    功能名称： 添加学生信息模块
@@ -32,8 +42,8 @@ public class StuInfoServiceImpl implements StuInfoService {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @Override
-    public int deleteStudent(List<Integer> ids) {
-        int deleteStudent = stuInfoDao.deleteStudent(ids);
+    public int deleteStudent(String id) {
+        int deleteStudent = stuInfoDao.deleteStudent(id);
         return deleteStudent;
     }
 
@@ -50,11 +60,16 @@ public class StuInfoServiceImpl implements StuInfoService {
     //    CM07-04
 //    功能名称： 查询学生信息模块
     @Override
-    public List<Student> findByName(String stuName) {
-        List<Student> findByname = stuInfoDao.findByName(stuName);
+    public List<Student> findByName(String stuName, int page, int pageSize) {
+        List<Student> findByname = stuInfoDao.findByName(stuName,page,pageSize);
         return findByname;
     }
-
+    @Override
+    public int getTotalPagesByName(int pageSize,String Name) {
+        int totalCount = stuInfoDao.getTotalCountByName(Name);
+        int pageSum = (totalCount / pageSize )+1;
+        return pageSum;
+    }
 
 
 }

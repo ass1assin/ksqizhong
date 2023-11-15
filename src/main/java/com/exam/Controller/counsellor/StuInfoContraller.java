@@ -1,11 +1,13 @@
 package com.exam.Controller.counsellor;
 
 import com.exam.Service.counsellor.StuInfoService;
+import com.exam.entity.Department;
 import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -16,56 +18,91 @@ public class StuInfoContraller {
     private StuInfoService stuInfoService;
 
 //显示所有信息
+//    @GetMapping("/showStudent")
+//    public List showStudent(){
+//        List<Student> stus = stuInfoService.showStudent();
+//        return stus;
+//    }
     @GetMapping("/showStudent")
-    public List showStudent(){
-        List<Student> stus = stuInfoService.showStudent();
-        return stus;
-    }
-    @RequestMapping("/test")
-    public String test(Model model){
-        model.addAttribute("msg" ,"Hello,Worsssssssssssssld!");
-        System.out.println("sssssssssssssssssssssss");
-        System.out.println("sssssssssssssssssssssssssssssss"+model);
-        return "index_v1";
+    public ModelAndView showDep(@RequestParam(name = "page",defaultValue = "1") int page,
+                                @RequestParam(name = "pageSize",defaultValue = "10") int pageSize) {
+        ModelAndView modelAndView = new ModelAndView("counsellor/studentmanager");
+
+        List<Student> stuInfo = stuInfoService.getDepsWithPagination(page, pageSize);
+        int totalPages = stuInfoService.getTotalPages(pageSize);
+
+        modelAndView.addObject("stuInfo", stuInfo);
+
+        modelAndView.addObject("totalPages", totalPages);
+
+        return modelAndView;
     }
 
 //    CM07-01
 //    功能名称： 添加学生信息模块
     @PostMapping("/addStudent")
-    public String addDepinfo(@RequestBody Student student){
+    public ModelAndView addDepinfo(@ModelAttribute Student student){
         int i = stuInfoService.addStudentinfo(student);
-
-        return "添加成功";
+        ModelAndView modelAndView = new ModelAndView("redirect:/student/showStudent");
+        return modelAndView;
     }
 
 
     //    CM07-02
 //    功能名称： 删除学生信息模块
-    @DeleteMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable List<Integer> ids){
-        int i = stuInfoService.deleteStudent(ids);
-        return "成功";
+    @GetMapping("/delete")
+    public ModelAndView deleteStudent( String deleteStudentID){
+        int i = stuInfoService.deleteStudent(deleteStudentID);
+        ModelAndView modelAndView = new ModelAndView("redirect:/student/showStudent");
+        return modelAndView;
     }
 
 
     //    CM07-03
 //    功能名称： 修改学生信息模块
+//    @PostMapping("/updataStudent")
+//    public String updataStudent(Student student){
+//        int i = stuInfoService.updataStudent(student);
+//        if (i!=0){
+//            return "成功";
+//        }else {
+//            return "失败";
+//        }
+//    }
     @PostMapping("/updataStudent")
-    public String updataStudent(Student student){
+    public ModelAndView updataStudent(@ModelAttribute Student student){
         int i = stuInfoService.updataStudent(student);
-        if (i!=0){
-            return "成功";
-        }else {
-            return "失败";
-        }
+        ModelAndView modelAndView = new ModelAndView("redirect:/student/showStudent");
+        String message = null;
+
+        return modelAndView;
     }
 
 
     //    CM07-04
 //    功能名称： 查询学生信息模块
-    @GetMapping("/likename/{name}")
-    public List showStudent(@PathVariable String name){
-        List<Student> byName = stuInfoService.findByName(name);
-        return byName;
+//    @GetMapping("/likename/{name}")
+//    public List showStudent(@PathVariable String name){
+//        List<Student> byName = stuInfoService.findByName(name);
+//        return byName;
+//    }
+    @GetMapping("/likename")
+    public ModelAndView showStudent(String studentName,
+                                @RequestParam(name = "page",defaultValue = "1") int page,
+                                @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
+        ModelAndView modelAndView = new ModelAndView("coursemanager/studentmanager");
+
+        List<Student> students = stuInfoService.findByName(studentName,page,pageSize);
+
+        int totalPages = stuInfoService.getTotalPagesByName(pageSize,studentName);
+
+        Boolean pageIf =true;
+//              根据条件查询到的数据
+        modelAndView.addObject("students", students);
+//              前端根据likename显示文本
+        modelAndView.addObject("likeName",studentName);
+
+        modelAndView.addObject("totalPages", totalPages);
+        return modelAndView;
     }
 }

@@ -24,7 +24,20 @@ public class StuInfoDaoImpl implements StuInfoDao {
         List<Student> students = jdbcTemplate.query(querysql,new BeanPropertyRowMapper<Student>(Student.class));
         return students;
     }
+    @Override
+    public List<Student> findAllWithPagination(int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        String querysql = "select * from sys_student limit ? offset ?";
+        BeanPropertyRowMapper<Student> stuBeanPropertyRowMapper = new BeanPropertyRowMapper<>(Student.class);
+        List<Student> studentList =  jdbcTemplate.query(querysql, stuBeanPropertyRowMapper, pageSize, offset);
+        return studentList;
+    }
 
+    @Override
+    public int getTotalCount() {
+        String countQuery = "SELECT COUNT(*) FROM sys_student";
+        return jdbcTemplate.queryForObject(countQuery, Integer.class);
+    }
 
 
 
@@ -43,10 +56,10 @@ public class StuInfoDaoImpl implements StuInfoDao {
 //    CM07-02
 //    功能名称： 删除学生信息模块
     @Override
-    public int deleteStudent(List<Integer> ids) {
-        String deletesql="delete from sys_student where stuID in ?";
+    public int deleteStudent(String id) {
+        String deletesql="delete from sys_student where stuID = ?";
         //调用jdbcTemplate.update(实现添加 删除 修改等)
-        int delete = jdbcTemplate.update(deletesql, ids);
+        int delete = jdbcTemplate.update(deletesql, id);
         return delete;
 
     }
@@ -67,12 +80,17 @@ public class StuInfoDaoImpl implements StuInfoDao {
 //    CM07-04
 //    功能名称： 查询学生信息模块
     @Override
-    public List<Student> findByName(String stuName) {
-        String findByName="select * from sys_department where stuName like concat('%',?,'%')";
-
+    public List<Student> findByName(String stuName,int page, int pageSize) {
+        String findByName="select * from sys_student where stuName like concat('%',?,'%') limit ? offset ?";
+        int offset = (page - 1) * pageSize;
         RowMapper<Student> rowMapper= new BeanPropertyRowMapper<>(Student.class);
 
-        List<Student> StudentList = jdbcTemplate.query(findByName,rowMapper);
-        return StudentList;
+        List<Student> studentList = jdbcTemplate.query(findByName,rowMapper,stuName, pageSize, offset);
+        return studentList;
+    }
+    @Override
+    public int getTotalCountByName(String stuName) {
+        String countQuery = "SELECT COUNT(*) FROM sys_student where stuName like concat('%',?,'%')";
+        return jdbcTemplate.queryForObject(countQuery, Integer.class,stuName);
     }
 }
