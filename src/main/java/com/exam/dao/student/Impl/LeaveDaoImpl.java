@@ -42,12 +42,14 @@ public class LeaveDaoImpl implements LeaveDao {
     }
 
 
+
+
     //    CM07-01
 //    功能名称： 添加学生信息模块
     @Override
     public int addLeave(Leave leave) {
-        String addsql="insert IGNORE into sys_leave(leaveID,courseID,reason,daynum,applytime,status) values(?,?,?,?,now(),?)";
-        Object[] acc= {leave.getLeaveID(),leave.getCourseID(),leave.getReason(),leave.getDaynum(), leave.getStatus()};
+        String addsql="insert IGNORE into sys_leave(leaveID,courseID,reason,daynum,applytime,status,stuNo) values(?,?,?,?,now(),?,?)";
+        Object[] acc= {leave.getLeaveID(),leave.getCourseID(),leave.getReason(),leave.getDaynum(), leave.getStatus(),leave.getStuNo()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);
         return add;
@@ -64,21 +66,28 @@ public class LeaveDaoImpl implements LeaveDao {
 
     }
 
-    @Override
-    public Leave findbyID(int id) {
-        String IDsql="select * form sys_leave where leaveID = ? ";
-        Leave leave = jdbcTemplate.queryForObject(IDsql,new BeanPropertyRowMapper<>(Leave.class),id);
-
-        return leave;
-    }
+//
 
     @Override
     public int audit(Leave leave) {
-        String audSql="update sys_leave set audittime=?, status=?,audittime = now() where leaveID=?";
-        Object[] acc= {leave.getAudittime(),leave.getStatus(),leave.getLeaveID()};
+        String audSql="update sys_leave set reason=?, status=?,audittime = now() where leaveID=?";
+        Object[] acc= {leave.getReason(),leave.getStatus(),leave.getLeaveID()};
         int aud = jdbcTemplate.update(audSql, acc);
         return aud;
     }
 
+    @Override
+    public List<Leave> findAllWithPaginationBystuID(String stuID, int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        String querysql = "select * from sys_leave where stuNo=? limit ? offset ?";
+        BeanPropertyRowMapper<Leave> depBeanPropertyRowMapper = new BeanPropertyRowMapper<>(Leave.class);
+        List<Leave> departmentList =  jdbcTemplate.query(querysql, depBeanPropertyRowMapper,stuID, pageSize, offset);
+        return departmentList;
+    }
 
+    @Override
+    public int getTotalCountByID(String stuID) {
+        String countQuery = "SELECT COUNT(*) FROM sys_leave  where stuNo=? ";
+        return jdbcTemplate.queryForObject(countQuery, Integer.class,stuID);
+    }
 }

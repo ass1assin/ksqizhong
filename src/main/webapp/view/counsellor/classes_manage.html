@@ -119,15 +119,15 @@
                                                         <div>
 
 <!--                                                            增加弹窗-->
-                                                            <form role="form" th:action="@{/inst/addInst}" th:method="post" id="AddFormId">
+                                                            <form role="form" th:action="@{/class/addClass}" th:method="post" id="AddFormId">
                                                                 <div class="form-group" >
-                                                                    <label>辅导员编号：</label>
-                                                                    <input type="text" name="instID"  placeholder="请输入辅导员编号" class="form-control">
+                                                                    <label>班级编号：</label>
+                                                                    <input type="text" name="classID"  placeholder="请输入班级编号" class="form-control">
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label>辅导员名称：</label>
-                                                                    <input type="text" name="instName"  placeholder="请输入辅导员名称" class="form-control">
+                                                                    <label>班级名称：</label>
+                                                                    <input type="text" name="className"  placeholder="请输入班级名称" class="form-control">
                                                                 </div>
 
                                                                 <div class="form-group" >
@@ -136,8 +136,12 @@
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label>电话信息：</label>
-                                                                    <input type="text" name="telephone"  placeholder="请输入电话信息" class="form-control">
+                                                                    <label>专业：</label>
+                                                                    <input type="text" name="major"  placeholder="请输入专业信息" class="form-control">
+                                                                </div>
+                                                                <div class="form-group" >
+                                                                    <label>班级：</label>
+                                                                    <input type="text" name="grade"  placeholder="请输入年级" class="form-control">
                                                                 </div>
                                                                 <div>
                                                                     <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
@@ -162,27 +166,31 @@
                                                         <div>
 
                                                             <!-- 修改弹窗-->
-                                                            <form role="form" th:action="@{/inst/updataInst}" th:method="post" id="UpdateFormId">
+                                                            <form role="form" th:action="@{/class/updataClass}" th:method="post" id="UpdateFormId">
 
                                                                 <div class="form-group" >
-                                                                    <label>辅导员编号：</label>
+                                                                    <label>班级编号：</label>
 <!--                                                                    加上value查询就报500了-->
-                                                                    <input type="text" name="instID"  placeholder="修改二级学院编号" class="form-control"  id="instID"  readonly>
+                                                                    <input type="text" name="classID"  placeholder="修改班级编号" class="form-control"  id="classID" >
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label>辅导员名称：</label>
-                                                                    <input type="text" name="instName"  placeholder="修改二级学院名称" class="form-control"  id="instName">
+                                                                    <label>班级名称：</label>
+                                                                    <input type="text" name="className"  placeholder="修改班级名称" class="form-control"  id="className">
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label>二级学院ID：</label>
-                                                                    <input type="text" name="depID"  placeholder="修改二级学院名称" class="form-control"  id="depID">
+                                                                    <input type="text" name="depID"  placeholder="修改所属二级学院" class="form-control"  id="depID">
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label>电话信息：</label>
-                                                                    <input type="text" name="telephone"  placeholder="修改二级学院名称" class="form-control"  id="telephone">
+                                                                    <label>专业：</label>
+                                                                    <input type="text" name="major"  placeholder="修改班级专业" class="form-control"  id="major">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>年级：</label>
+                                                                    <input type="text" name="grade"  placeholder="修改班级年级" class="form-control"  id="grade">
                                                                 </div>
                                                                 <div>
                                                                     <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
@@ -207,8 +215,8 @@
                                                         <div>
 
                                                             <!-- 增加弹窗 -->
-                                                            <form role="form" th:action="@{/inst/delete}" style="padding: 15px; text-align: center">
-                                                                <input type="hidden" id="deleteInstID" name="deleteInstID" />
+                                                            <form role="form" th:action="@{/class/delete}" style="padding: 15px; text-align: center">
+                                                                <input type="hidden" id="deleteClassID" name="deleteClassID" />
 
                                                                 <h3>确认是否删除</h3>
                                                                 <div>
@@ -229,9 +237,9 @@
                                         <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                                     </button>
 <!--                                    搜索栏-->
-                                    <form th:action="@{/inst/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
+                                    <form th:action="@{/class/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
 
-                                        <input type="text" name="instName" class="form-control" placeholder="辅导员名称" th:value="${likeName}"/>
+                                        <input type="text" name="className" class="form-control" placeholder="班级名称" th:value="${likeName}"/>
 
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="submit" onclick="togglePagination('likenamePagination', 'showPagination')">
@@ -241,39 +249,42 @@
                                     </form>
 
 <!--                                    重置搜索-->
-                                    <a  class="J_menuItem" href="/inst/showInst"> <button class="btn btn-outline btn-default"><span class="nav-label">
+                                    <a  class="J_menuItem" href="/class/showClass"> <button class="btn btn-outline btn-default"><span class="nav-label">
                                         重置</span></button></a>
 
                                 </div>
                                 <table id="exampleTableEvents" data-height="400" data-mobile-responsive="true">
                                     <thead>
                                         <tr>
-                                            <th data-field="instID">辅导员ID</th>
-                                            <th data-field="instName">辅导员名称</th>
+                                            <th data-field="classID">班级ID</th>
+                                            <th data-field="className">班级名称</th>
                                             <th data-field="depID">所属学院</th>
-                                            <th data-field="telephone">电话号码</th>
+                                            <th data-field="major">所属专业</th>
+                                            <th data-field="grade">年级</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
-                                    <tr th:each="Insts:${Insts}">
-                                        <td th:text="${Insts.instID}"></td>
-                                        <td th:text="${Insts.instName}"></td>
-                                        <td th:text="${Insts.depID}"></td>
-                                        <td th:text="${Insts.telephone}"></td>
+                                    <tr th:each="classes:${classes}">
+                                        <td th:text="${classes.classID}"></td>
+                                        <td th:text="${classes.className}"></td>
+                                        <td th:text="${classes.depID}"></td>
+                                        <td th:text="${classes.major}"></td>
+                                        <td th:text="${classes.grade}"></td>
                                         <td>
                                             <!-- 修改按钮 -->
                                             <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
                                                     th:attr="
-                                                    data-Insts-id=${Insts.instID},
-                                                    data-Insts-name=${Insts.instName},
-                                                    data-Insts-depID=${Insts.depID},
-                                                    data-Insts-telephone=${Insts.telephone}"
+                                                    data-classes-id=${classes.classID},
+                                                    data-classes-name=${classes.className},
+                                                    data-classes-depID=${classes.depID},
+                                                    data-classes-major=${classes.major},
+                                                    data-classes-grade=${classes.grade}"
                                                     onclick="setModalValues(this)"
                                             >编辑</button>
                                             <!-- 删除按钮 -->
 
                                             <button class="btn btn-danger btn-sm delete-btn"
-                                                    th:attr="data-Insts-id=${Insts.instID}"
+                                                    th:attr="data-classes-id=${classes.classID}"
                                                     data-toggle="modal" href="#modal-form3"
                                                     onclick="setDeleteModalValue(this)"
                                             >删除</button>
@@ -283,7 +294,7 @@
                                 <div id="showPagination" class="pagination-container">
                                     <ul class="pagination">
                                         <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
-                                            <a th:href="@{ /inst/showInst(page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
+                                            <a th:href="@{ /class/showClass(page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -291,7 +302,7 @@
                                 <div id="likenamePagination" class="pagination-container" style="display: none;">
                                     <ul class="pagination">
                                         <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
-                                            <a th:href="@{ /inst/likename(page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
+                                            <a th:href="@{ /class/likename(page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -322,23 +333,31 @@
     <script th:inline="javascript">
 
 
+//      data-classes-id=${classes.classID},
+//      data-classes-name=${classes.className},
+//      data-classes-depID=${classes.depID},
+//      data-classes-major=${classes.major}"
+//      data-classes-grade=${classes.grade}"
         function setModalValues(button) {
-            var instID = button.getAttribute('data-Insts-id');
-            var instName = button.getAttribute('data-Insts-name');
-            var depID = button.getAttribute('data-Insts-depID');
-            var telephone = button.getAttribute('data-Insts-telephone');
+            var classID = button.getAttribute('data-classes-id');
+            var className= button.getAttribute('data-classes-name');
+            var depID = button.getAttribute('data-classes-depID');
+            var major = button.getAttribute('data-classes-major');
+            var grade = button.getAttribute('data-classes-grade');
 
             // 设置模态框中的输入框值
-            document.getElementById('instID').value = instID;
-            document.getElementById('instName').value = instName;
+            document.getElementById('classID').value = classID ;
+            document.getElementById('className').value = className;
             document.getElementById('depID').value = depID;
-            document.getElementById('telephone').value = telephone;
+            document.getElementById('major').value = major;
+            document.getElementById('grade').value = grade;
+
         }
         function setDeleteModalValue(button) {
-            var instID = button.getAttribute('data-Insts-id');
+            var classID = button.getAttribute('data-classes-id');
 
             // 设置删除模态框中的隐藏表单值
-            document.getElementById('deleteInstID').value = instID;
+            document.getElementById('deleteClassID').value = classID;
 
         }
 

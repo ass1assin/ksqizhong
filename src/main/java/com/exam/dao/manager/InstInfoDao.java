@@ -6,11 +6,6 @@ import com.exam.entity.Inst;
 import java.util.List;
 
 public interface InstInfoDao {
-//    int addInst(Inst inst);
-//    List<Inst> showInst();
-//    int deleteInst(List<Integer> ids);
-//    int updataInst(Inst inst);
-//    List<Inst> findByName(String instName);
 
     //    总查询
     List<Inst> findAllWithPagination(int page, int pageSize);

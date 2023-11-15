@@ -130,7 +130,53 @@
                         <div class="example-wrap">
                             <div class="example">
                                 <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
+                                    <!--                                    弹出窗口-->
+                                    <div id="modal-form" class="modal fade" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div>
 
+                                                            <!--                                                            增加弹窗-->
+                                                            <form role="form" th:action="@{/leave/addLeave}" th:method="post" id="AddFormId">
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">课程编号：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="courseID"  placeholder="课程编号" class="form-control" >
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">请假事由：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="reason"  placeholder="请假事由" class="form-control" >
+                                                                    </div>
+                                                                </div>
+                                                                <div  class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">天数：</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="daynum"  placeholder="天数" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-10">
+                                                                        <label class="col-sm-2 col-form-label">学号：</label>
+                                                                        <input type="text" name="stuNo" placeholder="学号" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 <!--                                    审核弹窗-->
                                     <div id="modal-form2" class="modal fade" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -175,14 +221,14 @@
                                                                 <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">请假时间：</label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" placeholder="修改二级学院名称" class="form-control" id="applytime">
+                                                                        <input type="text" placeholder="修改" class="form-control" id="applytime">
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">状态：</label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" placeholder="修改二级学院名称" class="form-control" id="status">
+                                                                        <input type="text" placeholder="修改" class="form-control" id="status">
                                                                     </div>
                                                                     <div id="status-display"></div>
                                                                 </div>
@@ -190,7 +236,7 @@
                                                                 <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">审核意见：</label>
                                                                     <div class="col-sm-10">
-                                                                        <textarea name="opinion" placeholder="修改二级学院名称" class="form-control" id="opinion" rows="4"></textarea>
+                                                                        <textarea name="opinion" placeholder="修改" class="form-control" id="opinion" rows="4"></textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div>
@@ -220,6 +266,7 @@
                                                             <!-- 增加弹窗 -->
                                                             <form role="form" th:action="@{/leave/delete}" style="padding: 15px; text-align: center">
                                                                 <input type="hidden" id="deleteLeaveID" name="deleteLeaveID" />
+                                                                <input type="hidden"  name="stuNo" th:value="${stuID}"/>
                                                                 <h3>确认是否删除</h3>
                                                                 <div>
                                                                     <button class="btn btn-danger btn-sm delete-btn" type="submit" style="width: 100%;"><strong>确认删除</strong></button>
@@ -233,18 +280,21 @@
                                         </div>
                                     </div>
 
+                                    <button th:if="${type=='student'}" type="button" class="btn btn-outline btn-default" data-toggle="modal" href="#modal-form">
+                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                                    </button>
 <!--                                    文件导出按钮-->
-                                    <form th:action="@{/leave/export}" >
+                                    <form th:if="${type=='teacher'}" th:action="@{/leave/export}" >
                                         <button type="submit" style="margin-bottom: 7px; background: #ee162d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;"><strong>文件导出</strong>
                                         </button>
                                     </form>
-<!--                                    <a  class="J_menuItem" href="/leave/export"> <button class="btn btn-outline btn-default"><span class="nav-label">-->
-<!--                                        重置</span></button></a>-->
 
-                                    <form th:action="@{/department/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
-                                        <input type="text" name="depName" class="form-control" placeholder="学院名称" />
+                                    <a  class="J_menuItem" th:href="@{/leave/showLeave(type='teacher')}"> <button class="btn btn-outline btn-default"><span class="nav-label">
+                                        重置</span></button></a>
+                                    <form th:if="${type=='teacher'}" th:action="@{/leave/showLeaveBystuID(type='teacher')}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
+                                        <input type="text" name="stuID" class="form-control" placeholder="学生ID" />
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">
+                                            <button class="btn btn-default" type="submit" onclick="togglePagination('likePagination', 'showPagination')">
                                                 <i class="glyphicon glyphicon-search"></i>
                                             </button>
                                         </span>
@@ -285,7 +335,7 @@
                                         <td th:text="${leaves.audittime}"></td>
                                         <td>
                                             <!-- 审核按钮 -->
-                                            <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
+                                            <button th:if="${type=='teacher'}" class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
                                                     th:attr="data-leaves-leaveID=${leaves.leaveID},
                                                              data-leaves-courseID=${leaves.courseID},
                                                              data-leaves-reason=${leaves.reason},
@@ -299,7 +349,7 @@
                                             >预览</button>
 
                                             <!-- 删除按钮 -->
-                                            <button class="btn btn-danger btn-sm delete-btn"
+                                            <button th:if="${type=='student'}" class="btn btn-danger btn-sm delete-btn"
                                                     th:attr="data-leaves-id=${leaves.leaveID}"
                                                     data-toggle="modal" href="#modal-form3"
                                                     onclick="setDeleteModalValue(this)"
@@ -307,15 +357,21 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <div>
+                                <div id="showPagination" class="pagination-container">
                                     <ul class="pagination">
                                         <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
-                                            <a th:href=" @{/leave/showLeave(page=${pageNumber}, pageSize=${10})}"
-                                               th:text="${pageNumber}"></a>
+                                            <a th:href="@{/leave/showLeave(type=${type},page=${pageNumber}, pageSize=${10}) }"></a>
                                         </li>
                                     </ul>
                                 </div>
 
+                                <div id="likePagination" class="pagination-container" style="display: none;">
+                                    <ul class="pagination">
+                                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
+                                            <a th:href="@{/leave/showLeaveBystuID(type=${type},page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <!-- End Example Events -->
@@ -388,6 +444,13 @@
             // 设置删除模态框中的隐藏表单值
             document.getElementById('deleteLeaveID').value = leaveID;
         }
+        document.getElementById('showPagination').style.display = 'block';
+
+// JavaScript函数，用于切换分页的显示和隐藏
+        function togglePagination(showPagination, hidePagination) {
+        document.getElementById(showPagination).style.display = 'block';
+        document.getElementById(hidePagination).style.display = 'none';
+}
     </script>
 
 </body>

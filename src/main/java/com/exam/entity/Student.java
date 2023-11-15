@@ -12,6 +12,6 @@ public class Student {
     private String stuTel;
     private String contact;
     private String contactTel;
-
+    private String type;
 
 }
