@@ -23,7 +23,7 @@ public interface DepartmentService {
 
 
     //    模糊查询
-    List<Department> findByName(String depName,int page, int  pageSize);
+    List<Department> findByName(String depID,String depName,int page, int  pageSize);
     int getTotalPagesByName(int pageSize ,String depName);
 
 }

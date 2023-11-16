@@ -90,6 +90,7 @@ public class LeaveContraller {
 
         // 创建工作簿
         try (Workbook workbook = new XSSFWorkbook()) {
+
             // 创建工作表
             Sheet sheet = workbook.createSheet("Leave Data");
 
@@ -137,6 +138,7 @@ public class LeaveContraller {
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setHeader("Content-Disposition", "attachment; filename=leave_data.xlsx");
             response.setCharacterEncoding("UTF-8");
+
 
             // 将工作簿写入响应流
             try {

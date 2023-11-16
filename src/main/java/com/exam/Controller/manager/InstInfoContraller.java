@@ -70,12 +70,12 @@ public class InstInfoContraller {
     //    CM03-04
 //    功能名称： 查询辅导员信息模块
     @GetMapping("/likename")
-    public ModelAndView showDep(String instName,
+    public ModelAndView showDep(String instName,String instID,
                                 @RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
         ModelAndView modelAndView = new ModelAndView("admin/instructor_manage");
 
-        List<Inst> Insts = instInfoService.findByName(instName,page,pageSize);
+        List<Inst> Insts = instInfoService.findByName(instID,instName,page,pageSize);
 
         int totalPages = instInfoService.getTotalPagesByName(pageSize,instName);
 
@@ -83,6 +83,7 @@ public class InstInfoContraller {
         modelAndView.addObject("Insts",Insts);
 //              前端根据likename显示文本
         modelAndView.addObject("likeName",instName);
+        modelAndView.addObject("likeID",instID);
 
         modelAndView.addObject("totalPages", totalPages);
         return modelAndView;

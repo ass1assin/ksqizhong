@@ -64,8 +64,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     //    CM03-04
 //    功能名称： 查询二级学院信息模块
     @Override
-    public List<Department> findByName(String depName, int page, int pageSize) {
-        List<Department> findByname = departmentDao.findByName(depName,page,pageSize);
+    public List<Department> findByName(String depID,String depName, int page, int pageSize) {
+        List<Department> findByname = departmentDao.findByName(depID,depName,page,pageSize);
         return findByname;
     }
 

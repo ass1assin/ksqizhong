@@ -79,12 +79,12 @@ public class CourseContraller {
 //        return byName;
 //    }
     @GetMapping("/likename")
-    public ModelAndView showCourse(String courseName,
+    public ModelAndView showCourse(String courseName,String courseID,String term,
                                 @RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
         ModelAndView modelAndView = new ModelAndView("counsellor/course_manage");
 
-        List<Course> courses = courseService.findByName(courseName,page,pageSize);
+        List<Course> courses = courseService.findByName(courseID,term,courseName,page,pageSize);
 
         int totalPages = courseService.getTotalPagesByName(pageSize,courseName);
 
@@ -93,6 +93,8 @@ public class CourseContraller {
         modelAndView.addObject("courses", courses);
 //              前端根据likename显示文本
         modelAndView.addObject("likeName",courseName);
+        modelAndView.addObject("likeID",courseID);
+        modelAndView.addObject("term",term);
 
         modelAndView.addObject("totalPages", totalPages);
         return modelAndView;

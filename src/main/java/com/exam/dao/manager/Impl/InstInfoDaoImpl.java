@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //    CM03
@@ -97,6 +98,41 @@ public class InstInfoDaoImpl implements InstInfoDao {
                           "WHERE i.instName LIKE CONCAT('%', '?', '%') limit ? offset ?";
         int offset = (page - 1) * pageSize;
         RowMapper<Inst> rowMapper= new BeanPropertyRowMapper<>(Inst.class);
+@Override
+public List<Inst> findByName(String instID, String instName, int page, int pageSize) {
+    int offset = (page - 1) * pageSize;
+
+    // 构建基本的 SQL 查询
+    StringBuilder sql = new StringBuilder("SELECT * FROM sys_instructor WHERE 1 = 1");
+
+    // 使用 ArrayList 来保存占位符对应的参数值
+    List<Object> params = new ArrayList<>();
+
+
+    // 仅在 instID 不为空时添加条件
+    if (instID != null && !instID.isEmpty()) {
+        sql.append(" AND instID = ?");
+        params.add(instID);
+    }
+
+    // 仅在 instName 不为空时添加条件
+    if (instName != null && !instName.isEmpty()) {
+        sql.append(" AND instName LIKE ?");
+        params.add("%" + instName + "%");
+    }
+
+    // 添加分页条件
+    sql.append(" LIMIT ? OFFSET ?");
+
+
+    // 添加分页参数值
+    params.add(pageSize);
+    params.add(offset);
+
+    // 执行查询
+    RowMapper<Inst> rowMapper = new BeanPropertyRowMapper<>(Inst.class);
+    return jdbcTemplate.query(sql.toString(), rowMapper, params.toArray());
+}
 
         List<Inst> instList = jdbcTemplate.query(findByName,rowMapper,instName,pageSize,offset);
         return instList;

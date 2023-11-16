@@ -60,8 +60,8 @@ public class StuInfoServiceImpl implements StuInfoService {
     //    CM07-04
 //    功能名称： 查询学生信息模块
     @Override
-    public List<Student> findByName(String stuName, int page, int pageSize) {
-        List<Student> findByname = stuInfoDao.findByName(stuName,page,pageSize);
+    public List<Student> findByName(String studentID,String stuName, int page, int pageSize) {
+        List<Student> findByname = stuInfoDao.findByName(studentID,stuName,page,pageSize);
         return findByname;
     }
     @Override

@@ -23,7 +23,7 @@ public interface InstInfoService {
 
 
     //    模糊查询
-    List<Inst> findByName(String instName,int page, int  pageSize);
+    List<Inst> findByName(String instID,String instName,int page, int  pageSize);
     int getTotalPagesByName(int pageSize ,String depName);
 
 }

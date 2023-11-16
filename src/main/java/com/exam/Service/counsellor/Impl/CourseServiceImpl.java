@@ -69,8 +69,8 @@ public class CourseServiceImpl implements CourseService {
 //        return findByname;
 //    }
     @Override
-    public List<Course> findByName(String courseName, int page, int pageSize) {
-        List<Course> findByname = courseDao.findByName(courseName,page,pageSize);
+    public List<Course> findByName(String courseID,String term,String courseName, int page, int pageSize) {
+        List<Course> findByname = courseDao.findByName(courseID,term,courseName,page,pageSize);
         return findByname;
     }
 

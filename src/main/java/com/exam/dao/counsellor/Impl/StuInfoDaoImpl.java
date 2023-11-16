@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //    CM03
@@ -79,15 +80,38 @@ public class StuInfoDaoImpl implements StuInfoDao {
 
 //    CM07-04
 //    功能名称： 查询学生信息模块
-    @Override
-    public List<Student> findByName(String stuName,int page, int pageSize) {
-        String findByName="select * from sys_student where stuName like concat('%',?,'%') limit ? offset ?";
-        int offset = (page - 1) * pageSize;
-        RowMapper<Student> rowMapper= new BeanPropertyRowMapper<>(Student.class);
+@Override
+public List<Student> findByName(String studentID, String stuName, int page, int pageSize) {
+    int offset = (page - 1) * pageSize;
 
-        List<Student> studentList = jdbcTemplate.query(findByName,rowMapper,stuName, pageSize, offset);
-        return studentList;
+    // 构建基本的 SQL 查询
+    StringBuilder sql = new StringBuilder("SELECT * FROM sys_student WHERE 1 = 1");
+
+    // 使用 ArrayList 来保存占位符对应的参数值
+    List<Object> params = new ArrayList<>();
+
+    // 仅在 stuName 不为空时添加条件与参数值
+    if (stuName != null && !stuName.isEmpty()) {
+        sql.append(" AND stuName LIKE ?");
+        params.add("%" + stuName + "%");
     }
+    // 仅在 stuID不为空时添加条件与参数值
+    if (studentID != null && !studentID.isEmpty()) {
+        sql.append(" AND stuID LIKE ?");
+        params.add("%" + studentID+ "%");
+    }
+    // 添加分页条件
+    sql.append(" LIMIT ? OFFSET ?");
+
+    // 添加分页参数值
+    params.add(pageSize);
+    params.add(offset);
+
+    // 执行查询
+    RowMapper<Student> rowMapper = new BeanPropertyRowMapper<>(Student.class);
+    return jdbcTemplate.query(sql.toString(), rowMapper, params.toArray());
+}
+
     @Override
     public int getTotalCountByName(String stuName) {
         String countQuery = "SELECT COUNT(*) FROM sys_student where stuName like concat('%',?,'%')";

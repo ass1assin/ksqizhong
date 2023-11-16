@@ -23,6 +23,6 @@ public interface InstInfoDao {
 
 
     //    模糊查询
-    List<Inst> findByName(String instName,int page, int pageSize);
+    List<Inst> findByName(String instID,String instName,int page, int pageSize);
     int getTotalCountByName(String instName);
 }
