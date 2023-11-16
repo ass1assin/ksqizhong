@@ -73,12 +73,12 @@ public class ClassContraller {
     //    CM07-04
 //    功能名称： 查询学生信息模块
     @GetMapping("/likename")
-    public ModelAndView showDep(String className,
+    public ModelAndView showDep(String className,String classID,
                                 @RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
         ModelAndView modelAndView = new ModelAndView("counsellor/classes_manage");
 
-        List<Classes> classes = classService.findByName(className,page,pageSize);
+        List<Classes> classes = classService.findByName(classID,className,page,pageSize);
 
         int totalPages = classService.getTotalPagesByName(pageSize,className);
 
@@ -86,6 +86,7 @@ public class ClassContraller {
         modelAndView.addObject("classes",classes);
 //              前端根据likename显示文本
         modelAndView.addObject("likeName",className);
+        modelAndView.addObject("likeID",classID);
 
         modelAndView.addObject("totalPages", totalPages);
         return modelAndView;

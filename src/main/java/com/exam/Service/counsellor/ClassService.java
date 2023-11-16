@@ -23,7 +23,7 @@ public interface ClassService {
 
 
     //    模糊查询
-    List<Classes> findByName(String className,int page, int  pageSize);
+    List<Classes> findByName(String classID,String className,int page, int  pageSize);
     int getTotalPagesByName(int pageSize ,String className);
 
 }

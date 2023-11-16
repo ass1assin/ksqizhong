@@ -63,8 +63,8 @@ public class ClassServiceImpl implements ClassService {
 //    功能名称： 查询学生信息模块
 
     @Override
-    public List<Classes> findByName(String className, int page, int pageSize) {
-        List<Classes> findByname = classDao.findByName(className,page,pageSize);
+    public List<Classes> findByName(String classID,String className, int page, int pageSize) {
+        List<Classes> findByname = classDao.findByName(classID,className,page,pageSize);
         return findByname;
     }
 

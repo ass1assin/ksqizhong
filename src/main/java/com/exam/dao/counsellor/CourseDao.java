@@ -16,6 +16,6 @@ public interface CourseDao {
 
     int updataCourse(Course course);
 //    List<Course> findByName(String courseName);
-    List<Course> findByName(String courseName,int page, int pageSize);
+    List<Course> findByName(String courseID,String term,String courseName,int page, int pageSize);
     int getTotalCountByName(String courseName);
 }

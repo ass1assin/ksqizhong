@@ -14,6 +14,6 @@ public interface CourseService {
     int getTotalPages(int pageSize);
     int deleteCourse(String id);
     int updataCourse(Course course);
-    List<Course> findByName(String className,int page, int  pageSize);
+    List<Course> findByName(String courseID,String term,String className,int page, int  pageSize);
     int getTotalPagesByName(int pageSize ,String depName);
 }

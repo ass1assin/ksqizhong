@@ -17,12 +17,7 @@ public class StuInfoContraller {
     @Autowired
     private StuInfoService stuInfoService;
 
-//显示所有信息
-//    @GetMapping("/showStudent")
-//    public List showStudent(){
-//        List<Student> stus = stuInfoService.showStudent();
-//        return stus;
-//    }
+
     @GetMapping("/showStudent")
     public ModelAndView showDep(@RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize) {
@@ -87,20 +82,21 @@ public class StuInfoContraller {
 //        return byName;
 //    }
     @GetMapping("/likename")
-    public ModelAndView showStudent(String studentName,
+    public ModelAndView showStudent(String stuName,String stuID,
                                 @RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
         ModelAndView modelAndView = new ModelAndView("coursemanager/student_manage");
 
-        List<Student> students = stuInfoService.findByName(studentName,page,pageSize);
+        List<Student> students = stuInfoService.findByName(stuID,stuName,page,pageSize);
 
-        int totalPages = stuInfoService.getTotalPagesByName(pageSize,studentName);
+        int totalPages = stuInfoService.getTotalPagesByName(pageSize,stuName);
 
         Boolean pageIf =true;
 //              根据条件查询到的数据
         modelAndView.addObject("students", students);
 //              前端根据likename显示文本
-        modelAndView.addObject("likeName",studentName);
+        modelAndView.addObject("likeName",stuName);
+        modelAndView.addObject("likeID",stuID);
 
         modelAndView.addObject("totalPages", totalPages);
         return modelAndView;

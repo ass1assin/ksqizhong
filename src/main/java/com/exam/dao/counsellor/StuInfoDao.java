@@ -12,7 +12,7 @@ public interface StuInfoDao {
     int getTotalCount();
     int deleteStudent(String id);
     int updataStudent(Student student);
-    List<Student> findByName(String stuName,int page, int pageSize);
+    List<Student> findByName(String studentID,String stuName,int page, int pageSize);
     int getTotalCountByName(String stuName);
 
 }

@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //    CM03
@@ -81,14 +82,40 @@ public class ClassDaoImpl implements ClassDao {
 //    CM07-04
 //    功能名称： 查询学生信息模块
 @Override
-public List<Classes> findByName(String className,int page, int pageSize) {
-    String findByName="select * from sys_classes where className like concat('%',?,'%') limit ? offset ?";
+public List<Classes> findByName(String classID, String className, int page, int pageSize) {
     int offset = (page - 1) * pageSize;
-    RowMapper<Classes> rowMapper= new BeanPropertyRowMapper<>(Classes.class);
 
-    List<Classes> classesList = jdbcTemplate.query(findByName,rowMapper,className,pageSize,offset);
-    return classesList;
+    // 构建基本的 SQL 查询
+    StringBuilder sql = new StringBuilder("SELECT * FROM sys_classes WHERE 1 = 1");
+
+    // 使用 ArrayList 来保存占位符对应的参数值
+    List<Object> params = new ArrayList<>();
+
+    // 仅在 className 不为空时添加条件
+    if (className != null && !className.isEmpty()) {
+        sql.append(" AND className LIKE ?");
+        params.add("%" + className + "%");
+    }
+
+    // 仅在 classID 不为空时添加条件
+    if (classID != null && !classID.isEmpty()) {
+        sql.append(" AND classID LIKE ?");
+        params.add("%" + classID + "%");
+    }
+    // 添加分页条件
+    sql.append(" LIMIT ? OFFSET ?");
+
+
+
+    // 添加分页参数值
+    params.add(pageSize);
+    params.add(offset);
+
+    // 执行查询
+    RowMapper<Classes> rowMapper = new BeanPropertyRowMapper<>(Classes.class);
+    return jdbcTemplate.query(sql.toString(), rowMapper, params.toArray());
 }
+
     @Override
     public int getTotalCountByName(String classesName) {
         String countQuery = "SELECT COUNT(*) FROM sys_classes where className like concat('%',?,'%')";

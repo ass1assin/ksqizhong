@@ -231,9 +231,15 @@
 <!--                                    搜索栏-->
                                     <form th:action="@{/inst/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
 
-                                        <input type="text" name="instName" class="form-control" placeholder="辅导员名称" th:value="${likeName}"/>
-
-                                        <span class="input-group-btn">
+                                         <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="text" name="instName" class="form-control" placeholder="辅导员名称" th:value="${likeName}"/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" name="instID" class="form-control" placeholder="辅导员ID" th:value="${likeName}"/>
+                                            </div>
+                                         </div>
+                                            <span class="input-group-btn">
                                             <button class="btn btn-default" type="submit" onclick="togglePagination('likenamePagination', 'showPagination')">
                                                 <i class="glyphicon glyphicon-search"></i>
                                             </button>

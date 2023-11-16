@@ -205,9 +205,14 @@
                                     </button>
 <!--                                    搜索栏-->
                                     <form th:action="@{/department/likename}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
-
-                                        <input type="text" name="depName" class="form-control" placeholder="学院名称" th:value="${likeName}"/>
-
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="text" name="depName" class="form-control" placeholder="学院名称" th:value="${likeName}"/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" name="depID" class="form-control" placeholder="学院ID" th:value="${likeID}"/>
+                                            </div>
+                                        </div>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="submit" onclick="togglePagination('likenamePagination', 'showDepPagination')">
                                                 <i class="glyphicon glyphicon-search"></i>

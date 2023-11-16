@@ -60,8 +60,8 @@ public class InstInfoServiceImpl implements InstInfoService {
 //    功能名称： 查询辅导员信息模块
 
     @Override
-    public List<Inst> findByName(String instName, int page, int pageSize) {
-        List<Inst> findByname = instInfoDao.findByName(instName,page,pageSize);
+    public List<Inst> findByName(String instID,String instName, int page, int pageSize) {
+        List<Inst> findByname = instInfoDao.findByName(instID,instName,page,pageSize);
         return findByname;
     }
 

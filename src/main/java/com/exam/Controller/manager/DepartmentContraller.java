@@ -77,12 +77,12 @@ import java.util.List;
           //    CM03-04
 //  功能名称： 查询二级学院信息模块
           @GetMapping("/likename")
-          public ModelAndView showDep(String depName,
+          public ModelAndView showDep(String depName,String depID,
                                       @RequestParam(name = "page",defaultValue = "1") int page,
                                       @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
               ModelAndView modelAndView = new ModelAndView("admin/department_manage");
 
-              List<Department> departments = departmentService.findByName(depName,page,pageSize);
+              List<Department> departments = departmentService.findByName(depID,depName,page,pageSize);
 
               int totalPages = departmentService.getTotalPagesByName(pageSize,depName);
 
@@ -91,10 +91,9 @@ import java.util.List;
               modelAndView.addObject("departments", departments);
 //              前端根据likename显示文本
               modelAndView.addObject("likeName",depName);
+              modelAndView.addObject("likeID",depID);
 
 
-                System.out.println("试试");
-                System.out.println("ssssssssssssssssssssssssssssssssssssss");
                 modelAndView.addObject("totalPages", totalPages);
                 return modelAndView;
             }
