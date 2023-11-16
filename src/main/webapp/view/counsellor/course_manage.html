@@ -122,15 +122,24 @@
                                                         <form role="form" th:action="@{/course/addCourse}" th:method="post" id="AddFormId">
                                                             <div class="form-group" >
                                                                 <label>课程编号：</label>
-                                                                <input type="text" name="courseID"  placeholder="请输入课程编号" class="form-control" oninput="AddcheckDepID()" maxlength="3">
+                                                                <input type="text" name="courseID"  placeholder="请输入课程编号" class="form-control">
+                                                            </div>
+                                                            <div class="form-group" >
+                                                                <label>所属班级：</label>
+                                                                <input type="text" name="classID"  placeholder="学期" class="form-control">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>课程名称：</label>
                                                                 <input type="text" name="courseName"  placeholder="请输入课程名称" class="form-control">
                                                             </div>
+
                                                             <div class="form-group" >
-                                                                <label>学期：</label>
-                                                                <input type="text" name="term"  placeholder="学期" class="form-control" oninput="AddcheckDepID()" maxlength="3">
+                                                                <label>年级：</label>
+                                                                <input type="text" name="year"  placeholder="请输入课程编号" class="form-control">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>专业：</label>
+                                                                <input type="text" name="courseName"  placeholder="请输入课程名称" class="form-control">
                                                             </div>
 
                                                             <div>
@@ -166,7 +175,7 @@
 
                                                             <div class="form-group">
                                                                 <label>班号：</label>
-                                                                <input type="text" name="classID"  placeholder="班号" class="form-control"  id="classID">
+                                                                <input type="text" name="classID"  placeholder="班号" class="form-control"  id="classID" readonly>
                                                             </div>
                                                             <div class="form-group" >
                                                                 <label>课程名称：</label>
@@ -410,6 +419,11 @@
     function togglePagination(showPagination, hidePagination) {
         document.getElementById(showPagination).style.display = 'block';
         document.getElementById(hidePagination).style.display = 'none';
+    }
+    // 成功操作弹窗
+    var successMessage = [[${successMessage}]];
+    if (successMessage) {
+        alert("操作成功");
     }
 </script>
 

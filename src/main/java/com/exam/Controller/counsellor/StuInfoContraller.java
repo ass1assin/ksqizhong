@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -36,9 +37,10 @@ public class StuInfoContraller {
 //    CM07-01
 //    功能名称： 添加学生信息模块
     @PostMapping("/addStudent")
-    public ModelAndView addDepinfo(@ModelAttribute Student student){
+    public ModelAndView addDepinfo(@ModelAttribute Student student, RedirectAttributes redirectAttributes){
         int i = stuInfoService.addStudentinfo(student);
         ModelAndView modelAndView = new ModelAndView("redirect:/student/showStudent");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
@@ -46,9 +48,10 @@ public class StuInfoContraller {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @GetMapping("/delete")
-    public ModelAndView deleteStudent( String deleteStudentID){
+    public ModelAndView deleteStudent( String deleteStudentID, RedirectAttributes redirectAttributes){
         int i = stuInfoService.deleteStudent(deleteStudentID);
         ModelAndView modelAndView = new ModelAndView("redirect:/student/showStudent");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
@@ -65,9 +68,10 @@ public class StuInfoContraller {
 //        }
 //    }
     @PostMapping("/updataStudent")
-    public ModelAndView updataStudent(@ModelAttribute Student student){
+    public ModelAndView updataStudent(@ModelAttribute Student student, RedirectAttributes redirectAttributes){
         int i = stuInfoService.updataStudent(student);
         ModelAndView modelAndView = new ModelAndView("redirect:/student/showStudent");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         String message = null;
 
         return modelAndView;

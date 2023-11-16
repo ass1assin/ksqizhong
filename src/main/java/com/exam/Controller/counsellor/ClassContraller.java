@@ -8,6 +8,7 @@ import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -36,9 +37,10 @@ public class ClassContraller {
 //    CM07-01
 //    功能名称： 添加学生信息模块
     @PostMapping("/addClass")
-    public ModelAndView addInst(@ModelAttribute Classes classes){
+    public ModelAndView addInst(@ModelAttribute Classes classes, RedirectAttributes redirectAttributes){
         int i = classService.addClasses(classes);
         ModelAndView modelAndView = new ModelAndView("redirect:/class/showClass");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
@@ -46,25 +48,20 @@ public class ClassContraller {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @GetMapping("/delete")
-    public ModelAndView deleteDep(String deleteClassID){
+    public ModelAndView deleteDep(String deleteClassID,RedirectAttributes redirectAttributes){
         int i = classService.deleteClasses(deleteClassID);
         ModelAndView modelAndView = new ModelAndView("redirect:/class/showClass");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
     //    CM07-03
 //    功能名称： 修改学生信息模块
     @PostMapping("/updataClass")
-    public ModelAndView updataDep(@ModelAttribute Classes classes){
+    public ModelAndView updataDep(@ModelAttribute Classes classes,RedirectAttributes redirectAttributes){
         int i = classService.updataClasses(classes);
         ModelAndView modelAndView = new ModelAndView("redirect:/class/showClass");
-        String message = null;
-        if (i!=0){
-            message="更新成功";
-        }else {
-            message="更新失败";
-        }
-        modelAndView.addObject("message",message);
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
