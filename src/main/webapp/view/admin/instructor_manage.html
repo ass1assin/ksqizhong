@@ -131,8 +131,8 @@
                                                                 </div>
 
                                                                 <div class="form-group" >
-                                                                    <label>二级学院编号：</label>
-                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control" >
+                                                                    <label>所属二级学院：</label>
+                                                                    <input type="text" name="depName"  placeholder="请输入所属二级学院" class="form-control" >
                                                                 </div>
 
                                                                 <div class="form-group">
@@ -166,7 +166,6 @@
 
                                                                 <div class="form-group" >
                                                                     <label>辅导员编号：</label>
-<!--                                                                    加上value查询就报500了-->
                                                                     <input type="text" name="instID"  placeholder="修改二级学院编号" class="form-control"  id="instID"  readonly>
                                                                 </div>
 
@@ -176,8 +175,8 @@
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label>二级学院ID：</label>
-                                                                    <input type="text" name="depID"  placeholder="修改二级学院名称" class="form-control"  id="depID">
+                                                                    <label>所属二级学院名称：</label>
+                                                                    <input type="text" name="depName"  placeholder="修改所属二级学院名称" class="form-control"  id="depName">
                                                                 </div>
 
                                                                 <div class="form-group">
@@ -250,7 +249,7 @@
                                         <tr>
                                             <th data-field="instID">辅导员ID</th>
                                             <th data-field="instName">辅导员名称</th>
-                                            <th data-field="depID">所属学院</th>
+                                            <th data-field="depName">所属二级学院</th>
                                             <th data-field="telephone">电话号码</th>
                                             <th>操作</th>
                                         </tr>
@@ -258,7 +257,7 @@
                                     <tr th:each="Insts:${Insts}">
                                         <td th:text="${Insts.instID}"></td>
                                         <td th:text="${Insts.instName}"></td>
-                                        <td th:text="${Insts.depID}"></td>
+                                        <td th:text="${Insts.depName}"></td>
                                         <td th:text="${Insts.telephone}"></td>
                                         <td>
                                             <!-- 修改按钮 -->
@@ -266,7 +265,7 @@
                                                     th:attr="
                                                     data-Insts-id=${Insts.instID},
                                                     data-Insts-name=${Insts.instName},
-                                                    data-Insts-depID=${Insts.depID},
+                                                    data-Insts-depName=${Insts.depName},
                                                     data-Insts-telephone=${Insts.telephone}"
                                                     onclick="setModalValues(this)"
                                             >编辑</button>
@@ -325,13 +324,13 @@
         function setModalValues(button) {
             var instID = button.getAttribute('data-Insts-id');
             var instName = button.getAttribute('data-Insts-name');
-            var depID = button.getAttribute('data-Insts-depID');
+            var depName = button.getAttribute('data-Insts-depName');
             var telephone = button.getAttribute('data-Insts-telephone');
 
             // 设置模态框中的输入框值
             document.getElementById('instID').value = instID;
             document.getElementById('instName').value = instName;
-            document.getElementById('depID').value = depID;
+            document.getElementById('depName').value = depName;
             document.getElementById('telephone').value = telephone;
         }
         function setDeleteModalValue(button) {

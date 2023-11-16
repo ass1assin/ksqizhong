@@ -7,6 +7,7 @@ public class Inst {
     private String instID;
     private String instName;
     private String depID;
+    private String depName;
     private String telephone;
     private String type;
 }
