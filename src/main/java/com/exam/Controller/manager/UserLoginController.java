@@ -98,5 +98,11 @@ public class UserLoginController {
         ModelAndView modelAndView =new ModelAndView("/common/Hellow");
         return modelAndView;
     }
+    @GetMapping("/loginout")
+    public ModelAndView loginout(HttpSession session){
+        session.setAttribute("userLoggedIn", false);
+        ModelAndView modelAndView =new ModelAndView("/common/login");
+        return modelAndView;
+        }
 }
 

@@ -6,6 +6,7 @@ import com.exam.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/person")
@@ -31,15 +32,9 @@ public class UserPersonController {
 //   ------- CM02: 个人设置-修改信息-------
     @PostMapping("/updataInfo")
     public ModelAndView updataInfo(@ModelAttribute User user){
-        ModelAndView modelAndView = new ModelAndView("common/login");
+//        session.setAttribute("userLoggedIn", false);
         int updataUser = userService.updataUser(user);
-        String message = null;
-        if (updataUser !=0){
-            message="更新成功";
-        }else {
-            message="更新失败";
-        }
-        modelAndView.addObject("message",message);
+        ModelAndView modelAndView = new ModelAndView("redirect:/loginout");
         return modelAndView;
     }
 

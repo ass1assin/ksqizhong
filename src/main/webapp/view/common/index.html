@@ -38,9 +38,9 @@
 									</span>
 								</a>
 								<ul class="dropdown-menu animated fadeInRight m-t-xs">
-									<li><a class="J_menuItem" href="/admin/personinfomation.html">个人资料</a></li>
+									<li><a class="J_menuItem" th:href="@{'/person/showInfo?fullname=' + ${user.fullname} + '&password=' + ${user.password}}">个人资料</a></li>
 									<li class="divider"></li>
-									<li><a href="/common/login.html">安全退出</a></li>
+									<li><a href="/loginout">安全退出</a></li>
 								</ul>
 							</div>
 							<div class="logo-element">H+</div>
