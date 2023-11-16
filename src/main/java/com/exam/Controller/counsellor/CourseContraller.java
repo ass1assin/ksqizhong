@@ -7,6 +7,7 @@ import com.exam.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -40,9 +41,10 @@ public class CourseContraller {
 //    CM07-01
 //    功能名称： 添加学生信息模块
     @PostMapping("/addCourse")
-    public ModelAndView addCourse(@ModelAttribute Course course){
+    public ModelAndView addCourse(@ModelAttribute Course course, RedirectAttributes redirectAttributes){
         int i =courseService.addCourse(course);
         ModelAndView modelAndView = new ModelAndView("redirect:/course/showCourse");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
@@ -50,9 +52,10 @@ public class CourseContraller {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @GetMapping("/delete")
-    public ModelAndView deleteCourse(String deleteCourseID){
+    public ModelAndView deleteCourse(String deleteCourseID,RedirectAttributes redirectAttributes){
         int i =courseService.deleteCourse(deleteCourseID);
         ModelAndView modelAndView = new ModelAndView("redirect:/course/showCourse");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
@@ -60,10 +63,10 @@ public class CourseContraller {
     //    CM07-03
 //    功能名称： 修改学生信息模块
     @PostMapping("/updataCourse")
-    public ModelAndView updataCourse(@ModelAttribute Course course){
+    public ModelAndView updataCourse(@ModelAttribute Course course,RedirectAttributes redirectAttributes){
         int i = courseService.updataCourse(course);
         ModelAndView modelAndView=new ModelAndView("redirect:/course/showCourse");
-
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 

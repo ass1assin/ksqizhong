@@ -140,7 +140,7 @@
                                                                     <input type="text" name="major"  placeholder="请输入专业信息" class="form-control">
                                                                 </div>
                                                                 <div class="form-group" >
-                                                                    <label>班级：</label>
+                                                                    <label>年级：</label>
                                                                     <input type="text" name="grade"  placeholder="请输入年级" class="form-control">
                                                                 </div>
                                                                 <div>
@@ -256,10 +256,10 @@
                                 <table id="exampleTableEvents" data-height="400" data-mobile-responsive="true">
                                     <thead>
                                         <tr>
-                                            <th data-field="classID">班级ID</th>
+                                            <th data-field="classID">班级编号</th>
                                             <th data-field="className">班级名称</th>
-                                            <th data-field="depID">所属学院</th>
-                                            <th data-field="major">所属专业</th>
+                                            <th data-field="depID">所属二级学院</th>
+                                            <th data-field="major">专业</th>
                                             <th data-field="grade">年级</th>
                                             <th>操作</th>
                                         </tr>
@@ -362,6 +362,11 @@
         function togglePagination(showPagination, hidePagination) {
             document.getElementById(showPagination).style.display = 'block';
             document.getElementById(hidePagination).style.display = 'none';
+        }
+        // 成功操作弹窗
+        var successMessage = [[${successMessage}]];
+        if (successMessage) {
+            alert("操作成功");
         }
     </script>
 

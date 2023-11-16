@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -50,11 +51,12 @@ public class LeaveContraller {
     //    CM07-01
 //    功能名称： 添加学生信息模块
     @PostMapping("/addLeave")
-    public ModelAndView addDepinfo(@ModelAttribute Leave leave) {
+    public ModelAndView addDepinfo(@ModelAttribute Leave leave,RedirectAttributes redirectAttributes) {
         int i = leaveService.addLeave(leave);
         ModelAndView modelAndView = new ModelAndView("redirect:/leave/showLeaveBystuID");
         modelAndView.addObject("stuID",leave.getStuNo());
         modelAndView.addObject("type","student");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
@@ -62,20 +64,22 @@ public class LeaveContraller {
     //    CM07-02
 //    功能名称： 删除学生信息模块
     @GetMapping("/delete")
-    public ModelAndView deleteDep(String deleteLeaveID,String stuNo) {
+    public ModelAndView deleteDep(String deleteLeaveID, String stuNo, RedirectAttributes redirectAttributes) {
         int i = leaveService.deleteLeave(deleteLeaveID);
         ModelAndView modelAndView = new ModelAndView("redirect:/leave/showLeaveBystuID");
         modelAndView.addObject("stuID", stuNo);
         modelAndView.addObject("type","student");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
 
     @PostMapping("/auditLeave")
-    public ModelAndView audit(@ModelAttribute Leave leave) {
+    public ModelAndView audit(@ModelAttribute Leave leave, RedirectAttributes redirectAttributes) {
         int audit = leaveService.audit(leave);
         ModelAndView modelAndView = new ModelAndView("redirect:/leave/showLeave");
         modelAndView.addObject("type","teacher");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
@@ -149,7 +153,7 @@ public class LeaveContraller {
     public ModelAndView showLeaveBystuId(String type,
                                         @RequestParam(name = "page", defaultValue = "1") int page,
                                         @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
-                                        String stuID
+                                        String stuID, RedirectAttributes redirectAttributes
     ) {
         ModelAndView modelAndView = new ModelAndView("counsellor/leave_manage");
 
@@ -160,6 +164,7 @@ public class LeaveContraller {
         modelAndView.addObject("leaves", leaves);
         modelAndView.addObject("type",type);
         modelAndView.addObject("totalPages", totalPages);
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
 
         return modelAndView;
     }
