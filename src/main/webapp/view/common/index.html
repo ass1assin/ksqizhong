@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="renderer" content="webkit" />
 
-		<title>H+ 后台主题UI框架 - 主页</title>
+		<title>网上请假系统</title>
 
 		<meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台" />
 		<meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术" />
@@ -34,14 +34,13 @@
 								<span><img alt="image" class="img-circle" src="../../img/profile_small.jpg" /></span>
 								<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 									<span class="clear">
-										<span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>
-										<span th:text="${loginName}">超级管理员<b class="caret"></b></span>
+										<span th:text="${loginName}"><b class="caret"></b></span>
 									</span>
 								</a>
 								<ul class="dropdown-menu animated fadeInRight m-t-xs">
-									<li><a class="J_menuItem" href="profile.html">个人资料</a></li>
+									<li><a class="J_menuItem" href="/admin/personinfomation.html">个人资料</a></li>
 									<li class="divider"></li>
-									<li><a href="login.html">安全退出</a></li>
+									<li><a href="/common/login.html">安全退出</a></li>
 								</ul>
 							</div>
 							<div class="logo-element">H+</div>
@@ -68,14 +67,14 @@
 						<li th:if="${inst.type == 'teacher' or user.type == 'admin' }">
 							<a class="J_menuItem" href="/course/showCourse"><i class="fa fa-columns"></i> <span class="nav-label">课程信息管理</span></a>
 						</li>
-						<li th:if="${inst.type == 'teacher'}">
+						<li th:if="${inst.type == 'teacher' }">
 							<a class="J_menuItem" href="/student/showStudent"><i class="fa fa-columns"></i> <span class="nav-label">学生信息管理</span></a>
 						</li>
-						<li th:if="${inst.type == 'teacher'}">
+						<li th:if="${inst.type == 'teacher' }">
 							<a class="J_menuItem" th:href="@{'/leave/showLeave?type=' + ${inst.type}}"> <i class="fa fa-columns"></i> <span class="nav-label">请假信息管理</span></a>
 						</li>
 <!--						学生-->
-						<li th:if="${student.type == 'student'}">
+						<li th:if="${student.type == 'student' }">
 							<a class="J_menuItem" th:href="@{'/leave/showLeaveBystuID?stuID=' + ${stuID}+ '&type=' + ${student.type}}"> <i class="fa fa-columns"></i> <span class="nav-label">请假信息管理</span></a>
 						</li>
 					</ul>
@@ -83,6 +82,18 @@
 			</nav>
 			<!--左侧导航结束-->
 			<!--右侧部分开始-->
+            <!--登录成功提示-->
+			<div class="modal" tabindex="-1" role="dialog" id="successModal" style="display: flex; align-items: center; justify-content: center;">
+				<div class="modal-dialog" role="document" style="text-align: center; max-width: 300px;">
+					<div class="modal-content">
+						<div class="modal-body">
+							<p style="font-size: 18px;">恭喜！登录成功。</p>
+							<button type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top: 10px;">确定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div id="page-wrapper" class="gray-bg dashbard-1">
 				<div class="row border-bottom">
 					<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;">
@@ -98,7 +109,6 @@
 							<a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
 						</div>
 					</nav>
-					<button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i></button>
 					<div class="btn-group roll-nav roll-right">
 						<button class="dropdown" data-toggle="dropdown">页签操作<span class="caret"></span></button>
 						<ul role="menu" class="dropdown-menu dropdown-menu-right">
@@ -133,5 +143,10 @@
 >
 		<!-- 第三方插件 -->
 		<script src="../../js/plugins/pace/pace.min.js"></script>
+		<script th:if="${loginSuccess}">
+			$(document).ready(function () {
+				$('#successModal').modal('show');
+			});
+		</script>
 	</body>
 </html>

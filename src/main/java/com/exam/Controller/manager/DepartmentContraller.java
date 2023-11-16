@@ -5,7 +5,9 @@ import com.exam.Service.manager.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -18,15 +20,17 @@ import java.util.List;
       @GetMapping("/showDep")
 
       public ModelAndView showDep(@RequestParam(name = "page",defaultValue = "1") int page,
-                                  @RequestParam(name = "pageSize",defaultValue = "10") int pageSize) {
-          ModelAndView modelAndView = new ModelAndView("admin/collegemanage");
+                                  @RequestParam(name = "pageSize",defaultValue = "10") int pageSize
+                                  ) {
+          ModelAndView modelAndView = new ModelAndView("admin/department_manage");
 
           List<Department> departments = departmentService.getDepsWithPagination(page, pageSize);
           int totalPages = departmentService.getTotalPages(pageSize);
 
           modelAndView.addObject("departments", departments);
-
           modelAndView.addObject("totalPages", totalPages);
+
+
 
           return modelAndView;
       }
@@ -38,9 +42,10 @@ import java.util.List;
 
       @PostMapping("/addDep")
 
-          public ModelAndView addDepinfo(@ModelAttribute Department department){
+          public ModelAndView addDepinfo(@ModelAttribute Department department, RedirectAttributes redirectAttributes){
               int i = departmentService.addDepinfo(department);
               ModelAndView modelAndView = new ModelAndView("redirect:/department/showDep");
+              redirectAttributes.addFlashAttribute("successMessage", "操作成功");
               return modelAndView;
           }
 
@@ -49,9 +54,10 @@ import java.util.List;
 //  功能名称： 删除二级学院信息模块
 
           @GetMapping("/delete")
-          public ModelAndView deleteDep( String deleteDepID){
+          public ModelAndView deleteDep( String deleteDepID,RedirectAttributes redirectAttributes){
               int i = departmentService.deleteDep(deleteDepID);
               ModelAndView modelAndView = new ModelAndView("redirect:/department/showDep");
+              redirectAttributes.addFlashAttribute("successMessage", "操作成功");
               return modelAndView;
           }
 
@@ -60,16 +66,10 @@ import java.util.List;
           //    CM03-03
 //  功能名称： 修改二级学院信息模块
           @PostMapping("/updataDep")
-          public ModelAndView updataDep(@ModelAttribute Department department){
+          public ModelAndView updataDep(@ModelAttribute Department department,RedirectAttributes redirectAttributes){
               int i = departmentService.updataDep(department);
               ModelAndView modelAndView = new ModelAndView("redirect:/department/showDep");
-              String message = null;
-              if (i!=0){
-                  message="更新成功";
-              }else {
-                  message="更新失败";
-              }
-              modelAndView.addObject("message",message);
+             redirectAttributes.addFlashAttribute("successMessage", "操作成功");
               return modelAndView;
           }
 
@@ -80,7 +80,7 @@ import java.util.List;
           public ModelAndView showDep(String depName,
                                       @RequestParam(name = "page",defaultValue = "1") int page,
                                       @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
-              ModelAndView modelAndView = new ModelAndView("admin/collegemanage");
+              ModelAndView modelAndView = new ModelAndView("admin/department_manage");
 
               List<Department> departments = departmentService.findByName(depName,page,pageSize);
 

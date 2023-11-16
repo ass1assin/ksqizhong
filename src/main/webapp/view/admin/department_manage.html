@@ -83,23 +83,11 @@
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#">选项1</a>
-                        </li>
-                        <li><a href="#">选项2</a>
-                        </li>
-                    </ul>
                     <a class="close-link">
                         <i class="fa fa-times"></i>
                     </a>
                 </div>
             </div>
-
-
-
 
             <div class="ibox-content">
                 <div class="row row-lg">
@@ -178,6 +166,13 @@
                                         </div>
                                     </div>
 
+                                    <!-- 成功添加弹窗 -->
+<!--                                    <div id="showSuccessMessage">-->
+<!--                                        <div class="alert alert-success" role="alert">-->
+<!--&lt;!&ndash;                                            <p th:text="${successMessage}"></p>&ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="alert alert-success" th:if="${not #strings.isEmpty(successMessage)}" th:text="${successMessage}"></div>-->
 <!--                                    删除弹窗-->
                                     <div id="modal-form3" class="modal fade" aria-hidden="true">
                                         <div class="modal-dialog" style="max-width: 400px;">
@@ -240,14 +235,14 @@
                                             <!-- 修改按钮 -->
                                             <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
                                                     th:attr="data-departments-id=${departments.depID},data-departments-name=${departments.depName}"
-                                                    onclick="setModalValues(this)"
+                                                    onclick="updateValues(this)"
                                             >编辑</button>
                                             <!-- 删除按钮 -->
 
                                             <button class="btn btn-danger btn-sm delete-btn"
                                                     th:attr="data-departments-id=${departments.depID}"
                                                     data-toggle="modal" href="#modal-form3"
-                                                    onclick="setDeleteModalValue(this)"
+                                                    onclick="deleteValue(this)"
                                             >删除</button>
                                         </td>
                                     </tr>
@@ -292,7 +287,6 @@
     <script src="../../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
     <script th:inline="javascript">
-
 // 增加不对时拦截
         document.getElementById("AddFormId").addEventListener("submit", function (event) {
             // 在提交按钮点击时执行 checkDepID 函数
@@ -301,22 +295,7 @@
                 alert("填写内容不符合要求")
             }
         });
-        function UpdatecheckDepID() {
-            var depIDInput = document.getElementById("depID");
-            var depIDError = document.getElementById("depIDError");
-
-            // 正则表达式，匹配'G1'或'G2'
-            var pattern = /^G([1-9]|1\d|2[0-9]|30)$/;
-
-            if (!pattern.test(depIDInput.value)) {
-                depIDError.textContent = "请输入'G1'-'G30'的形式";
-                return false;
-            } else {
-                depIDError.textContent = "";
-                return true;
-            }
-        }
-
+//增加内容正确判断
         function AddcheckDepID() {
             var depIDInput = document.getElementById("depID2");
             var depIDError2 = document.getElementById("depIDError2");
@@ -333,8 +312,8 @@
             }
         }
 
-
-        function setModalValues(button) {
+// 修改栏信息展示
+        function updateValues(button) {
             var depID = button.getAttribute('data-departments-id');
             var depName = button.getAttribute('data-departments-name');
 
@@ -342,7 +321,8 @@
             document.getElementById('depID').value = depID;
             document.getElementById('depName').value = depName;
         }
-        function setDeleteModalValue(button) {
+// 删除栏
+        function deleteValue(button) {
             var depID = button.getAttribute('data-departments-id');
 
             // 设置删除模态框中的隐藏表单值
@@ -355,8 +335,13 @@
             document.getElementById(showPagination).style.display = 'block';
             document.getElementById(hidePagination).style.display = 'none';
         }
-    </script>
 
+        // 成功操作弹窗
+         var successMessage = [[${successMessage}]];
+         if (successMessage) {
+             alert("操作成功");
+         }
+    </script>
 </body>
 
 </html>

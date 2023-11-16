@@ -34,7 +34,7 @@ public class LeaveContraller {
                                 @RequestParam(name = "page", defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
                                 ) {
-        ModelAndView modelAndView = new ModelAndView("counsellor/leavemanage");
+        ModelAndView modelAndView = new ModelAndView("counsellor/leave_manage");
 
         List<Leave> leaves = leaveService.getLeavesWithPagination(page, pageSize);
         int totalPages = leaveService.getTotalPages(pageSize);
@@ -151,7 +151,7 @@ public class LeaveContraller {
                                         @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
                                         String stuID
     ) {
-        ModelAndView modelAndView = new ModelAndView("counsellor/leavemanage");
+        ModelAndView modelAndView = new ModelAndView("counsellor/leave_manage");
 
         List<Leave> leaves = leaveService.findAllWithPaginationBystuID(stuID,page, pageSize);
         int totalPages = leaveService.getTotalCountByID(stuID,pageSize);

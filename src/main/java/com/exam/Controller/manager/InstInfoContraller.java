@@ -6,6 +6,7 @@ import com.exam.entity.Inst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -35,9 +36,10 @@ public class InstInfoContraller {
 //    CM03-01
 //    功能名称： 添加辅导员信息模块
     @PostMapping("/addInst")
-    public ModelAndView addInst(@ModelAttribute Inst inst){
+    public ModelAndView addInst(@ModelAttribute Inst inst, RedirectAttributes redirectAttributes){
         int i = instInfoService.addInst(inst);
         ModelAndView modelAndView = new ModelAndView("redirect:/inst/showInst");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
@@ -45,9 +47,10 @@ public class InstInfoContraller {
     //    CM03-02
 //    功能名称： 删除辅导员信息模块
     @GetMapping("/delete")
-    public ModelAndView deleteDep(String deleteInstID){
+    public ModelAndView deleteDep(String deleteInstID,RedirectAttributes redirectAttributes){
         int i = instInfoService.deleteInst(deleteInstID);
         ModelAndView modelAndView = new ModelAndView("redirect:/inst/showInst");
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 
@@ -55,16 +58,10 @@ public class InstInfoContraller {
     //    CM03-03
 //    功能名称： 修改辅导员信息模块
     @PostMapping("/updataInst")
-    public ModelAndView updataDep(@ModelAttribute Inst inst){
+    public ModelAndView updataDep(@ModelAttribute Inst inst, RedirectAttributes redirectAttributes){
         int i = instInfoService.updataInst(inst);
         ModelAndView modelAndView = new ModelAndView("redirect:/inst/showInst");
-        String message = null;
-        if (i!=0){
-            message="更新成功";
-        }else {
-            message="更新失败";
-        }
-        modelAndView.addObject("message",message);
+        redirectAttributes.addFlashAttribute("successMessage", "操作成功");
         return modelAndView;
     }
 

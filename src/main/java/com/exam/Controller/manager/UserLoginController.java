@@ -86,6 +86,8 @@ public class UserLoginController {
         modelAndView.addObject("stuID",student.getStuID());
         modelAndView.addObject("loginName",loginName);
 
+        modelAndView.addObject("loginSuccess", true);
+
         session.setAttribute("userLoggedIn", true);
 
         return modelAndView;

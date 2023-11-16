@@ -26,7 +26,7 @@ public class StuInfoContraller {
     @GetMapping("/showStudent")
     public ModelAndView showDep(@RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize) {
-        ModelAndView modelAndView = new ModelAndView("counsellor/studentmanager");
+        ModelAndView modelAndView = new ModelAndView("counsellor/student_manage");
 
         List<Student> stuInfo = stuInfoService.getDepsWithPagination(page, pageSize);
         int totalPages = stuInfoService.getTotalPages(pageSize);
@@ -90,7 +90,7 @@ public class StuInfoContraller {
     public ModelAndView showStudent(String studentName,
                                 @RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
-        ModelAndView modelAndView = new ModelAndView("coursemanager/studentmanager");
+        ModelAndView modelAndView = new ModelAndView("coursemanager/student_manage");
 
         List<Student> students = stuInfoService.findByName(studentName,page,pageSize);
 

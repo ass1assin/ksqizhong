@@ -25,7 +25,7 @@ public class CourseContraller {
     @GetMapping("/showCourse")
     public ModelAndView showCourse(@RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize) {
-    ModelAndView modelAndView = new ModelAndView("counsellor/coursemanager");
+    ModelAndView modelAndView = new ModelAndView("counsellor/course_manage");
 
     List<Course> courses = courseService.getDepsWithPagination(page, pageSize);
     int totalPages = courseService.getTotalPages(pageSize);
@@ -79,7 +79,7 @@ public class CourseContraller {
     public ModelAndView showCourse(String courseName,
                                 @RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
-        ModelAndView modelAndView = new ModelAndView("counsellor/coursemanager");
+        ModelAndView modelAndView = new ModelAndView("counsellor/course_manage");
 
         List<Course> courses = courseService.findByName(courseName,page,pageSize);
 

@@ -23,7 +23,7 @@ public class UserPersonController {
         User user1 = userService.findInfo(fullname, password);
 
         modelAndView.addObject("user",user1);
-        modelAndView.setViewName("admin/personinfomation");
+        modelAndView.setViewName("admin/user_person");
         return modelAndView;
     }
 
@@ -31,7 +31,7 @@ public class UserPersonController {
 //   ------- CM02: 个人设置-修改信息-------
     @PostMapping("/updataInfo")
     public ModelAndView updataInfo(@ModelAttribute User user){
-        ModelAndView modelAndView = new ModelAndView("admin/personinfomation");
+        ModelAndView modelAndView = new ModelAndView("common/login");
         int updataUser = userService.updataUser(user);
         String message = null;
         if (updataUser !=0){
