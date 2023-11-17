@@ -1,11 +1,11 @@
 package test;
 
-import com.exam.Controller.counsellor.CourseContraller;
-import com.exam.Controller.student.LeaveContraller;
-import com.exam.Service.counsellor.CourseService;
-import com.exam.Service.student.Impl.LeaveServiceImpl;
-import com.exam.dao.counsellor.StuInfoDao;
-import com.exam.dao.manager.Impl.InstInfoDaoImpl;
+import com.exam.Controller.CourseContraller;
+import com.exam.Controller.LeaveContraller;
+import com.exam.Service.CourseService;
+import com.exam.Service.Impl.LeaveServiceImpl;
+import com.exam.dao.StuInfoDao;
+import com.exam.dao.Impl.InstInfoDaoImpl;
 import com.exam.entity.Course;
 import com.exam.entity.Inst;
 import com.exam.entity.Leave;
@@ -14,9 +14,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @ContextConfiguration({"classpath:spring.xml"})

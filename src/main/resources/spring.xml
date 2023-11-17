@@ -14,7 +14,7 @@
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>
 
-
+<!--配置拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/> <!-- 设置拦截的路径，这里是全部路径 -->
@@ -24,10 +24,9 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-
+    <!--    扫描xx包下的注解-->
 <context:component-scan base-package="com.exam"/>
 
-<!--    扫描xx包下的注解-->
 
 <context:property-placeholder location="classpath:db.properties"/>
 <!--引入外部配置文件xx.properties-->
@@ -43,14 +42,12 @@
         <property name="dataSource" ref="druid"/>
     </bean>
 
-<!--    新加的-->
+
     <bean class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver" id="templateResolver">
         <property name="prefix" value="/view/"/>
         <property name="suffix" value=".html"/>
         <property name="characterEncoding" value="utf-8"/>
-        <!--        是否设置缓存-->
         <property name="cacheable" value="false"/>
-        <!--        模板的类型 -->
         <property name="templateMode" value="HTML5"/>
     </bean>
     <!--模板引擎-->
