@@ -295,8 +295,9 @@
 
                                     <a  th:if="${type=='teacher'}" class="J_menuItem" th:href="@{/leave/showLeave(type='teacher')}"> <button class="btn btn-outline btn-default"><span class="nav-label">
                                         重置</span></button></a>
-                                    <form th:if="${type=='teacher'}" th:action="@{/leave/showLeaveBystuID(type='teacher')}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
-                                        <input type="text" name="stuID" class="form-control" placeholder="学生ID" />
+                                    <form th:if="${type=='teacher'}" th:action="@{/leave/showLeaveBystuID}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
+                                        <input type="text" name="stuID" class="form-control" placeholder="学生ID"/>
+                                        <input type="hidden" name="type" th:value="teacher" />
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="submit" onclick="togglePagination('likePagination', 'showPagination')">
                                                 <i class="glyphicon glyphicon-search"></i>
