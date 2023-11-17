@@ -39,9 +39,12 @@ public class LeaveDaoImpl implements LeaveDao {
     @Override
     public List<Leave> findAllWithPagination(int page, int pageSize) {
         int offset = (page - 1) * pageSize;
-//        String querysql = "select * from sys_leave limit ? offset ?";
-        String querysql ="select sl.leaveID,sc.courseName,sl.reason,sl.daynum,sl.stuNo,sl.applytime,sl.status,sl.audittime,sl.opinion\n" +
-                         "FROM sys_leave sl JOIN sys_course sc on sl.courseID = sc.courseID  limit ? offset ?";
+
+        String querysql =
+                "SELECT sl.leaveID, sc.courseName, sl.reason, sl.daynum, sl.stuNo, sl.applytime, sl.status, sl.audittime, sl.opinion " +
+                "FROM sys_leave sl " +
+                "JOIN sys_course sc ON sl.courseID = sc.courseID LIMIT ? OFFSET ?";
+
         BeanPropertyRowMapper<Leave> depBeanPropertyRowMapper = new BeanPropertyRowMapper<>(Leave.class);
         List<Leave> departmentList =  jdbcTemplate.query(querysql, depBeanPropertyRowMapper, pageSize, offset);
         return departmentList;
@@ -84,8 +87,10 @@ public class LeaveDaoImpl implements LeaveDao {
 
     @Override
     public int audit(Leave leave) {
-        String audSql="update sys_leave set reason=?, status=?,audittime = now() where leaveID=?";
-        Object[] acc= {leave.getReason(),leave.getStatus(),leave.getLeaveID()};
+        String audSql="UPDATE sys_leave" +
+                      "SET reason = ?, daynum = ?, stuNo = ?, courseID = (SELECT courseID FROM sys_course WHERE courseName = ?)" +
+                      "WHERE leaveID = ?";
+        Object[] acc= {leave.getReason(), leave.getDaynum(), leave.getStuNo(), leave.getCourseName(),leave.getLeaveID()};
         int aud = jdbcTemplate.update(audSql, acc);
         return aud;
     }

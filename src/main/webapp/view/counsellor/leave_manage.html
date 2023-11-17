@@ -309,8 +309,9 @@
                                     <form th:if="${type=='teacher'}" th:action="@{/leave/showLeaveBystuID}" method="get" class="input-group pull-right" style="width: 300px; margin-right: 10px;">
                                         <input type="text" name="stuID" class="form-control" placeholder="学生ID"/>
                                         <input type="hidden" name="type" th:value="teacher" />
+
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default" type="submit" onclick="togglePagination('likePagination', 'showPagination')">
+                                            <button class="btn btn-default" type="submit" onclick="togglePagination('likenamePagination', 'showDepPagination')">
                                                 <i class="glyphicon glyphicon-search"></i>
                                             </button>
                                         </span>
@@ -373,21 +374,23 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <div id="showPagination" class="pagination-container">
+
+                                <div id="showDepPagination" class="pagination-container">
                                     <ul class="pagination">
                                         <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
-                                            <a th:href="@{/leave/showLeave(type=${type},page=${pageNumber}, pageSize=${10}) }"></a>
+                                            <a th:href="@{/leave/showLeave(type=${type},page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
                                         </li>
                                     </ul>
                                 </div>
 
-                                <div id="likePagination" class="pagination-container" style="display: none;">
+                                <div id="likenamePagination" class="pagination-container" style="display: none;">
                                     <ul class="pagination">
                                         <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
-                                            <a th:href="@{/leave/showLeaveBystuID(type=${type},page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
+                                            <a th:href="@{/leave/showLeaveBystuID(type=${type},page=${pageNumber}, pageSize=${10},stuID=${stuID}) }" th:text="${pageNumber}"></a>
                                         </li>
                                     </ul>
                                 </div>
+
                             </div>
                         </div>
                         <!-- End Example Events -->
@@ -460,13 +463,16 @@
             // 设置删除模态框中的隐藏表单值
             document.getElementById('deleteLeaveID').value = leaveID;
         }
-        document.getElementById('showPagination').style.display = 'block';
+
+//
+document.getElementById('showDepPagination').style.display = 'block';
 
 // JavaScript函数，用于切换分页的显示和隐藏
-        function togglePagination(showPagination, hidePagination) {
-        document.getElementById(showPagination).style.display = 'block';
-        document.getElementById(hidePagination).style.display = 'none';
+function togglePagination(showPagination, hidePagination) {
+    document.getElementById(showPagination).style.display = 'block';
+    document.getElementById(hidePagination).style.display = 'none';
 }
+
 
 // 成功操作弹窗
 var successMessage = [[${successMessage}]];
