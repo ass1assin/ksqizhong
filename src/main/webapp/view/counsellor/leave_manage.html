@@ -375,7 +375,7 @@
                                     </tr>
                                 </table>
 
-                                <div id="showDepPagination" class="pagination-container">
+                                <div th:if="${type=='teacher'}" id="showDepPagination" class="pagination-container">
                                     <ul class="pagination">
                                         <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
                                             <a th:href="@{/leave/showLeave(type=${type},page=${pageNumber}, pageSize=${10}) }" th:text="${pageNumber}"></a>
