@@ -70,8 +70,8 @@ public class StuInfoDaoImpl implements StuInfoDao {
 //    功能名称： 修改学生信息模块
     @Override
     public int updataStudent(Student student) {
-        String updataql="update sys_student set classID=? , stuName=? , address=?,stuTel=? where stuID=?";
-        Object[] acc= {student.getClassID(),student.getStuName(),student.getAddress(),student.getStuTel(),student.getStuID()};
+        String updataql="update sys_student set classID=? , stuName=? , address=?,stuTel=?,contact=?,contactTel=? where stuID=?";
+        Object[] acc= {student.getClassID(),student.getStuName(),student.getAddress(),student.getStuTel(),student.getContact(),student.getContactTel(),student.getStuID()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int updata = jdbcTemplate.update(updataql, acc);
         return updata;

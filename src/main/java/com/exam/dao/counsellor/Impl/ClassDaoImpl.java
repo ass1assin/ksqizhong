@@ -50,8 +50,8 @@ public class ClassDaoImpl implements ClassDao {
 //        String addsql="insert IGNORE into sys_classes(classID,className,depID,major,grade) values(?,?,?,?,?)";
         String addsql="INSERT INTO sys_classes (classID, className, major, grade,depID)" +
                       "SELECT ?,?,?,?,depID" +
-                      "FROM sys_department " +
-                "WHERE depName= ?";
+                      " FROM sys_department " +
+                      "WHERE depName= ?";
         Object[] acc= {classes.getClassID(), classes.getClassName(), classes.getMajor(), classes.getGrade(), classes.getDepName()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);
@@ -75,7 +75,7 @@ public class ClassDaoImpl implements ClassDao {
     public int updataClasses(Classes classes) {
 //        String updataql="update sys_classes set className=? ,depID =? , major=? , grade=? where classID=?";
         String updataql="UPDATE sys_classes" +
-                        "set className=?,major=?,grade=?,depID=(SELECT depID FROM sys_department WHERE depName=?) " +
+                        " set className=?,major=?,grade=?,depID=(SELECT depID FROM sys_department WHERE depName=?) " +
                         "WHERE classID=?";
         Object[] acc= {classes.getClassName(),classes.getMajor(),classes.getGrade(),classes.getDepName(),classes.getClassID()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)

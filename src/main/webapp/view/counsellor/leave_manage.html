@@ -420,8 +420,8 @@
             var applytime = button.getAttribute('data-leaves-applytime');
             var status = button.getAttribute('data-leaves-status');
             var audittime = button.getAttribute('data-leaves-audittime');
-            var courseName = button.getAttribute('data-leaves-courseName');
             var opinion = button.getAttribute('data-leaves-opinion');
+            var courseName = button.getAttribute('data-leaves-courseName');
 
 
             var approvalButtons = document.querySelectorAll('.approval-btn');
@@ -451,8 +451,8 @@
             else
             {document.getElementById('status').value ='未审批'}
             document.getElementById('audittime').value = audittime;
-            document.getElementById('courseName').value = courseName;
             document.getElementById('opinion').value = opinion;
+            document.getElementById('courseName').value = courseName;
         }
         function setDeleteModalValue(button) {
             var leaveID = button.getAttribute('data-leaves-id');
