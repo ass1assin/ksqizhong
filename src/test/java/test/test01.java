@@ -2,6 +2,7 @@ package test;
 
 import com.exam.Controller.counsellor.CourseContraller;
 import com.exam.Controller.student.LeaveContraller;
+import com.exam.Service.counsellor.CourseService;
 import com.exam.Service.student.Impl.LeaveServiceImpl;
 import com.exam.dao.counsellor.StuInfoDao;
 import com.exam.dao.manager.Impl.InstInfoDaoImpl;
@@ -30,6 +31,8 @@ public class test01 {
     private LeaveContraller leaveContraller;
     @Autowired
     private CourseContraller courseContraller;
+    @Autowired
+    private CourseService ss;
     @Autowired
     InstInfoDaoImpl instInfoDaoimpl;
     @Autowired
@@ -68,13 +71,13 @@ public class test01 {
    }
    @Test
     public void jjj(){
-       Leave leave =new Leave();
-       leave.setCourseName("数据结构");
-       leave.setDaynum(2);
-       leave.setReason("pppppppssssp");
-       leave.setStuNo("202109512228");
-       leave.setLeaveID("11111111");
-
-       System.out.println("sssssssssssssssssssssss:"+im.audit(leave));
+       Course course =new Course();
+       course.setCourseID("1222");
+       course.setCourseName("数据结构");
+       course.setYear("21");
+       course.setTerm("1");
+       course.setHour(80);
+       course.setClassName("一班");
+       System.out.println("sssssssssssssssssssssss:"+ss.addCourse(course));
    }
 }

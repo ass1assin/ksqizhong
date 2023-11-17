@@ -46,14 +46,14 @@ public class CourseDaoImpl implements CourseDao {
 
 
     //    CM07-01
-//    功能名称： 添加学生信息模块
+//    功能名称： 添加课程信息模块
     @Override
     public int addCourse(Course course) {
 //        String addsql="insert IGNORE  into sys_course(courseID,classID,courseName,year,term,hour) values(?,?,?,?,?,?)";
         String addsql="INSERT INTO sys_course (courseID, courseName, year, term, hour, classID)\n" +
                       "SELECT ?,?,?,?,?,classID\n" +
                       "FROM sys_classes WHERE className=?";
-        Object[] acc= {course.getCourseID(),course.getCourseName(),course.getYear(),course.getTerm(),course.getHour(),course.getClassID()};
+        Object[] acc= {course.getCourseID(),course.getCourseName(),course.getYear(),course.getTerm(),course.getHour(),course.getClassName()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);
         return add;

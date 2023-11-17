@@ -38,8 +38,8 @@ public class CourseServiceImpl implements CourseService {
 //    功能名称： 添加学生信息模块
     @Override
     public int addCourse(Course course) {
-        course.setHour(80);
         course.setTerm("1");
+        course.setHour(80);
         int addCourse= courseDao.addCourse(course);
 
         return addCourse;

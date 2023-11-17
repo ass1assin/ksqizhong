@@ -74,11 +74,8 @@ public class LeaveDaoImpl implements LeaveDao {
 
     @Override
     public int audit(Leave leave) {
-//        String audSql="update sys_leave set reason=?, status=?,audittime = now() where leaveID=?";
-        String audSql="UPDATE sys_leave\n" +
-                      "SET reason = ?, daynum = ?, stuNo = ?, courseID = (SELECT courseID FROM sys_course WHERE courseName = ?)\n" +
-                      "WHERE leaveID = ?";
-        Object[] acc= {leave.getReason(), leave.getDaynum(), leave.getStuNo(), leave.getCourseName(),leave.getLeaveID()};
+        String audSql="update sys_leave set reason=?, status=?,audittime = now() where leaveID=?";
+        Object[] acc= {leave.getReason(),leave.getStatus(),leave.getLeaveID()};
         int aud = jdbcTemplate.update(audSql, acc);
         return aud;
     }
