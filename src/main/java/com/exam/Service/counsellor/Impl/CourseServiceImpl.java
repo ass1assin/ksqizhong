@@ -1,12 +1,9 @@
 package com.exam.Service.counsellor.Impl;
 
-import com.exam.Service.counsellor.ClassService;
 import com.exam.Service.counsellor.CourseService;
-import com.exam.dao.counsellor.ClassDao;
 import com.exam.dao.counsellor.CourseDao;
 import com.exam.entity.Classes;
 import com.exam.entity.Course;
-import com.exam.entity.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +13,11 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseDao courseDao;
+    @Override
+    public List<Classes> showClasses() {
+        List<Classes> ClassesList= courseDao.showClasses();
+        return ClassesList;
+    }
 
     @Override
     public List<Course> showCourse() {

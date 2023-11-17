@@ -1,16 +1,20 @@
 package com.exam.dao.counsellor;
 
 import com.exam.entity.Classes;
+import com.exam.entity.Department;
 import com.exam.entity.Inst;
 import com.exam.entity.Student;
 
 import java.util.List;
 
 public interface ClassDao {
+    //显示所有信息
+    List<Department> showDepartment();
+
     //    总查询
     List<Classes> findAllWithPagination(int page, int pageSize);
     int getTotalCount();
-    List<Classes> showClass();
+//    List<Classes> showClass();
 
     //    增加
     int addClass(Classes classes);

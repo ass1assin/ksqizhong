@@ -3,6 +3,8 @@ package com.exam.Controller.student;
 
 import com.exam.Service.student.LeaveService;
 
+import com.exam.entity.Course;
+import com.exam.entity.Department;
 import com.exam.entity.Leave;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -36,6 +38,9 @@ public class LeaveContraller {
                                 @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
                                 ) {
         ModelAndView modelAndView = new ModelAndView("counsellor/leave_manage");
+
+        List<Course> courses=leaveService.showCourse();
+        modelAndView.addObject("courses", courses);
 
         List<Leave> leaves = leaveService.getLeavesWithPagination(page, pageSize);
         int totalPages = leaveService.getTotalPages(pageSize);
@@ -158,6 +163,9 @@ public class LeaveContraller {
                                         String stuID, RedirectAttributes redirectAttributes
     ) {
         ModelAndView modelAndView = new ModelAndView("counsellor/leave_manage");
+
+        List<Course> courses=leaveService.showCourse();
+        modelAndView.addObject("courses", courses);
 
         List<Leave> leaves = leaveService.findAllWithPaginationBystuID(stuID,page, pageSize);
         int totalPages = leaveService.getTotalCountByID(stuID,pageSize);

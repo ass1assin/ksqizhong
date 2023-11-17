@@ -23,7 +23,6 @@ public class InstInfoDaoImpl implements InstInfoDao {
     @Override
     public List<Department> showDepartment() {
         String querysql="select * from sys_department";
-//        String querysql="select i.instID,i.instName,i.telephone,d.depName FROM sys_department d JOIN sys_instructor i ON d.depID=i.depID";
         RowMapper<Department> rowMapper= new BeanPropertyRowMapper<>(Department.class);
         List<Department> Department = jdbcTemplate.query(querysql,rowMapper);
         return Department;
@@ -94,9 +93,9 @@ public class InstInfoDaoImpl implements InstInfoDao {
 //    @Override
 //    public List<Inst> findByName(String instName,int page, int pageSize) {
 ////        String findByName="select * from sys_instructor where instName like concat('%',?,'%') limit ? offset ?";
-//        String findByName="SELECT i.instID, i.instName, i.telephone, d.depName\n" +
-//                          "FROM sys_instructor i\n" +
-//                          "JOIN sys_department d ON d.depID = i.depID\n" +
+//        String findByName="SELECT i.instID, i.instName, i.telephone, d.depName" +
+//                          "FROM sys_instructor i" +
+//                          "JOIN sys_department d ON d.depID = i.depID" +
 //                          "WHERE i.instName LIKE CONCAT('%', '?', '%') limit ? offset ?";
 //        int offset = (page - 1) * pageSize;
 //        RowMapper<Inst> rowMapper= new BeanPropertyRowMapper<>(Inst.class);
@@ -110,7 +109,11 @@ public class InstInfoDaoImpl implements InstInfoDao {
         int offset = (page - 1) * pageSize;
 
         // 构建基本的 SQL 查询
-        StringBuilder sql = new StringBuilder("SELECT * FROM sys_instructor WHERE 1 = 1");
+        StringBuilder sql = new StringBuilder(
+                "SELECT i.instID, i.instName, i.telephone, d.depName " +
+                "FROM sys_instructor i " +
+                "JOIN sys_department d ON d.depID = i.depID " +
+                "WHERE 1 = 1 ");
 
         // 使用 ArrayList 来保存占位符对应的参数值
         List<Object> params = new ArrayList<>();
@@ -118,13 +121,13 @@ public class InstInfoDaoImpl implements InstInfoDao {
 
         // 仅在 instID 不为空时添加条件
         if (instID != null && !instID.isEmpty()) {
-            sql.append(" AND instID = ?");
-            params.add(instID);
+            sql.append(" AND i.instID LIKE ?");
+            params.add("%" +instID+ "%");
         }
 
         // 仅在 instName 不为空时添加条件
         if (instName != null && !instName.isEmpty()) {
-            sql.append(" AND instName LIKE ?");
+            sql.append(" AND i.instName LIKE ?");
             params.add("%" + instName + "%");
         }
 

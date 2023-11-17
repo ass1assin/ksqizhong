@@ -1,6 +1,7 @@
 package com.exam.Controller.counsellor;
 
 import com.exam.Service.counsellor.StuInfoService;
+import com.exam.entity.Classes;
 import com.exam.entity.Department;
 import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class StuInfoContraller {
     public ModelAndView showDep(@RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize) {
         ModelAndView modelAndView = new ModelAndView("counsellor/student_manage");
+
+        List<Classes> classes = stuInfoService.showClasses();
+        modelAndView.addObject("classes", classes);
 
         List<Student> stuInfo = stuInfoService.getDepsWithPagination(page, pageSize);
         int totalPages = stuInfoService.getTotalPages(pageSize);
@@ -91,13 +95,18 @@ public class StuInfoContraller {
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
         ModelAndView modelAndView = new ModelAndView("coursemanager/student_manage");
 
-        List<Student> students = stuInfoService.findByName(stuID,stuName,page,pageSize);
+        List<Classes> classes = stuInfoService.showClasses();
+        modelAndView.addObject("classes", classes);
 
+
+        List<Student> students = stuInfoService.findByName(stuID,stuName,page,pageSize);
         int totalPages = stuInfoService.getTotalPagesByName(pageSize,stuName);
 
         Boolean pageIf =true;
 //              根据条件查询到的数据
         modelAndView.addObject("students", students);
+
+
 //              前端根据likename显示文本
         modelAndView.addObject("likeName",stuName);
         modelAndView.addObject("likeID",stuID);

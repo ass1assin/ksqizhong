@@ -4,6 +4,7 @@ import com.exam.Service.counsellor.ClassService;
 import com.exam.Service.counsellor.CourseService;
 import com.exam.entity.Classes;
 import com.exam.entity.Course;
+import com.exam.entity.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +28,9 @@ public class CourseContraller {
     public ModelAndView showCourse(@RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize) {
     ModelAndView modelAndView = new ModelAndView("counsellor/course_manage");
+
+        List<Classes> classes=courseService.showClasses();
+        modelAndView.addObject("classes", classes);
 
     List<Course> courses = courseService.getDepsWithPagination(page, pageSize);
     int totalPages = courseService.getTotalPages(pageSize);
@@ -83,6 +87,9 @@ public class CourseContraller {
                                 @RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
         ModelAndView modelAndView = new ModelAndView("counsellor/course_manage");
+
+        List<Classes> classes=courseService.showClasses();
+        modelAndView.addObject("classes", classes);
 
         List<Course> courses = courseService.findByName(courseID,term,courseName,page,pageSize);
 

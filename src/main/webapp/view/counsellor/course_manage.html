@@ -126,7 +126,10 @@
                                                             </div>
                                                             <div class="form-group" >
                                                                 <label>所属班级：</label>
-                                                                <input type="text" name="className"  placeholder="请输入所属班级" class="form-control">
+                                                                <select name="className" class="form-control">
+                                                                    <!-- 使用Thymeleaf循环遍历数据库中的二级学院数据 -->
+                                                                    <option th:each="classes:${classes}" th:value="${classes.className}" th:text="${classes.className}"></option>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>课程名称：</label>
@@ -175,7 +178,10 @@
 
                                                             <div class="form-group">
                                                                 <label>所属班级：</label>
-                                                                <input type="text" name="className"  placeholder="班号" class="form-control"  id="className">
+                                                                <select name="depName" class="form-control">
+                                                                    <!-- 使用Thymeleaf循环遍历数据库中的二级学院数据 -->
+                                                                    <option th:each="classes:${classes}" th:value="${classes.className}" th:text="${classes.className}"></option>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group" >
                                                                 <label>课程名称：</label>

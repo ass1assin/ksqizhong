@@ -2,6 +2,7 @@ package com.exam.Service.student.Impl;
 
 import com.exam.Service.student.LeaveService;
 import com.exam.dao.student.LeaveDao;
+import com.exam.entity.Course;
 import com.exam.entity.Leave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,11 @@ import java.util.List;
 public class LeaveServiceImpl implements LeaveService {
     @Autowired
     private LeaveDao leaveDao;
-
+    @Override
+    public List<Course> showCourse() {
+        List<Course> CourseList= leaveDao.showCourse();
+        return CourseList;
+    }
     @Override
     public List<Leave> showLeave() {
         List<Leave> LeaveList= leaveDao.showLeave();

@@ -8,7 +8,7 @@ import java.util.List;
 public interface InstInfoDao {
 
     //    总查询
-    public List<Department> showDepartment();
+     List<Department> showDepartment();
     List<Inst> findAllWithPagination(int page, int pageSize);
     int getTotalCount();
 //    List<Inst> showInst();

@@ -1,6 +1,7 @@
 package com.exam.dao.student.Impl;
 
 import com.exam.dao.student.LeaveDao;
+import com.exam.entity.Course;
 import com.exam.entity.Leave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -14,7 +15,13 @@ import java.util.List;
 public class LeaveDaoImpl implements LeaveDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Override
+    public List<Course> showCourse() {
+        String querysql="select * from sys_course" ;
 
+        List<Course> CourseList = jdbcTemplate.query(querysql,new BeanPropertyRowMapper<>(Course.class));
+        return CourseList;
+    }
     //显示所有信息
     @Override
     public List<Leave> showLeave() {
@@ -75,8 +82,8 @@ public class LeaveDaoImpl implements LeaveDao {
     @Override
     public int audit(Leave leave) {
 //        String audSql="update sys_leave set reason=?, status=?,audittime = now() where leaveID=?";
-        String audSql="UPDATE sys_leave\n" +
-                      "SET reason = ?, daynum = ?, stuNo = ?, courseID = (SELECT courseID FROM sys_course WHERE courseName = ?)\n" +
+        String audSql="UPDATE sys_leave" +
+                      "SET reason = ?, daynum = ?, stuNo = ?, courseID = (SELECT courseID FROM sys_course WHERE courseName = ?)" +
                       "WHERE leaveID = ?";
         Object[] acc= {leave.getReason(), leave.getDaynum(), leave.getStuNo(), leave.getCourseName(),leave.getLeaveID()};
         int aud = jdbcTemplate.update(audSql, acc);

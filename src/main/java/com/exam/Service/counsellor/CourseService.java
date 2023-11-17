@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface CourseService {
     int addCourse(Course course);
+
+    List<Classes> showClasses();
+
     List<Course> showCourse();
 
     List<Course> getDepsWithPagination(int page, int pageSize);

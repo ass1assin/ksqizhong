@@ -1,10 +1,8 @@
 package com.exam.dao.counsellor.Impl;
 
 import com.exam.dao.counsellor.ClassDao;
-import com.exam.dao.counsellor.StuInfoDao;
 import com.exam.entity.Classes;
-import com.exam.entity.Inst;
-import com.exam.entity.Student;
+import com.exam.entity.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,11 +20,11 @@ public class ClassDaoImpl implements ClassDao {
 
     //显示所有信息
     @Override
-    public List<Classes> showClass() {
-        String querysql="select * from sys_classes" ;
-
-        List<Classes> classesList = jdbcTemplate.query(querysql,new BeanPropertyRowMapper<Classes>(Classes.class));
-        return classesList;
+    public List<Department> showDepartment() {
+        String querysql="select * from sys_department";
+        RowMapper<Department> rowMapper= new BeanPropertyRowMapper<>(Department.class);
+        List<Department> Department = jdbcTemplate.query(querysql,rowMapper);
+        return Department;
     }
 
 
