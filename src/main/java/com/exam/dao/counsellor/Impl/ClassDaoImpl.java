@@ -48,9 +48,10 @@ public class ClassDaoImpl implements ClassDao {
     @Override
     public int addClass(Classes classes) {
 //        String addsql="insert IGNORE into sys_classes(classID,className,depID,major,grade) values(?,?,?,?,?)";
-        String addsql="INSERT INTO sys_classes (classID, className, major, grade,depID)\n" +
-                      "SELECT ?,?,?,?,depID\n" +
-                      "FROM sys_department WHERE depName= ?";
+        String addsql="INSERT INTO sys_classes (classID, className, major, grade,depID)" +
+                      "SELECT ?,?,?,?,depID" +
+                      "FROM sys_department " +
+                "WHERE depName= ?";
         Object[] acc= {classes.getClassID(), classes.getClassName(), classes.getMajor(), classes.getGrade(), classes.getDepName()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);
@@ -73,7 +74,7 @@ public class ClassDaoImpl implements ClassDao {
     @Override
     public int updataClasses(Classes classes) {
 //        String updataql="update sys_classes set className=? ,depID =? , major=? , grade=? where classID=?";
-        String updataql="UPDATE sys_classes\n" +
+        String updataql="UPDATE sys_classes" +
                         "set className=?,major=?,grade=?,depID=(SELECT depID FROM sys_department WHERE depName=?) " +
                         "WHERE classID=?";
         Object[] acc= {classes.getClassName(),classes.getMajor(),classes.getGrade(),classes.getDepName(),classes.getClassID()};
@@ -91,7 +92,11 @@ public List<Classes> findByName(String classID, String className, int page, int 
     int offset = (page - 1) * pageSize;
 
     // 构建基本的 SQL 查询
-    StringBuilder sql = new StringBuilder("SELECT * FROM sys_classes WHERE 1 = 1");
+    StringBuilder sql = new StringBuilder(
+            "SELECT sc.classID, sc.className, sc.major, sc.grade, sd.depName " +
+            "FROM sys_classes sc " +
+            "JOIN sys_department sd ON sc.depID = sd.depID " +
+            "WHERE 1 = 1 ");
 
     // 使用 ArrayList 来保存占位符对应的参数值
     List<Object> params = new ArrayList<>();

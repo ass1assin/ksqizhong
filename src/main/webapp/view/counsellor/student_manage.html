@@ -297,34 +297,33 @@
                                     <th>操作</th>
                                 </tr>
                                 </thead>
-                                <tr th:each="stuInfo:${stuInfo}">
-                                    <td th:text="${stuInfo.stuID}"></td>
-                                    <td th:text="${stuInfo.classID}"></td>
-                                    <td th:text="${stuInfo.stuName}"></td>
-<!--                                    <td th:text="${stuInfo.address}"></td>-->
-                                    <td th:text="${stuInfo.sex}"></td>
-                                    <td th:text="${stuInfo.address}"></td>
-                                    <td th:text="${stuInfo.stuTel}"></td>
-                                    <td th:text="${stuInfo.contact}"></td>
-                                    <td th:text="${stuInfo.contactTel}"></td>
+                                <tr th:each="students:${students}">
+                                    <td th:text="${students.stuID}"></td>
+                                    <td th:text="${students.classID}"></td>
+                                    <td th:text="${students.stuName}"></td>
+                                    <td th:text="${students.sex}"></td>
+                                    <td th:text="${students.address}"></td>
+                                    <td th:text="${students.stuTel}"></td>
+                                    <td th:text="${students.contact}"></td>
+                                    <td th:text="${students.contactTel}"></td>
                                     <td>
                                         <!-- 修改按钮 -->
                                         <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
-                                                th:attr="data-departments-stuID=${stuInfo.stuID},
-                                                         data-departments-stuName=${stuInfo.stuName},
-                                                         data-departments-sex=${stuInfo.sex},
-                                                         data-departments-address=${stuInfo.address},
-                                                         data-departments-stuTel=${stuInfo.stuTel},
-                                                         data-departments-contact=${stuInfo.contact},
-                                                         data-departments-contactTel=${stuInfo.contactTel},
-                                                         data-departments-classID=${stuInfo.classID}",
+                                                th:attr="data-departments-stuID=${students.stuID},
+                                                         data-departments-classID=${students.classID},
+                                                         data-departments-stuName=${students.stuName},
+                                                         data-departments-sex=${students.sex},
+                                                         data-departments-address=${students.address},
+                                                         data-departments-stuTel=${students.stuTel},
+                                                         data-departments-contact=${students.contact},
+                                                         data-departments-contactTel=${students.contactTel}",
 
                                                 onclick="setModalValues(this)"
                                         >编辑</button>
                                         <!-- 删除按钮 -->
 
                                         <button class="btn btn-danger btn-sm delete-btn"
-                                                th:attr="data-departments-stuID=${stuInfo.stuID}"
+                                                th:attr="data-departments-stuID=${students.stuID}"
                                                 data-toggle="modal" href="#modal-form3"
                                                 onclick="setDeleteModalValue(this)"
                                         >删除</button>
