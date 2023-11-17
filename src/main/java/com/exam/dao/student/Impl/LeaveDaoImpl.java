@@ -93,9 +93,7 @@ public class LeaveDaoImpl implements LeaveDao {
     @Override
     public List<Leave> findAllWithPaginationBystuID(String stuID, int page, int pageSize) {
         int offset = (page - 1) * pageSize;
-//        String querysql = "select * from sys_leave where stuNo=? limit ? offset ?";
-//        String querysql ="select sl.leaveID,sc.courseName,sl.reason,sl.daynum,sl.stuNo,sl.applytime,sl.status,sl.audittime,sl.opinion\n" +
-//                         "FROM sys_leave sl JOIN sys_course sc on sl.courseID = sc.courseID WHERE sl.stuNo = ? limit ? offset ?";
+
         StringBuilder sql = new StringBuilder(
                 "SELECT sl.leaveID, sc.courseName, sl.reason, sl.daynum, sl.stuNo, sl.applytime, sl.status, sl.audittime, sl.opinion " +
                 "FROM sys_leave sl " +
