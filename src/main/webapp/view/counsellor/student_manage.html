@@ -126,7 +126,10 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>班号：</label>
-                                                                <input type="text" name="classID"  placeholder="请输入课程名称" class="form-control">
+                                                                <select name="classID" class="form-control">
+                                                                    <!-- 使用Thymeleaf循环遍历数据库中的二级学院数据 -->
+                                                                    <option th:each="classes:${classes}" th:value="${classes.classID}" th:text="${classes.classID}"></option>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group" >
                                                                 <label>姓名：</label>
@@ -184,7 +187,11 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>班号：</label>
-                                                                <input type="text" name="classID"  placeholder="请输入课程名称" class="form-control" id="classID">
+<!--                                                                <input type="text" name="classID"  placeholder="请输入课程名称" class="form-control" id="classID">-->
+                                                                <select name="classID" class="form-control">
+                                                                    <!-- 使用Thymeleaf循环遍历数据库中的二级学院数据 -->
+                                                                    <option th:each="classes:${classes}" th:value="${classes.classID}" th:text="${classes.classID}"></option>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group" >
                                                                 <label>姓名：</label>

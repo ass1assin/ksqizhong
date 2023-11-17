@@ -1,6 +1,7 @@
 package com.exam.dao.student.Impl;
 
 import com.exam.dao.student.LeaveDao;
+import com.exam.entity.Course;
 import com.exam.entity.Leave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -14,7 +15,13 @@ import java.util.List;
 public class LeaveDaoImpl implements LeaveDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Override
+    public List<Course> showCourse() {
+        String querysql="select * from sys_course" ;
 
+        List<Course> CourseList = jdbcTemplate.query(querysql,new BeanPropertyRowMapper<>(Course.class));
+        return CourseList;
+    }
     //显示所有信息
     @Override
     public List<Leave> showLeave() {

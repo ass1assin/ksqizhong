@@ -3,6 +3,7 @@ package com.exam.Controller.counsellor;
 import com.exam.Service.counsellor.ClassService;
 import com.exam.Service.counsellor.StuInfoService;
 import com.exam.entity.Classes;
+import com.exam.entity.Department;
 import com.exam.entity.Inst;
 import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class ClassContraller {
     public ModelAndView showInst(@RequestParam(name = "page",defaultValue = "1") int page,
                                  @RequestParam(name = "pageSize",defaultValue = "10") int pageSize) {
         ModelAndView modelAndView = new ModelAndView("counsellor/classes_manage");
+
+        List<Department> department=classService.showDepartment();
+        modelAndView.addObject("department", department);
 
         List<Classes> classes = classService.getClassesWithPagination(page, pageSize);
         int totalPages = classService.getTotalPages(pageSize);
@@ -74,6 +78,9 @@ public class ClassContraller {
                                 @RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
         ModelAndView modelAndView = new ModelAndView("counsellor/classes_manage");
+
+        List<Department> department=classService.showDepartment();
+        modelAndView.addObject("department", department);
 
         List<Classes> classes = classService.findByName(classID,className,page,pageSize);
 

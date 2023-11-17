@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface CourseDao {
     int addCourse(Course course);
+
+    List<Classes> showClasses();
+
     List<Course> showCourse();
 
     List<Course> findAllWithPagination(int page, int pageSize);

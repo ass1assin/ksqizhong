@@ -2,7 +2,7 @@ package com.exam.Service.counsellor.Impl;
 
 import com.exam.Service.counsellor.StuInfoService;
 import com.exam.dao.counsellor.StuInfoDao;
-import com.exam.entity.Department;
+import com.exam.entity.Classes;
 import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +15,9 @@ public class StuInfoServiceImpl implements StuInfoService {
     private StuInfoDao stuInfoDao;
 
     @Override
-    public List<Student> showStudent() {
-        List<Student> students = stuInfoDao.showStudent();
-        return students;
+    public List<Classes> showClasses() {
+        List<Classes> classes = stuInfoDao.showClass();
+        return classes;
     }
 
     @Override

@@ -1,10 +1,13 @@
 package com.exam.Service.student;
 
+import com.exam.entity.Course;
 import com.exam.entity.Leave;
 
 import java.util.List;
 
 public interface LeaveService {
+    List<Course> showCourse();
+
     List<Leave> showLeave();
 
     List<Leave> getLeavesWithPagination(int page, int pageSize);

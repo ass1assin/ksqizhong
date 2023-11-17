@@ -1,6 +1,7 @@
 package com.exam.dao.counsellor.Impl;
 
 import com.exam.dao.counsellor.StuInfoDao;
+import com.exam.entity.Classes;
 import com.exam.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -19,11 +20,11 @@ public class StuInfoDaoImpl implements StuInfoDao {
 
     //显示所有信息
     @Override
-    public List<Student> showStudent() {
-        String querysql="select * from sys_student" ;
+    public List<Classes> showClass() {
+        String querysql="select * from sys_classes" ;
 
-        List<Student> students = jdbcTemplate.query(querysql,new BeanPropertyRowMapper<Student>(Student.class));
-        return students;
+        List<Classes> classes = jdbcTemplate.query(querysql,new BeanPropertyRowMapper<>(Classes.class));
+        return classes;
     }
     @Override
     public List<Student> findAllWithPagination(int page, int pageSize) {

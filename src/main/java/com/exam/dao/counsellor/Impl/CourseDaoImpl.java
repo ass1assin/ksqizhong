@@ -1,6 +1,7 @@
 package com.exam.dao.counsellor.Impl;
 
 import com.exam.dao.counsellor.CourseDao;
+import com.exam.entity.Classes;
 import com.exam.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -16,7 +17,13 @@ import java.util.List;
 public class CourseDaoImpl implements CourseDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
+    @Override
+    public List<Classes> showClasses() {
+        String querysql="select * from sys_classes";
+        RowMapper<Classes> rowMapper= new BeanPropertyRowMapper<>(Classes.class);
+        List<Classes> Classes = jdbcTemplate.query(querysql,rowMapper);
+        return Classes;
+    }
     //显示所有信息
     @Override
     public List<Course> showCourse() {

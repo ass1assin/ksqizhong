@@ -1,6 +1,7 @@
 package com.exam.Service.counsellor;
 
 import com.exam.entity.Classes;
+import com.exam.entity.Department;
 import com.exam.entity.Inst;
 import com.exam.entity.Student;
 
@@ -8,7 +9,10 @@ import java.util.List;
 
 public interface ClassService {
     //    总查询
-    List<Classes> showClasses();
+
+
+    List<Department> showDepartment();
+
     List<Classes> getClassesWithPagination(int page, int pageSize);
     int getTotalPages(int pageSize);
 
