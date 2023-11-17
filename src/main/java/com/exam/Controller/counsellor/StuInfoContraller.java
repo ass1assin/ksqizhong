@@ -24,14 +24,13 @@ public class StuInfoContraller {
     public ModelAndView showDep(@RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize) {
         ModelAndView modelAndView = new ModelAndView("counsellor/student_manage");
-
         List<Classes> classes = stuInfoService.showClasses();
         modelAndView.addObject("classes", classes);
 
-        List<Student> stuInfo = stuInfoService.getDepsWithPagination(page, pageSize);
+        List<Student> students = stuInfoService.getDepsWithPagination(page, pageSize);
         int totalPages = stuInfoService.getTotalPages(pageSize);
 
-        modelAndView.addObject("stuInfo", stuInfo);
+        modelAndView.addObject("students", students);
 
         modelAndView.addObject("totalPages", totalPages);
 
@@ -93,17 +92,16 @@ public class StuInfoContraller {
     public ModelAndView showStudent(String stuName,String stuID,
                                 @RequestParam(name = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize){
-        ModelAndView modelAndView = new ModelAndView("coursemanager/student_manage");
+        ModelAndView modelAndView = new ModelAndView("counsellor/student_manage");
 
         List<Classes> classes = stuInfoService.showClasses();
         modelAndView.addObject("classes", classes);
 
 
-        List<Student> students = stuInfoService.findByName(stuID,stuName,page,pageSize);
         int totalPages = stuInfoService.getTotalPagesByName(pageSize,stuName);
 
-        Boolean pageIf =true;
 //              根据条件查询到的数据
+        List<Student> students = stuInfoService.findByName(stuID,stuName,page,pageSize);
         modelAndView.addObject("students", students);
 
 

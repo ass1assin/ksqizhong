@@ -35,8 +35,11 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public List<Course> findAllWithPagination(int page, int pageSize) {
         int offset = (page - 1) * pageSize;
-        String querysql = "select sc.courseID,c.className,sc.courseName,sc.year,sc.term,sc.hour\n" +
-                          "FROM sys_course sc JOIN sys_classes c on sc.classID = c.classID limit ? offset ?";
+        String querysql =
+                "SELECT sc.courseID, c.className, sc.courseName, sc.year, sc.term, sc.hour " +
+                "FROM sys_course sc " +
+                "JOIN sys_classes c ON sc.classID = c.classID " +
+                "LIMIT ? OFFSET ?";
         BeanPropertyRowMapper<Course> courseBeanPropertyRowMapper = new BeanPropertyRowMapper<>(Course.class);
         List<Course> courseListList =  jdbcTemplate.query(querysql, courseBeanPropertyRowMapper, pageSize, offset);
         return courseListList;
@@ -96,7 +99,11 @@ public List<Course> findByName(String courseID, String term, String courseName, 
     int offset = (page - 1) * pageSize;
 
     // 构建基本的 SQL 查询
-    StringBuilder sql = new StringBuilder("SELECT * FROM sys_course WHERE 1 = 1");
+    StringBuilder sql = new StringBuilder(
+            "SELECT sc.courseID, c.className, sc.courseName, sc.year, sc.term, sc.hour " +
+            "FROM sys_course sc " +
+            "JOIN sys_classes c ON sc.classID = c.classID " +
+            "WHERE 1 = 1 ");
 
     // 使用 ArrayList 来保存占位符对应的参数值
     List<Object> params = new ArrayList<>();

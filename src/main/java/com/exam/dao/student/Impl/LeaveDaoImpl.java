@@ -2,12 +2,15 @@ package com.exam.dao.student.Impl;
 
 import com.exam.dao.student.LeaveDao;
 import com.exam.entity.Course;
+import com.exam.entity.Inst;
 import com.exam.entity.Leave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //    CM03
@@ -94,12 +97,40 @@ public class LeaveDaoImpl implements LeaveDao {
     public List<Leave> findAllWithPaginationBystuID(String stuID, int page, int pageSize) {
         int offset = (page - 1) * pageSize;
 //        String querysql = "select * from sys_leave where stuNo=? limit ? offset ?";
-        String querysql ="select sl.leaveID,sc.courseName,sl.reason,sl.daynum,sl.stuNo,sl.applytime,sl.status,sl.audittime,sl.opinion\n" +
-                         "FROM sys_leave sl JOIN sys_course sc on sl.courseID = sc.courseID WHERE sl.stuNo = ? limit ? offset ?";
-        BeanPropertyRowMapper<Leave> depBeanPropertyRowMapper = new BeanPropertyRowMapper<>(Leave.class);
-        List<Leave> departmentList =  jdbcTemplate.query(querysql, depBeanPropertyRowMapper,stuID, pageSize, offset);
-        return departmentList;
+//        String querysql ="select sl.leaveID,sc.courseName,sl.reason,sl.daynum,sl.stuNo,sl.applytime,sl.status,sl.audittime,sl.opinion\n" +
+//                         "FROM sys_leave sl JOIN sys_course sc on sl.courseID = sc.courseID WHERE sl.stuNo = ? limit ? offset ?";
+        StringBuilder sql = new StringBuilder(
+                "SELECT sl.leaveID, sc.courseName, sl.reason, sl.daynum, sl.stuNo, sl.applytime, sl.status, sl.audittime, sl.opinion " +
+                "FROM sys_leave sl " +
+                "JOIN sys_course sc ON sl.courseID = sc.courseID " +
+                "WHERE 1 = 1 "
+                );
+
+        // 使用 ArrayList 来保存占位符对应的参数值
+        List<Object> params = new ArrayList<>();
+
+
+        // 仅在 instID 不为空时添加条件
+        if (stuID!= null && !stuID.isEmpty()) {
+            sql.append(" AND sl.stuNO LIKE ?");
+            params.add("%" +stuID+ "%");
+        }
+
+
+
+        // 添加分页条件
+        sql.append(" LIMIT ? OFFSET ?");
+
+
+        // 添加分页参数值
+        params.add(pageSize);
+        params.add(offset);
+
+        // 执行查询
+        RowMapper<Leave> rowMapper = new BeanPropertyRowMapper<>(Leave.class);
+        return jdbcTemplate.query(sql.toString(), rowMapper, params.toArray());
     }
+
 
     @Override
     public int getTotalCountByID(String stuID) {
