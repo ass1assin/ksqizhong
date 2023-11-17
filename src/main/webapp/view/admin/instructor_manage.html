@@ -287,8 +287,8 @@
                                                     th:attr="
                                                     data-Insts-id=${Insts.instID},
                                                     data-Insts-name=${Insts.instName},
-                                                    data-Insts-depName=${Insts.depName},
-                                                    data-Insts-telephone=${Insts.telephone}"
+                                                    data-Insts-telephone=${Insts.telephone},
+                                                    data-Insts-depName=${Insts.depName}"
                                                     onclick="setModalValues(this)"
                                             >编辑</button>
                                             <!-- 删除按钮 -->
@@ -346,14 +346,14 @@
         function setModalValues(button) {
             var instID = button.getAttribute('data-Insts-id');
             var instName = button.getAttribute('data-Insts-name');
-            var depName = button.getAttribute('data-Insts-depName');
             var telephone = button.getAttribute('data-Insts-telephone');
+            var depName = button.getAttribute('data-Insts-depName');
 
             // 设置模态框中的输入框值
             document.getElementById('instID').value = instID;
             document.getElementById('instName').value = instName;
-            document.getElementById('depName').value = depName;
             document.getElementById('telephone').value = telephone;
+            document.getElementById('depName').value = depName;
         }
         function setDeleteModalValue(button) {
             var instID = button.getAttribute('data-Insts-id');

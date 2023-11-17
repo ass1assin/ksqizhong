@@ -130,14 +130,6 @@
                                                                     <input type="text" name="className"  placeholder="请输入班级名称" class="form-control">
                                                                 </div>
 
-                                                                <div class="form-group" >
-                                                                    <label>所属二级学院：</label>
-                                                                    <select name="depName" class="form-control">
-                                                                        <!-- 使用Thymeleaf循环遍历数据库中的二级学院数据 -->
-                                                                        <option th:each="department:${department}" th:value="${department.depName}" th:text="${department.depName}"></option>
-                                                                    </select>
-                                                                </div>
-
                                                                 <div class="form-group">
                                                                     <label>专业：</label>
                                                                     <input type="text" name="major"  placeholder="请输入专业信息" class="form-control">
@@ -145,6 +137,13 @@
                                                                 <div class="form-group" >
                                                                     <label>年级：</label>
                                                                     <input type="text" name="grade"  placeholder="请输入年级" class="form-control">
+                                                                </div>
+                                                                <div class="form-group" >
+                                                                    <label>所属二级学院：</label>
+                                                                    <select name="depName" class="form-control">
+                                                                        <!-- 使用Thymeleaf循环遍历数据库中的二级学院数据 -->
+                                                                        <option th:each="department:${department}" th:value="${department.depName}" th:text="${department.depName}"></option>
+                                                                    </select>
                                                                 </div>
                                                                 <div>
                                                                     <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
@@ -183,20 +182,20 @@
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label>所属二级学院：</label>
-                                                                    <select name="depName" class="form-control">
-                                                                        <!-- 使用Thymeleaf循环遍历数据库中的二级学院数据 -->
-                                                                        <option th:each="department:${department}" th:value="${department.depName}" th:text="${department.depName}"></option>
-                                                                    </select>
-                                                                </div>
-
-                                                                <div class="form-group">
                                                                     <label>专业：</label>
                                                                     <input type="text" name="major"  placeholder="修改班级专业" class="form-control"  id="major">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>年级：</label>
                                                                     <input type="text" name="grade"  placeholder="修改班级年级" class="form-control"  id="grade">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>所属二级学院：</label>
+                                                                    <select name="depName" class="form-control">
+                                                                        <!-- 使用Thymeleaf循环遍历数据库中的二级学院数据 -->
+                                                                        <option th:each="department:${department}" th:value="${department.depName}" th:text="${department.depName}"></option>
+                                                                    </select>
                                                                 </div>
                                                                 <div>
                                                                     <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确认</strong>
@@ -271,27 +270,27 @@
                                         <tr>
                                             <th data-field="classID">班级编号</th>
                                             <th data-field="className">班级名称</th>
-                                            <th data-field="depName">所属二级学院</th>
                                             <th data-field="major">专业</th>
                                             <th data-field="grade">年级</th>
+                                            <th data-field="depName">所属二级学院</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tr th:each="classes:${classes}">
                                         <td th:text="${classes.classID}"></td>
                                         <td th:text="${classes.className}"></td>
-                                        <td th:text="${classes.depName}"></td>
                                         <td th:text="${classes.major}"></td>
                                         <td th:text="${classes.grade}"></td>
+                                        <td th:text="${classes.depName}"></td>
                                         <td>
                                             <!-- 修改按钮 -->
                                             <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
                                                     th:attr="
                                                     data-classes-id=${classes.classID},
                                                     data-classes-name=${classes.className},
-                                                    data-classes-depName=${classes.depName},
                                                     data-classes-major=${classes.major},
-                                                    data-classes-grade=${classes.grade}"
+                                                    data-classes-grade=${classes.grade},
+                                                    data-classes-depName=${classes.depName}"
                                                     onclick="setModalValues(this)"
                                             >编辑</button>
                                             <!-- 删除按钮 -->
@@ -348,16 +347,16 @@
         function setModalValues(button) {
             var classID = button.getAttribute('data-classes-id');
             var className= button.getAttribute('data-classes-name');
-            var depName = button.getAttribute('data-classes-depName');
             var major = button.getAttribute('data-classes-major');
             var grade = button.getAttribute('data-classes-grade');
+            var depName = button.getAttribute('data-classes-depName');
 
             // 设置模态框中的输入框值
             document.getElementById('classID').value = classID ;
             document.getElementById('className').value = className;
-            document.getElementById('depName').value = depName;
             document.getElementById('major').value = major;
             document.getElementById('grade').value = grade;
+            document.getElementById('depName').value = depName;
 
         }
         function setDeleteModalValue(button) {

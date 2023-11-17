@@ -311,13 +311,13 @@
                                         <!-- 修改按钮 -->
                                         <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
                                                 th:attr="data-departments-stuID=${stuInfo.stuID},
-                                                         data-departments-classID=${stuInfo.classID},
                                                          data-departments-stuName=${stuInfo.stuName},
                                                          data-departments-sex=${stuInfo.sex},
                                                          data-departments-address=${stuInfo.address},
                                                          data-departments-stuTel=${stuInfo.stuTel},
                                                          data-departments-contact=${stuInfo.contact},
-                                                         data-departments-contactTel=${stuInfo.contactTel}",
+                                                         data-departments-contactTel=${stuInfo.contactTel},
+                                                         data-departments-classID=${stuInfo.classID}",
 
                                                 onclick="setModalValues(this)"
                                         >编辑</button>
@@ -415,23 +415,23 @@
 
     function setModalValues(button) {
         var stuID = button.getAttribute('data-departments-stuID');
-        var classID = button.getAttribute('data-departments-classID');
         var stuName = button.getAttribute('data-departments-stuName');
         var sex = button.getAttribute('data-departments-sex');
         var address = button.getAttribute('data-departments-address');
         var stuTel = button.getAttribute('data-departments-stuTel');
         var contact = button.getAttribute('data-departments-contact');
         var contactTel = button.getAttribute('data-departments-contactTel');
+        var classID = button.getAttribute('data-departments-classID');
 
         // 设置模态框中的输入框值
         document.getElementById('stuID').value = stuID;
-        document.getElementById('classID').value = classID;
         document.getElementById('stuName').value = stuName;
         document.getElementById('sex').value = sex;
         document.getElementById('address').value = address;
         document.getElementById('stuTel').value = stuTel;
         document.getElementById('contact').value = contact;
         document.getElementById('contactTel').value = contactTel;
+        document.getElementById('classID').value = classID;
     }
     function setDeleteModalValue(button) {
         var stuID = button.getAttribute('data-departments-stuID');
