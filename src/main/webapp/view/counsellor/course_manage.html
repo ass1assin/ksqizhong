@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>H+ 后台主题UI框架 - Bootstrap Table</title>
+    <title>课程信息管理</title>
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
@@ -126,7 +126,7 @@
                                                             </div>
                                                             <div class="form-group" >
                                                                 <label>所属班级：</label>
-                                                                <input type="text" name="classID"  placeholder="学期" class="form-control">
+                                                                <input type="text" name="className"  placeholder="请输入所属班级" class="form-control">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>课程名称：</label>
@@ -135,11 +135,11 @@
 
                                                             <div class="form-group" >
                                                                 <label>年级：</label>
-                                                                <input type="text" name="year"  placeholder="请输入课程编号" class="form-control">
+                                                                <input type="text" name="year"  placeholder="请输入年级" class="form-control">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>专业：</label>
-                                                                <input type="text" name="courseName"  placeholder="请输入课程名称" class="form-control">
+                                                                <input type="text" name="courseName"  placeholder="请输入专业" class="form-control">
                                                             </div>
 
                                                             <div>
@@ -174,8 +174,8 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label>班号：</label>
-                                                                <input type="text" name="classID"  placeholder="班号" class="form-control"  id="classID" readonly>
+                                                                <label>所属班级：</label>
+                                                                <input type="text" name="className"  placeholder="班号" class="form-control"  id="className">
                                                             </div>
                                                             <div class="form-group" >
                                                                 <label>课程名称：</label>
@@ -272,7 +272,7 @@
                                 <thead>
                                 <tr>
                                     <th data-field="courseID">课程编号</th>
-                                    <th data-field="classID">班号</th>
+                                    <th data-field="className">所属班级</th>
                                     <th data-field="courseName">课程名称</th>
                                     <th data-field="year">学年</th>
                                     <th data-field="term">学期</th>
@@ -282,7 +282,7 @@
                                 </thead>
                                 <tr th:each="courses:${courses}">
                                     <td th:text="${courses.courseID}"></td>
-                                    <td th:text="${courses.classID}"></td>
+                                    <td th:text="${courses.className}"></td>
                                     <td th:text="${courses.courseName}"></td>
                                     <td th:text="${courses.year}"></td>
                                     <td th:text="${courses.term}"></td>
@@ -291,7 +291,7 @@
                                         <!-- 修改按钮 -->
                                         <button class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
                                                 th:attr="data-departments-courseID=${courses.courseID},
-                                                         data-departments-classID=${courses.classID},
+                                                         data-departments-className=${courses.className},
                                                          data-departments-courseName=${courses.courseName},
                                                          data-departments-year=${courses.year},
                                                          data-departments-term=${courses.term},
@@ -393,7 +393,7 @@
 
     function setModalValues(button) {
         var courseID = button.getAttribute('data-departments-courseID');
-        var classID = button.getAttribute('data-departments-classID');
+        var className = button.getAttribute('data-departments-className');
         var courseName = button.getAttribute('data-departments-courseName');
         var year = button.getAttribute('data-departments-year');
         var term = button.getAttribute('data-departments-term');
@@ -401,7 +401,7 @@
 
         // 设置模态框中的输入框值
         document.getElementById('courseID').value = courseID;
-        document.getElementById('classID').value = classID;
+        document.getElementById('className').value = className;
         document.getElementById('courseName').value = courseName;
         document.getElementById('year').value = year;
         document.getElementById('term').value = term;

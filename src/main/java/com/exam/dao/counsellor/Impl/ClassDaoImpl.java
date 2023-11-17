@@ -33,7 +33,8 @@ public class ClassDaoImpl implements ClassDao {
     @Override
     public List<Classes> findAllWithPagination(int page, int pageSize) {
         int offset = (page - 1) * pageSize;
-        String querysql = "select * from sys_classes limit ? offset ?";
+        String querysql = "select sc.classID,sc.className,sc.major,sc.grade,sd.depName" +
+                          " FROM sys_classes sc JOIN sys_department sd on sc.depID = sd.depID limit ? offset ?";
         BeanPropertyRowMapper<Classes> depBeanPropertyRowMapper = new BeanPropertyRowMapper<>(Classes.class);
         List<Classes> classesListList =  jdbcTemplate.query(querysql, depBeanPropertyRowMapper, pageSize, offset);
         return classesListList;
@@ -48,8 +49,11 @@ public class ClassDaoImpl implements ClassDao {
 //    功能名称： 添加学生信息模块
     @Override
     public int addClass(Classes classes) {
-        String addsql="insert IGNORE into sys_classes(classID,className,depID,major,grade) values(?,?,?,?,?)";
-        Object[] acc= {classes.getClassID(),classes.getClassName(),classes.getDepID(),classes.getMajor(),classes.getGrade()};
+//        String addsql="insert IGNORE into sys_classes(classID,className,depID,major,grade) values(?,?,?,?,?)";
+        String addsql="INSERT INTO sys_classes (classID, className, major, grade,depID)\n" +
+                      "SELECT ?,?,?,?,depID\n" +
+                      "FROM sys_department WHERE depName= ?";
+        Object[] acc= {classes.getClassID(), classes.getClassName(), classes.getMajor(), classes.getGrade(), classes.getDepName()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);
         return add;
@@ -70,8 +74,11 @@ public class ClassDaoImpl implements ClassDao {
 //    功能名称： 修改学生信息模块
     @Override
     public int updataClasses(Classes classes) {
-        String updataql="update sys_classes set className=? ,depID =? , major=? , grade=? where classID=?";
-        Object[] acc= {classes.getClassName(),classes.getDepID(),classes.getMajor(),classes.getGrade(),classes.getClassID()};
+//        String updataql="update sys_classes set className=? ,depID =? , major=? , grade=? where classID=?";
+        String updataql="UPDATE sys_classes\n" +
+                        "set className=?,major=?,grade=?,depID=(SELECT depID FROM sys_department WHERE depName=?) " +
+                        "WHERE classID=?";
+        Object[] acc= {classes.getClassName(),classes.getMajor(),classes.getGrade(),classes.getDepName(),classes.getClassID()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int updata = jdbcTemplate.update(updataql, acc);
         return updata;

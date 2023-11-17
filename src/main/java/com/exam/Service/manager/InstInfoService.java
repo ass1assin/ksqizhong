@@ -8,7 +8,7 @@ import java.util.List;
 public interface InstInfoService {
 
     //    总查询
-    List<Inst> showInst();
+    List<Department> showDepartment();
     List<Inst> getDepsWithPagination(int page, int pageSize);
     int getTotalPages(int pageSize);
 

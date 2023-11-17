@@ -131,8 +131,8 @@
                                                                 </div>
 
                                                                 <div class="form-group" >
-                                                                    <label>二级学院编号：</label>
-                                                                    <input type="text" name="depID"  placeholder="请输入二级学院编号" class="form-control" >
+                                                                    <label>所属二级学院：</label>
+                                                                    <input type="text" name="depName"  placeholder="请输入所属二级学院" class="form-control" >
                                                                 </div>
 
                                                                 <div class="form-group">
@@ -180,8 +180,8 @@
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label>二级学院ID：</label>
-                                                                    <input type="text" name="depID"  placeholder="修改所属二级学院" class="form-control"  id="depID">
+                                                                    <label>所属二级学院：</label>
+                                                                    <input type="text" name="depName"  placeholder="修改所属二级学院" class="form-control"  id="depName">
                                                                 </div>
 
                                                                 <div class="form-group">
@@ -265,7 +265,7 @@
                                         <tr>
                                             <th data-field="classID">班级编号</th>
                                             <th data-field="className">班级名称</th>
-                                            <th data-field="depID">所属二级学院</th>
+                                            <th data-field="depName">所属二级学院</th>
                                             <th data-field="major">专业</th>
                                             <th data-field="grade">年级</th>
                                             <th>操作</th>
@@ -274,7 +274,7 @@
                                     <tr th:each="classes:${classes}">
                                         <td th:text="${classes.classID}"></td>
                                         <td th:text="${classes.className}"></td>
-                                        <td th:text="${classes.depID}"></td>
+                                        <td th:text="${classes.depName}"></td>
                                         <td th:text="${classes.major}"></td>
                                         <td th:text="${classes.grade}"></td>
                                         <td>
@@ -283,7 +283,7 @@
                                                     th:attr="
                                                     data-classes-id=${classes.classID},
                                                     data-classes-name=${classes.className},
-                                                    data-classes-depID=${classes.depID},
+                                                    data-classes-depName=${classes.depName},
                                                     data-classes-major=${classes.major},
                                                     data-classes-grade=${classes.grade}"
                                                     onclick="setModalValues(this)"
@@ -342,14 +342,14 @@
         function setModalValues(button) {
             var classID = button.getAttribute('data-classes-id');
             var className= button.getAttribute('data-classes-name');
-            var depID = button.getAttribute('data-classes-depID');
+            var depName = button.getAttribute('data-classes-depName');
             var major = button.getAttribute('data-classes-major');
             var grade = button.getAttribute('data-classes-grade');
 
             // 设置模态框中的输入框值
             document.getElementById('classID').value = classID ;
             document.getElementById('className').value = className;
-            document.getElementById('depID').value = depID;
+            document.getElementById('depName').value = depName;
             document.getElementById('major').value = major;
             document.getElementById('grade').value = grade;
 

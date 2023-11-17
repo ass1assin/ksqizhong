@@ -23,9 +23,11 @@ public class InstInfoContraller {
                                 @RequestParam(name = "pageSize",defaultValue = "10") int pageSize) {
         ModelAndView modelAndView = new ModelAndView("admin/instructor_manage");
 
+        List<Department> department=instInfoService.showDepartment();
         List<Inst> Insts = instInfoService.getDepsWithPagination(page, pageSize);
         int totalPages = instInfoService.getTotalPages(pageSize);
 
+        modelAndView.addObject("department", department);
         modelAndView.addObject("Insts", Insts);
 
         modelAndView.addObject("totalPages", totalPages);

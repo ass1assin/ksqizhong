@@ -28,7 +28,8 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public List<Course> findAllWithPagination(int page, int pageSize) {
         int offset = (page - 1) * pageSize;
-        String querysql = "select * from sys_course limit ? offset ?";
+        String querysql = "select sc.courseID,c.className,sc.courseName,sc.year,sc.term,sc.hour\n" +
+                          "FROM sys_course sc JOIN sys_classes c on sc.classID = c.classID limit ? offset ?";
         BeanPropertyRowMapper<Course> courseBeanPropertyRowMapper = new BeanPropertyRowMapper<>(Course.class);
         List<Course> courseListList =  jdbcTemplate.query(querysql, courseBeanPropertyRowMapper, pageSize, offset);
         return courseListList;
@@ -48,8 +49,11 @@ public class CourseDaoImpl implements CourseDao {
 //    功能名称： 添加学生信息模块
     @Override
     public int addCourse(Course course) {
-        String addsql="insert IGNORE  into sys_course(courseID,classID,courseName,year,term,hour) values(?,?,?,?,?,?)";
-        Object[] acc= {course.getCourseID(),course.getClassID(),course.getCourseName(),course.getYear(),course.getTerm(),course.getHour()};
+//        String addsql="insert IGNORE  into sys_course(courseID,classID,courseName,year,term,hour) values(?,?,?,?,?,?)";
+        String addsql="INSERT INTO sys_course (courseID, courseName, year, term, hour, classID)\n" +
+                      "SELECT ?,?,?,?,?,classID\n" +
+                      "FROM sys_classes WHERE className=?";
+        Object[] acc= {course.getCourseID(),course.getCourseName(),course.getYear(),course.getTerm(),course.getHour(),course.getClassID()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int add = jdbcTemplate.update(addsql, acc);
         return add;
@@ -70,26 +74,16 @@ public class CourseDaoImpl implements CourseDao {
 //    功能名称： 修改学生信息模块
     @Override
     public int updataCourse(Course course) {
-        String updataql="update sys_course set classID=?,courseName=?,year=?,term=?,hour=? where courseID=?";
-        Object[] acc= {course.getClassID(),course.getCourseName(),course.getYear(),course.getTerm(),course.getHour(),course.getCourseID()};
+//        String updataql="update sys_course set classID=?,courseName=?,year=?,term=?,hour=? where courseID=?";
+        String updataql="UPDATE sys_course\n" +
+                        "SET courseName=?,term=?,classID=(SELECT classID FROM sys_classes WHERE className=?)\n" +
+                        "WHERE courseID=?";
+        Object[] acc= {course.getCourseName(),course.getTerm(),course.getClassName(),course.getCourseID()};
         //调用jdbcTemplate.update(实现添加 删除 修改等)
         int updata = jdbcTemplate.update(updataql, acc);
         return updata;
     }
 
-
-
-//    CM07-04
-//    功能名称： 查询学生信息模块
-//    @Override
-//    public List<Course> findByName(String className) {
-//        String findByName="select * from sys_course where courseName like concat('%',?,'%')";
-//
-//        RowMapper<Course> rowMapper= new BeanPropertyRowMapper<>(Course.class);
-//
-//        List<Course> ClassesList = jdbcTemplate.query(findByName,rowMapper);
-//        return ClassesList;
-//    }
 @Override
 public List<Course> findByName(String courseID, String term, String courseName, int page, int pageSize) {
     int offset = (page - 1) * pageSize;

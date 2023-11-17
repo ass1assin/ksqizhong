@@ -13,6 +13,8 @@ public class Leave {
 
     private String courseID;
 
+    private String courseName;
+
     private String reason;
 
     private Integer daynum;

@@ -15,9 +15,9 @@ public class InstInfoServiceImpl implements InstInfoService {
     private InstInfoDao instInfoDao;
 
     @Override
-    public List<Inst> showInst() {
-        List<Inst> inst = instInfoDao.showInst();
-        return inst;
+    public List<Department> showDepartment() {
+        List<Department> departments = instInfoDao.showDepartment();
+        return departments;
     }
     @Override
     public List<Inst> getDepsWithPagination(int page, int pageSize) {

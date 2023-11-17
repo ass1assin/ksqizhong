@@ -141,9 +141,9 @@
                                                             <!--                                                            增加弹窗-->
                                                             <form role="form" th:action="@{/leave/addLeave}" th:method="post" id="AddFormId">
                                                                 <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">课程编号：</label>
+                                                                    <label class="col-sm-2 col-form-label">课程名称：</label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" name="courseID"  placeholder="课程编号" class="form-control" >
+                                                                        <input type="text" name="courseName"  placeholder="课程名称" class="form-control" >
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
@@ -159,9 +159,9 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">学号：</label>
                                                                     <div class="col-sm-10">
-                                                                        <label class="col-sm-2 col-form-label">学号：</label>
-                                                                        <input type="text" name="stuNo" placeholder="学号" class="form-control">
+                                                                        <input type="text"  th:value="${stuID}" name="stuNo" placeholder="学号" class="form-control" readonly>
                                                                     </div>
                                                                 </div>
                                                                 <div>
@@ -190,45 +190,45 @@
                                                                 <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">请假编号：</label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" name="leaveID" placeholder="请输入请假编号" class="form-control" id="leaveID">
+                                                                        <input type="text" name="leaveID" placeholder="请输入请假编号" class="form-control" id="leaveID" readonly>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">课程编号：</label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" name="courseID"  placeholder="修改二级学院名称" class="form-control"  id="courseID">
+                                                                        <input type="text" name="courseName"  placeholder="修改课程名称" class="form-control"  id="courseName">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">请假事由：</label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" name="reason"  placeholder="修改二级学院名称" class="form-control"  id="reason">
+                                                                        <input type="text" name="reason"  placeholder="修改请假事由" class="form-control"  id="reason">
                                                                     </div>
                                                                 </div>
                                                                 <div  class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">天数：</label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" name="daynum"  placeholder="修改二级学院名称" class="form-control"  id="daynum">
+                                                                        <input type="text" name="daynum"  placeholder="修改天数" class="form-control"  id="daynum">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">学号：</label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" name="stuNo" placeholder="修改二级学院名称" class="form-control" id="stuNo">
+                                                                        <input type="text" name="stuNo" placeholder="修改学号" class="form-control" id="stuNo" readonly>
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">请假时间：</label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" placeholder="修改" class="form-control" id="applytime">
+                                                                        <input type="text" placeholder="" class="form-control" id="applytime" readonly>
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">状态：</label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="text" placeholder="修改" class="form-control" id="status">
+                                                                        <input type="text" placeholder="" class="form-control" id="status" readonly>
                                                                     </div>
                                                                     <div id="status-display"></div>
                                                                 </div>
@@ -236,13 +236,13 @@
                                                                 <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">审核意见：</label>
                                                                     <div class="col-sm-10">
-                                                                        <textarea name="opinion" placeholder="修改" class="form-control" id="opinion" rows="4"></textarea>
+                                                                        <textarea name="opinion" placeholder="无" class="form-control" id="opinion" rows="4" readonly></textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div>
-                                                                    <button class="btn btn-sm btn-danger pull-right m-t-n-xs approval-btn" type="submit" name="Bo" value="false"><strong>不同意</strong>
+                                                                    <button th:if="${type=='teacher'}" class="btn btn-sm btn-danger pull-right m-t-n-xs approval-btn" type="submit" name="Bo" value="false"><strong>不同意</strong>
                                                                     </button>
-                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs approval-btn" type="submit" name="Bo" value="true"><strong>同意</strong>
+                                                                    <button th:if="${type=='teacher'}" class="btn btn-sm btn-primary pull-right m-t-n-xs approval-btn" type="submit" name="Bo" value="true"><strong>同意</strong>
                                                                     </button>
                                                                 </div>
                                                             </form>
@@ -263,7 +263,6 @@
                                                     <div class="row">
                                                         <div>
 
-                                                            <!-- 增加弹窗 -->
                                                             <form role="form" th:action="@{/leave/delete}" style="padding: 15px; text-align: center">
                                                                 <input type="hidden" id="deleteLeaveID" name="deleteLeaveID" />
                                                                 <input type="hidden"  name="stuNo" th:value="${stuID}"/>
@@ -280,8 +279,10 @@
                                         </div>
                                     </div>
 
-                                    <button th:if="${type=='student'}" type="button" class="btn btn-outline btn-default" data-toggle="modal" href="#modal-form">
-                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+<!--                                    新增按钮-->
+                                    <button th:if="${type=='student'}" type="button" class="btn btn-outline btn-info" data-toggle="modal" href="#modal-form">
+<!--                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>-->
+                                        <span>申请请假</span>
                                     </button>
 <!--                                    文件导出按钮-->
                                     <form th:if="${type=='teacher'}" th:action="@{/leave/export}" >
@@ -311,8 +312,8 @@
                                     <thead>
                                         <tr>
                                             <th data-field="leaveID">ID</th>
-                                            <th data-field="courseID">请假课程ID</th>
-                                            <th data-field="daynum">请假日期</th>
+                                            <th data-field="courseName">请假课程</th>
+                                            <th data-field="daynum">请假天数</th>
                                             <th data-field="stuNo">申请人学号</th>
                                             <th data-field="applytime">申请时间</th>
                                             <th data-field="status">状态</th>
@@ -322,7 +323,7 @@
                                     </thead>
                                     <tr th:each="leaves:${leaves}">
                                         <td th:text="${leaves.leaveID}"></td>
-                                        <td th:text="${leaves.courseID}"></td>
+                                        <td th:text="${leaves.courseName}"></td>
                                         <td th:text="${leaves.daynum}"></td>
                                         <td th:text="${leaves.stuNo}"></td>
                                         <td th:text="${leaves.applytime}"></td>
@@ -335,9 +336,9 @@
                                         <td th:text="${leaves.audittime}"></td>
                                         <td>
                                             <!-- 审核按钮 -->
-                                            <button th:if="${type=='teacher'}" class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
+                                            <button  class="btn btn-success btn-sm edit-btn" data-toggle="modal" href="#modal-form2"
                                                     th:attr="data-leaves-leaveID=${leaves.leaveID},
-                                                             data-leaves-courseID=${leaves.courseID},
+                                                             data-leaves-courseName=${leaves.courseName},
                                                              data-leaves-reason=${leaves.reason},
                                                              data-leaves-daynum=${leaves.daynum},
                                                              data-leaves-stuNo=${leaves.stuNo},
@@ -349,7 +350,7 @@
                                             >预览</button>
 
                                             <!-- 删除按钮 -->
-                                            <button th:if="${type=='student'}" class="btn btn-danger btn-sm delete-btn"
+                                            <button th:if="${type=='student'&&leaves.status == '0'}" class="btn btn-danger btn-sm delete-btn"
                                                     th:attr="data-leaves-id=${leaves.leaveID}"
                                                     data-toggle="modal" href="#modal-form3"
                                                     onclick="setDeleteModalValue(this)"
@@ -399,7 +400,7 @@
 // 弹窗监视
         function auditForm(button) {
             var leaveID = button.getAttribute('data-leaves-leaveID');
-            var courseID = button.getAttribute('data-leaves-courseID');
+            var courseName = button.getAttribute('data-leaves-courseName');
             var reason = button.getAttribute('data-leaves-reason');
             var daynum = button.getAttribute('data-leaves-daynum');
             var stuNo = button.getAttribute('data-leaves-stuNo');
@@ -425,7 +426,7 @@
 
             // 设置模态框中的输入框值
             document.getElementById('leaveID').value = leaveID;
-            document.getElementById('courseID').value = courseID;
+            document.getElementById('courseName').value = courseName;
             document.getElementById('reason').value = reason;
             document.getElementById('daynum').value = daynum;
             document.getElementById('stuNo').value = stuNo;
